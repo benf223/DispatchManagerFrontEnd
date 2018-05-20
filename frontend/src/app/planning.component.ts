@@ -3,11 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'planning',
   template: `
-    <table>
-      <tr>
-        <td>Nothing yet</td>
-      </tr>
-    </table>
+    <br>
+    <planningselector></planningselector>
   `,
   styleUrls: ['./app.component.css']
 })

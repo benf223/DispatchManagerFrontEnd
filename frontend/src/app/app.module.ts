@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
 import { PlanningComponent } from './planning.component';
+import { PlanningSelectorComponent } from './planningSelector.component';
 
 let routes = [
   {
@@ -37,7 +38,8 @@ let routes = [
     AppComponent,
     NavComponent,
     HomeComponent,
-    PlanningComponent
+    PlanningComponent,
+    PlanningSelectorComponent
   ],
   imports: [
     BrowserModule,
