@@ -4,184 +4,142 @@ import { Component } from '@angular/core';
   selector: 'planningselector',
   template: `
     <mat-toolbar color="accent">
+      <span style="flex: 1 1 auto"></span>
       <!--perhaps not routerlinks but similar in function to the click-->
-      <button mat-button (click)="previousWeek()">Previous Week</button>
-      <button mat-button (click)="loadDay(monday)">Mon: {{monday}}</button>
-      <button mat-button (click)="loadDay(tuesday)">Tue: {{tuesday}}</button>
-      <button mat-button (click)="loadDay(wednesday)">Wed: {{wednesday}}</button>
-      <button mat-button (click)="loadDay(thursday)">Thu: {{thursday}}</button>
-      <button mat-button (click)="loadDay(friday)">Fri: {{friday}}</button>
-      <button mat-button (click)="loadDay(saturday)">Sat: {{saturday}}</button>
-      <button mat-button (click)="loadDay(sunday)">Sun: {{sunday}}</button>
-      <button mat-button (click)="nextWeek()">Next Week</button>
+      <button mat-raised-button style="margin: 5px" (click)="previousWeek()">Previous Week</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(monday)" [disabled]="monday.disabled">Mon: {{monday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(tuesday)" [disabled]="tuesday.disabled">Tue: {{tuesday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(wednesday)" [disabled]="wednesday.disabled">Wed: {{wednesday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(thursday)" [disabled]="thursday.disabled">Thu: {{thursday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(friday)" [disabled]="friday.disabled">Fri: {{friday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(saturday)" [disabled]="saturday.disabled">Sat: {{saturday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="loadDay(sunday)" [disabled]="sunday.disabled">Sun: {{sunday.day}}</button>
+      <button mat-raised-button style="margin: 5px" (click)="nextWeek()">Next Week</button>
+      <button mat-raised-button style="margin: 5px" (click)="ngOnInit()">Today</button>
+      <span style="flex: 1 1 auto"></span>
     </mat-toolbar>
   `,
   styleUrls: ['./app.component.css']
 })
 export class PlanningSelectorComponent {
-  monday;
-  tuesday;
-  wednesday;
-  thursday;
-  friday;
-  saturday;
-  sunday;
+  monday = { day: '', disabled: false };
+  tuesday = { day: '', disabled: false };
+  wednesday = { day: '', disabled: false };
+  thursday = { day: '', disabled: false };
+  friday = { day: '', disabled: false };
+  saturday = { day: '', disabled: false };
+  sunday = { day: '', disabled: false };
 
+  selectedDay;
+
+  //working
   loadDay(day)
   {
-    console.log(day);
-    day = day.split('/');
+    console.log(day.day);
 
-    let selected = new Date(new Date().getFullYear(), Number(day[1]) - 1, Number(day[0]));
+    let selected = this.getDateFromString(day.day);
 
-    console.log(selected);
+    this.selectedDay.disabled = false;
+    day.disabled = true;
+    this.selectedDay = day;
+
+    console.log('Change to', selected);
   }
 
+  //working
+  getDateFromString(string)
+  {
+    let dayString = string.split('/');
+    return new Date(new Date().getFullYear(), Number(dayString[1]) - 1, Number(dayString[0]));
+  }
+
+  //need to set new day to monday
   previousWeek()
   {
-    console.log('going backward');
+    this.selectedDay.disabled = false;
+
+    let prevMonday = this.getDateFromString(this.monday.day);
+
+    prevMonday.setDate(prevMonday.getDate() - 7);
+
+    this.setDays(prevMonday);
+    console.log(this.sunday);
   }
 
+  //finished
   nextWeek()
   {
-    console.log('going forward');
+    this.selectedDay.disabled = false;
+
+    let nextMonday = this.getDateFromString(this.monday.day);
+
+    nextMonday.setDate(nextMonday.getDate() + 7);
+
+    this.setDays(nextMonday);
+  }
+
+  setDays(day)
+  {
+    switch (day.getDay())
+    {
+      case 0:
+        this.sunday.disabled = true;
+        this.selectedDay = this.sunday;
+        break;
+      case 1:
+        this.monday.disabled = true;
+        this.selectedDay = this.monday;
+        break;
+      case 2:
+        this.tuesday.disabled = true;
+        this.selectedDay = this.tuesday;
+        break;
+      case 3:
+        this.wednesday.disabled = true;
+        this.selectedDay = this.wednesday;
+        break;
+      case 4:
+        this.thursday.disabled = true;
+        this.selectedDay = this.thursday;
+        break;
+      case 5:
+        this.friday.disabled = true;
+        this.selectedDay = this.friday;
+        break;
+      case 6:
+        this.saturday.disabled = true;
+        this.selectedDay = this.saturday;
+        break;
+    }
+
+    let start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
+    day.setDate(day.getDate() + start);
+
+    this.monday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.tuesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.wednesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.thursday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.friday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.saturday.day = day.toLocaleString('en-GB').substring(0, 5);
+    day.setDate(day.getDate() + 1);
+    this.sunday.day = day.toLocaleString('en-GB').substring(0, 5);
+
   }
 
   ngOnInit()
   {
+    if (this.selectedDay)
+    {
+      this.selectedDay.disabled = false;
+    }
+
     let currentDate = new Date();
 
-    //if today is wednesday, then mon and tue should be prior to the current wednesday
-    //eg if today wed = 22/5 the mon=20/5 tue=21/5
-    switch(currentDate.getDay())
-    {
-      case 0:
-      {
-        //Sunday
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 1:
-      {
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 2:
-      {
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 3:
-      {
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 4:
-      {
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 5:
-      {
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-      case 6:
-      {
-        this.saturday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.sunday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.monday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.tuesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.wednesday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.thursday = currentDate.toLocaleString('en-GB').substring(0, 5);
-        currentDate.setDate(currentDate.getDate() + 1);
-        this.friday = currentDate.toLocaleString('en-GB').substring(0, 5);
-
-        break;
-      }
-    }
+    this.setDays(currentDate);
   }
 }

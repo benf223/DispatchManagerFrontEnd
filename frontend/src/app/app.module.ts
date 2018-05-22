@@ -8,7 +8,9 @@ import {
   MatCardModule,
   MatInputModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatGridListModule,
+  MatTableModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,6 +19,8 @@ import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
 import { PlanningComponent } from './planning.component';
 import { PlanningSelectorComponent } from './planningSelector.component';
+import { PlanningOrderGridComponent } from './planningOrderGrid.component';
+import { PlanningTruckGridComponent } from './planningTruckGrid.component';
 
 let routes = [
   {
@@ -28,6 +32,7 @@ let routes = [
     component: PlanningComponent
   },
   {
+    //unused?
     path: 'planning/:date',
     component: PlanningComponent
   }
@@ -39,7 +44,9 @@ let routes = [
     NavComponent,
     HomeComponent,
     PlanningComponent,
-    PlanningSelectorComponent
+    PlanningSelectorComponent,
+    PlanningOrderGridComponent,
+    PlanningTruckGridComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,8 @@ let routes = [
     MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatGridListModule,
+    MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes)
