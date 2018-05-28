@@ -3,16 +3,19 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'planning',
   template: `
-    <br>
     <planningselector></planningselector>
-    <mat-grid-list cols="6" rowHeight="600px">
-      <mat-grid-tile colspan="2" rowspan="1">
-        <planningordergrid></planningordergrid>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="4" rowspan="1" style="background: orange">
-        <planningtruckgrid></planningtruckgrid>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <mat-card>
+      <table width="100%">
+        <tr>
+          <td width="30%">
+            <planningordergrid></planningordergrid>
+          </td>
+          <td width="70%">
+            <planningtruckgrid></planningtruckgrid>
+          </td>
+        </tr>
+      </table>
+    </mat-card>
   `,
   styleUrls: ['./app.component.css']
 })

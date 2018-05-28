@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +22,8 @@ import { PlanningComponent } from './planning.component';
 import { PlanningSelectorComponent } from './planningSelector.component';
 import { PlanningOrderGridComponent } from './planningOrderGrid.component';
 import { PlanningTruckGridComponent } from './planningTruckGrid.component';
+
+import { WebService } from './web.service';
 
 let routes = [
   {
@@ -60,9 +63,10 @@ let routes = [
     MatTableModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpModule
   ],
-  providers: [],
+  providers: [ WebService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
