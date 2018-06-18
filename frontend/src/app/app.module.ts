@@ -11,7 +11,8 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatGridListModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -22,6 +23,8 @@ import { PlanningComponent } from './planning.component';
 import { PlanningSelectorComponent } from './planningSelector.component';
 import { PlanningOrderGridComponent } from './planningOrderGrid.component';
 import { PlanningTruckGridComponent } from './planningTruckGrid.component';
+import { TruckRoundPlannerComponent } from './truckRoundPlanner.component';
+import { TruckSlotComponent } from './truckSlot.component';
 
 import { WebService } from './web.service';
 
@@ -49,7 +52,9 @@ let routes = [
     PlanningComponent,
     PlanningSelectorComponent,
     PlanningOrderGridComponent,
-    PlanningTruckGridComponent
+    PlanningTruckGridComponent,
+    TruckRoundPlannerComponent,
+    TruckSlotComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ let routes = [
     MatToolbarModule,
     MatGridListModule,
     MatTableModule,
+    MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
