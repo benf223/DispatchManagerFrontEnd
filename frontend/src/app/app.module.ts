@@ -12,19 +12,20 @@ import {
   MatToolbarModule,
   MatGridListModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatButtonToggleModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav.component';
-import { HomeComponent } from './home.component';
-import { PlanningComponent } from './planning.component';
-import { PlanningSelectorComponent } from './planningSelector.component';
-import { PlanningOrderGridComponent } from './planningOrderGrid.component';
-import { PlanningTruckGridComponent } from './planningTruckGrid.component';
-import { TruckRoundPlannerComponent } from './truckRoundPlanner.component';
-import { TruckSlotComponent } from './truckSlot.component';
+import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component';
+import { PlanningComponent } from './planning/planning.component';
+import { PlanningSelectorComponent } from './planning-selector/planning-selector.component';
+import { PlanningReleaseGrid } from './planning-release-grid/planning-release-grid.component';
+import { PlanningTruckGrid } from './planning-truck-grid/planning-truck-grid.component';
+import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.component';
+import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 
 import { WebService } from './web.service';
 
@@ -51,10 +52,11 @@ let routes = [
     HomeComponent,
     PlanningComponent,
     PlanningSelectorComponent,
-    PlanningOrderGridComponent,
-    PlanningTruckGridComponent,
-    TruckRoundPlannerComponent,
-    TruckSlotComponent
+    PlanningReleaseGrid,
+    PlanningTruckGrid,
+    TruckRoundPlanner,
+    TruckSlotsComponent,
+    PlanningReleaseGrid,
   ],
   imports: [
     BrowserModule,
@@ -67,13 +69,14 @@ let routes = [
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatButtonToggleModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpModule
   ],
   providers: [ WebService ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule {
 
