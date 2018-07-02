@@ -1,0 +1,15 @@
+<mat-toolbar color="accent">
+  <span style="flex: 1 1 auto"></span>
+  <!--perhaps not routerlinks but similar in function to the click-->
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="previousWeek()">Previous Week</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(monday)" [disabled]="monday.disabled">Mon: {{monday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(tuesday)" [disabled]="tuesday.disabled">Tue: {{tuesday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(wednesday)" [disabled]="wednesday.disabled">Wed: {{wednesday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(thursday)" [disabled]="thursday.disabled">Thu: {{thursday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(friday)" [disabled]="friday.disabled">Fri: {{friday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(saturday)" [disabled]="saturday.disabled">Sat: {{saturday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(sunday)" [disabled]="sunday.disabled">Sun: {{sunday.day}}</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="nextWeek()">Next Week</button>
+  <button mat-raised-button style="margin: 5px; text-align: center" (click)="ngOnInit()">Today</button>
+  <span style="flex: 1 1 auto"></span>
+</mat-toolbar>

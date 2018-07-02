@@ -1,0 +1,5 @@
+<mat-button-toggle-group style="height: 40px; padding: 2px">
+  <mat-button-toggle [ngStyle]="{'background-color': releases[0].colour ? releases[0].colour : '#FFF'}" (click)="log(0)" title="{{releases[0].release}}"></mat-button-toggle>
+  <mat-button-toggle [ngStyle]="{'background-color': releases[1].colour ? releases[1].colour : '#FFF'}" (click)="log(1)" title="{{releases[1].release}}"></mat-button-toggle>
+  <mat-button-toggle [ngStyle]="{'background-color': releases[2].colour ? releases[2].colour : '#FFF'}" (click)="log(2)" title="{{releases[2].release}}"></mat-button-toggle>
+</mat-button-toggle-group>
