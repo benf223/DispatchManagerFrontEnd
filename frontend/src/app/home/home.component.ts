@@ -8,7 +8,7 @@ import {WebService} from '../web.service';
 })
 export class HomeComponent
 {
-  constructor(private webService: WebService)
+  constructor(public webService: WebService)
   {
   }
 
