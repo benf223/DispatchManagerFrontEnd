@@ -1,6 +1,9 @@
 <div *ngFor="let message of webService.messages | async">
   {{message.value}}
 </div>
-<div>
+<div appDraggable class="box">
   <h3>Home</h3>
+</div>
+<div class="box">
+  <h3>Home 2</h3>
 </div>

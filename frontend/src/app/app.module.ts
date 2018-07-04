@@ -13,9 +13,13 @@ import {
   MatGridListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatBadgeModule,
+  MatTooltipModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -28,6 +32,7 @@ import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.com
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 
 import { WebService } from './web.service';
+
 
 let routes = [
   {
@@ -70,10 +75,13 @@ let routes = [
     MatTableModule,
     MatPaginatorModule,
     MatButtonToggleModule,
+    MatBadgeModule,
+    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpModule
+    HttpModule,
+    DraggableModule
   ],
   providers: [ WebService ],
   bootstrap: [ AppComponent ]

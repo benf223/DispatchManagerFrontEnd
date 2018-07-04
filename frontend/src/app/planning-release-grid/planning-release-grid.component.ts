@@ -20,6 +20,11 @@ export class PlanningReleaseGrid {
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
+
+  emit(e)
+  {
+    console.log(e)
+  }
 }
 
 export interface Release {
@@ -32,11 +37,11 @@ export interface Release {
 const SAMPLE_RELEASES: Release[] = [
   {release: '1', qty: 2, size: 40, colour: '#FF0000'},
   {release: '2', qty: 4, size: 20, colour: '#FF0000'},
-  {release: '3', qty: 1, size: 40, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'},
-  {release: '4', qty: 5, size: 20, colour: '#FF0000'}
+  {release: '3', qty: 1, size: 40, colour: '#FFFF00'},
+  {release: '4', qty: 5, size: 20, colour: '#FFFF00'},
+  {release: '5', qty: 5, size: 20, colour: '#FFFF00'},
+  {release: '6', qty: 5, size: 20, colour: '#FFFF00'},
+  {release: '7', qty: 5, size: 20, colour: '#FF00FF'},
+  {release: '8', qty: 5, size: 20, colour: '#FF00FF'},
+  {release: '9', qty: 5, size: 20, colour: '#FF00FF'}
 ];
