@@ -3,7 +3,7 @@ import {WebService} from '../web.service';
 
 function remove(item: string, list: string[]) {
   if (list.indexOf(item) !== -1) {
-    list.splice(list.indexOf(item), 1)
+    list.splice(list.indexOf(item), 1);
   }
 }
 

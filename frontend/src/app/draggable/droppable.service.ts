@@ -23,8 +23,7 @@ export class DroppableService {
   onDragStart(event: PointerEvent) {
     this.dragStartSubject.next(event);
 
-    if (this.parent)
-    {
+    if (this.parent) {
       this.parent.onDragStart(event);
     }
   }
@@ -32,17 +31,15 @@ export class DroppableService {
   onDragMove(event: PointerEvent) {
     this.dragMoveSubject.next(event);
 
-    if (this.parent)
-    {
+    if (this.parent) {
       this.parent.onDragMove(event);
     }
   }
 
-  onDragEnd(event: PointerEvent){
+  onDragEnd(event: PointerEvent) {
     this.dragEndSubject.next(event);
 
-    if (this.parent)
-    {
+    if (this.parent) {
       this.parent.onDragEnd(event);
     }
   }
