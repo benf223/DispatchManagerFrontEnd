@@ -5,14 +5,13 @@ import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 @Component({
   selector: 'truckRoundPlanner',
   templateUrl: './truck-round-planner.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class TruckRoundPlanner {
 
   @Input() slots: Slot[];
 
-  ngOnInit()
-  {
+  ngOnInit() {
   }
 
 }

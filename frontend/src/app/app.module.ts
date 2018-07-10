@@ -34,7 +34,7 @@ import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 import { WebService } from './web.service';
 
 
-let routes = [
+const routes = [
   {
     path: '',
     component: HomeComponent

@@ -4,15 +4,14 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'planningordergrid',
   templateUrl: './planning-release-grid.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class PlanningReleaseGrid {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource = new MatTableDataSource(SAMPLE_RELEASES);
 
-  ngOnInit()
-  {
-    this.dataSource.filterPredicate = (data: Release, filter : string) => (data.release.indexOf(filter) != -1);
+  ngOnInit() {
+    this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) != -1);
   }
 
   applyFilter(filterValue: string) {
@@ -21,9 +20,8 @@ export class PlanningReleaseGrid {
     this.dataSource.filter = filterValue;
   }
 
-  emit(e)
-  {
-    console.log(e)
+  emit(e) {
+    console.log(e);
   }
 }
 

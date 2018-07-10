@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'planningselector',
   templateUrl: './planning-selector.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class PlanningSelectorComponent {
   monday = { day: '', disabled: false };
@@ -17,11 +17,10 @@ export class PlanningSelectorComponent {
   selectedDay;
 
   //need to accomodate year
-  loadDay(day)
-  {
+  loadDay(day) {
     console.log(day.day);
 
-    let selected = this.getDateFromString(day.day);
+    const selected = this.getDateFromString(day.day);
 
     this.selectedDay.disabled = false;
     day.disabled = true;
@@ -31,18 +30,16 @@ export class PlanningSelectorComponent {
   }
 
   //working
-  getDateFromString(string)
-  {
-    let dayString = string.split('/');
+  getDateFromString(string) {
+    const dayString = string.split('/');
     return new Date(new Date().getFullYear(), Number(dayString[1]) - 1, Number(dayString[0]));
   }
 
   //need to set new day to monday
-  previousWeek()
-  {
+  previousWeek() {
     this.selectedDay.disabled = false;
 
-    let prevMonday = this.getDateFromString(this.monday.day);
+    const prevMonday = this.getDateFromString(this.monday.day);
 
     prevMonday.setDate(prevMonday.getDate() - 7);
 
@@ -51,21 +48,18 @@ export class PlanningSelectorComponent {
   }
 
   //finished
-  nextWeek()
-  {
+  nextWeek() {
     this.selectedDay.disabled = false;
 
-    let nextMonday = this.getDateFromString(this.monday.day);
+    const nextMonday = this.getDateFromString(this.monday.day);
 
     nextMonday.setDate(nextMonday.getDate() + 7);
 
     this.setDays(nextMonday);
   }
 
-  setDays(day)
-  {
-    switch (day.getDay())
-    {
+  setDays(day) {
+    switch (day.getDay()) {
       case 0:
         this.sunday.disabled = true;
         this.selectedDay = this.sunday;
@@ -96,7 +90,7 @@ export class PlanningSelectorComponent {
         break;
     }
 
-    let start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
+    const start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
     day.setDate(day.getDate() + start);
 
     this.monday.day = day.toLocaleString('en-GB').substring(0, 5);
@@ -115,14 +109,12 @@ export class PlanningSelectorComponent {
 
   }
 
-  ngOnInit()
-  {
-    if (this.selectedDay)
-    {
+  ngOnInit() {
+    if (this.selectedDay) {
       this.selectedDay.disabled = false;
     }
 
-    let currentDate = new Date();
+    const currentDate = new Date();
 
     this.setDays(currentDate);
   }

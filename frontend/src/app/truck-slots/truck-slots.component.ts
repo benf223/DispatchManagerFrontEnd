@@ -5,14 +5,13 @@ import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 @Component({
   selector: 'truckslotscomponent',
   templateUrl: './truck-slots.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 export class TruckSlotsComponent {
   @Input() slots: Slot[];
   releases: Release[];
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.releases = new Array();
 
     this.releases.push(this.slots[0].release);
@@ -20,8 +19,7 @@ export class TruckSlotsComponent {
     this.releases.push(this.slots[2].release);
   }
 
-  log(i)
-  {
+  log(i) {
     console.log(this.releases[i].release);
   }
 }

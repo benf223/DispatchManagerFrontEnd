@@ -5,10 +5,9 @@ import {MatTableDataSource, MatPaginator} from '@angular/material';
 @Component({
   selector: 'planningtruckgrid',
   templateUrl: './planning-truck-grid.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
-export class PlanningTruckGrid
-{
+export class PlanningTruckGrid {
   displayedColumns = ['truckID', 'dayRound1', 'dayRound2', 'dayRound3', 'dayRound4', 'dayRound5', 'dayRound6', 'dayRound7', 'dayRound8'];
   dataSource = new MatTableDataSource(TRUCKS);
   day = true;
@@ -16,19 +15,14 @@ export class PlanningTruckGrid
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  updateTable()
-  {
-    if (this.day)
-    {
+  updateTable() {
+    if (this.day) {
       this.dayOrNight = 'Switch to: Day';
-    }
-    else
-    {
+    } else {
       this.dayOrNight = 'Switch to: Night';
     }
 
@@ -36,20 +30,17 @@ export class PlanningTruckGrid
   }
 }
 
-export interface Slot
-{
+export interface Slot {
   supports40: boolean;
   release: Release;
 }
 
-export interface Rounds
-{
+export interface Rounds {
   roundNumber: number;
   slots: Slot[];
 }
 
-export interface Truck
-{
+export interface Truck {
   id: string;
   dayRounds: Rounds[];
   nightRounds: Rounds[];

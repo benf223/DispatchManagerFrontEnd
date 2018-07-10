@@ -5,10 +5,8 @@ import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 @Directive({
   selector: '[appMovable]'
 })
-export class MovableDirective extends DraggableDirective
-{
-  @HostBinding('style.transform') get transform(): SafeStyle
-  {
+export class MovableDirective extends DraggableDirective {
+  @HostBinding('style.transform') get transform(): SafeStyle {
     return this.sanitizer.bypassSecurityTrustStyle(
       `translateX(${this.position.x}px) translateY(${this.position.y}px)`
     );
@@ -22,35 +20,31 @@ export class MovableDirective extends DraggableDirective
 
   private startPosition: Position;
 
-  constructor(private sanitizer: DomSanitizer)
-  {
+  constructor(private sanitizer: DomSanitizer) {
     super();
   }
 
-  @HostListener('dragStart', ['$event']) onDragStart(event: PointerEvent)
-  {
+  @HostListener('dragStart', ['$event']) onDragStart(event: PointerEvent) {
     this.startPosition = {
       x: event.clientX - this.position.x,
       y: event.clientY - this.position.y
-    }
+    };
   }
 
-  @HostListener('dragMove', ['$event']) onDragMove(event: PointerEvent)
-  {
+  @HostListener('dragMove', ['$event']) onDragMove(event: PointerEvent) {
     this.position.x = event.clientX - this.startPosition.x;
     this.position.y = event.clientY - this.startPosition.y;
   }
 
-  @HostListener('dragEnd', ['$event']) onDragEnd(event: PointerEvent)
-  {
-    if (this.reset)
+  @HostListener('dragEnd', ['$event']) onDragEnd(event: PointerEvent) {
+    if (this.reset) {
       this.position = {x: 0, y: 0};
+    }
   }
 
 }
 
-interface Position
-{
+interface Position {
   x: number;
   y: number;
 }
