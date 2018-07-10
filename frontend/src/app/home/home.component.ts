@@ -17,4 +17,18 @@ export class HomeComponent
     this.webService.getMessages();
   }
 
+  onDragStart(e)
+  {
+    console.log('start ' + Math.round(e.clientX) + " " + Math.round(e.clientY));
+  }
+
+  onDragMove(e)
+  {
+    console.log('move ' + Math.round(e.clientX) + " " + Math.round(e.clientY));
+  }
+
+  onDragEnd(e)
+  {
+    console.log('end ' + Math.round(e.clientX) + " " + Math.round(e.clientY));
+  }
 }
