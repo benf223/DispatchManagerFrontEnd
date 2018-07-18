@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import {WebService} from "../web.service";
 
 @Component({
   selector: 'planningordergrid',
   templateUrl: './planning-release-grid.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class PlanningReleaseGrid {
+export class PlanningReleaseGrid implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
-  dataSource = new MatTableDataSource(SAMPLE_RELEASES);
+  dataSource;
+
+  constructor(private webService : WebService) {}
 
   ngOnInit() {
-    this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) != -1);
+    this.webService.releases.subscribe(() => {
+      this.setDataSource(this.webService.daysReleases);
+    });
+
+    this.setDataSource(SAMPLE_RELEASES);
   }
 
   applyFilter(filterValue: string) {
@@ -22,6 +29,12 @@ export class PlanningReleaseGrid {
 
   emit(e) {
     console.log(e);
+  }
+
+  private setDataSource(releases)
+  {
+    this.dataSource = new MatTableDataSource(releases);
+    this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) != -1);
   }
 }
 

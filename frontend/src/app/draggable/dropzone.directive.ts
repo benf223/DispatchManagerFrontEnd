@@ -1,11 +1,11 @@
-import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Output, SkipSelf} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, OnInit, Output, SkipSelf} from '@angular/core';
 import {DroppableService} from './droppable.service';
 
 @Directive({
   selector: '[appDropzone]',
   providers: [DroppableService]
 })
-export class DropzoneDirective {
+export class DropzoneDirective implements OnInit {
   @HostBinding('class.dropzone-activated') activated = false;
   @HostBinding('class.dropzone-entered') entered = false;
 

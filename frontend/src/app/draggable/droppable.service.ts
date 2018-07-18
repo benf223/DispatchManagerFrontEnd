@@ -13,7 +13,6 @@ export class DroppableService {
   private dragMoveSubject = new Subject<PointerEvent>();
   private dragEndSubject = new Subject<PointerEvent>();
 
-
   constructor(@SkipSelf() @Optional() private parent?: DroppableService) {
     this.dragStart$ = this.dragStartSubject.asObservable();
     this.dragMove$ = this.dragMoveSubject.asObservable();

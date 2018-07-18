@@ -1,22 +1,30 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Release} from '../planning-release-grid/planning-release-grid.component';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
+import {WebService} from "../web.service";
 
 @Component({
   selector: 'planningtruckgrid',
   templateUrl: './planning-truck-grid.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class PlanningTruckGrid {
+export class PlanningTruckGrid implements OnInit {
   displayedColumns = ['truckID', 'dayRound1', 'dayRound2', 'dayRound3', 'dayRound4', 'dayRound5', 'dayRound6', 'dayRound7', 'dayRound8'];
-  dataSource = new MatTableDataSource(TRUCKS);
+  dataSource;
+
   day = true;
   dayOrNight = 'Switch to: Night';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  constructor(private webService : WebService) {}
+
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.webService.rounds.subscribe(() => {
+        this.setupDataSource(this.webService.daysRounds);
+    });
+
+    this.setupDataSource(TRUCKS);
   }
 
   updateTable() {
@@ -27,6 +35,12 @@ export class PlanningTruckGrid {
     }
 
     this.day = !this.day;
+  }
+
+  private setupDataSource(rounds)
+  {
+    this.dataSource = new MatTableDataSource(rounds);
+    this.dataSource.paginator = this.paginator;
   }
 }
 

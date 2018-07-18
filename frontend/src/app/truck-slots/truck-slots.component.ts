@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Release } from '../planning-release-grid/planning-release-grid.component';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 
@@ -7,7 +7,7 @@ import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
   templateUrl: './truck-slots.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class TruckSlotsComponent {
+export class TruckSlotsComponent implements OnInit {
   @Input() slots: Slot[];
   releases: Release[];
 
@@ -19,7 +19,7 @@ export class TruckSlotsComponent {
     this.releases.push(this.slots[2].release);
   }
 
-  log(i) {
-    console.log(this.releases[i].release);
-  }
+  // log(i) {
+  //   console.log(this.releases[i].release);
+  // }
 }

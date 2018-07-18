@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 
 //is this too abstract?
@@ -7,7 +7,7 @@ import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
   templateUrl: './truck-round-planner.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class TruckRoundPlanner {
+export class TruckRoundPlanner implements OnInit {
 
   @Input() slots: Slot[];
 

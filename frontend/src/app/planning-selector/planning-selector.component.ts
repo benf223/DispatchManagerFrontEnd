@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'planningselector',
   templateUrl: './planning-selector.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class PlanningSelectorComponent {
+export class PlanningSelectorComponent implements OnInit {
   monday = { day: '', disabled: false };
   tuesday = { day: '', disabled: false };
   wednesday = { day: '', disabled: false };
@@ -18,15 +18,11 @@ export class PlanningSelectorComponent {
 
   //need to accomodate year
   loadDay(day) {
-    console.log(day.day);
-
     const selected = this.getDateFromString(day.day);
 
     this.selectedDay.disabled = false;
     day.disabled = true;
     this.selectedDay = day;
-
-    console.log('Change to', selected);
   }
 
   //working
@@ -44,7 +40,6 @@ export class PlanningSelectorComponent {
     prevMonday.setDate(prevMonday.getDate() - 7);
 
     this.setDays(prevMonday);
-    console.log(this.sunday);
   }
 
   //finished

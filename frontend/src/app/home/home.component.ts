@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebService} from '../web.service';
 
 function remove(item: string, list: string[]) {
@@ -12,7 +12,7 @@ function remove(item: string, list: string[]) {
   templateUrl: './home.component.html',
   styleUrls: ['../app.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   availableBoxes = [
     'Box 1',
     'Box 2'
@@ -31,17 +31,17 @@ export class HomeComponent {
     this.webService.getMessages();
   }
 
-  onDragStart(e) {
-    console.log('start ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
-  }
-
-  onDragMove(e) {
-    console.log('move ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
-  }
-
-  onDragEnd(e) {
-    console.log('end ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
-  }
+  // onDragStart(e) {
+  //   console.log('start ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
+  // }
+  //
+  // onDragMove(e) {
+  //   console.log('move ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
+  // }
+  //
+  // onDragEnd(e) {
+  //   console.log('end ' + Math.round(e.clientX) + ' ' + Math.round(e.clientY));
+  // }
 
   move(box: string, toList: string[]) {
     remove(box, this.availableBoxes);
