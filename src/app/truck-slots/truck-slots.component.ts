@@ -19,7 +19,7 @@ export class TruckSlotsComponent implements OnInit {
     this.releases.push(this.slots[2].release);
   }
 
-  // log(i) {
-  //   console.log(this.releases[i].release);
-  // }
+  log(i) {
+    console.log(this.releases[i].release);
+  }
 }
