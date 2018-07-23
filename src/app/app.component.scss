@@ -1,0 +1,49 @@
+.input-color {
+  position: relative;
+}
+
+.input-color input {
+  padding-left: 20px;
+}
+
+.input-color .color-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: #ccc;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.box {
+  background: #FF0000;
+  border: 1px solid black;
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+.draggable {
+  cursor: move;
+  user-select: none;
+}
+
+.movable:not(.dragging) {
+  transition: transform 300ms ease-out;
+}
+
+.dropzone {
+  padding: 20px;
+  margin: 20px;
+  background: lightgray;
+  min-height: 200px;
+  border: 1px solid black;
+
+  &.dropzone-activated {
+      border: 1px solid red;
+  }
+
+  &.dropzone-entered {
+    background-color: #efefef;
+  }
+}
