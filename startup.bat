@@ -1,2 +1,1 @@
-cd frontend
 ng serve
