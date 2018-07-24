@@ -11,7 +11,13 @@ export class PlanningComponent implements OnInit {
   constructor(private webService: WebService) {}
 
   ngOnInit() {
-    this.changeDay('17-7-18');
+    this.changeDay(this.getCurrentDay());
+  }
+
+  private getCurrentDay() {
+    const date = new Date();
+    const dateString = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+    return dateString;
   }
 
   changeDay(day) {

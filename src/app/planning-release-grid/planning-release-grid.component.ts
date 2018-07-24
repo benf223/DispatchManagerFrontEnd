@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import {WebService} from "../web.service";
-import {DraghelperService} from "../draghelper.service";
+import {WebService} from '../web.service';
+import {DraghelperService} from '../draghelper.service';
 
 @Component({
   selector: 'planningordergrid',
@@ -12,14 +12,14 @@ export class PlanningReleaseGrid implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource;
 
-  constructor(private webService : WebService, private draghelperService : DraghelperService) {}
+  constructor(private webService: WebService, private draghelperService: DraghelperService) {}
 
   ngOnInit() {
     this.webService.releases.subscribe(() => {
       this.setDataSource(this.webService.daysReleases);
     });
 
-    this.setDataSource(SAMPLE_RELEASES);
+    // this.setDataSource(SAMPLE_RELEASES);
   }
 
   applyFilter(filterValue: string) {
@@ -32,14 +32,11 @@ export class PlanningReleaseGrid implements OnInit {
     console.log(e);
   }
 
-  setRelease(release : Release) {
-    console.log('start drag');
-
+  setRelease(release: Release) {
     this.draghelperService.onReleaseGrab(release);
   }
 
-  private setDataSource(releases)
-  {
+  private setDataSource(releases) {
     this.dataSource = new MatTableDataSource(releases);
     this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) != -1);
   }

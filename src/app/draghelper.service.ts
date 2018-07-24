@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Release} from "./planning-release-grid/planning-release-grid.component";
+import {Release} from './planning-release-grid/planning-release-grid.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DraghelperService {
 
-  constructor() { }
+  private currentRelease: Release;
 
-  constructor() {
-  }
-
-  private currentRelease : Release;
-
-  onReleaseGrab(release : Release) {
-    console.log('setting release');
+  onReleaseGrab(release: Release) {
     this.currentRelease = release;
   }
 
@@ -22,9 +16,7 @@ export class DraghelperService {
     this.currentRelease = null;
   }
 
-  getRelease()
-  {
-    console.log('giving release');
+  getRelease() {
     return this.currentRelease;
   }
 }

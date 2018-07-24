@@ -1,6 +1,5 @@
 <mat-toolbar color="accent">
   <span style="flex: 1 1 auto"></span>
-  <!--perhaps not routerlinks but similar in function to the click-->
   <button mat-raised-button style="margin: 5px; text-align: center" (click)="previousWeek()">Previous Week</button>
   <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(monday)" [disabled]="monday.disabled">Mon: {{monday.day}}</button>
   <button mat-raised-button style="margin: 5px; text-align: center" (click)="loadDay(tuesday)" [disabled]="tuesday.disabled">Tue: {{tuesday.day}}</button>

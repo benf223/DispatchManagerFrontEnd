@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Release } from '../planning-release-grid/planning-release-grid.component';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
-import {DraghelperService} from "../draghelper.service";
+import {DraghelperService} from '../draghelper.service';
 
 @Component({
   selector: 'truckslotscomponent',
@@ -12,7 +12,7 @@ export class TruckSlotsComponent implements OnInit {
   @Input() slots: Slot[];
   releases: Release[];
 
-  constructor(private draghelperService : DraghelperService) {}
+  constructor(private draghelperService: DraghelperService) {}
 
   ngOnInit() {
     this.releases = new Array();

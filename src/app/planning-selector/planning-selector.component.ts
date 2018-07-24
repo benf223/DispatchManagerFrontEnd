@@ -1,20 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
+//Can we make this component cleaner
 @Component({
   selector: 'planningselector',
   templateUrl: './planning-selector.component.html',
   styleUrls: ['../app.component.scss']
 })
 export class PlanningSelectorComponent implements OnInit {
-  monday = { day: '', disabled: false };
-  tuesday = { day: '', disabled: false };
-  wednesday = { day: '', disabled: false };
-  thursday = { day: '', disabled: false };
-  friday = { day: '', disabled: false };
-  saturday = { day: '', disabled: false };
-  sunday = { day: '', disabled: false };
+  monday = {day: '', disabled: false};
+  tuesday = {day: '', disabled: false};
+  wednesday = {day: '', disabled: false};
+  thursday = {day: '', disabled: false};
+  friday = {day: '', disabled: false};
+  saturday = {day: '', disabled: false};
+  sunday = {day: '', disabled: false};
 
   selectedDay;
+
+  //need to update this so that the new date is emitted when needed to change the releases
+  @Output() date = new EventEmitter<string>();
 
   //need to accomodate year
   loadDay(day) {
@@ -25,13 +29,11 @@ export class PlanningSelectorComponent implements OnInit {
     this.selectedDay = day;
   }
 
-  //working
   getDateFromString(string) {
     const dayString = string.split('/');
     return new Date(new Date().getFullYear(), Number(dayString[1]) - 1, Number(dayString[0]));
   }
 
-  //need to set new day to monday
   previousWeek() {
     this.selectedDay.disabled = false;
 
@@ -42,7 +44,6 @@ export class PlanningSelectorComponent implements OnInit {
     this.setDays(prevMonday);
   }
 
-  //finished
   nextWeek() {
     this.selectedDay.disabled = false;
 
@@ -88,6 +89,7 @@ export class PlanningSelectorComponent implements OnInit {
     const start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
     day.setDate(day.getDate() + start);
 
+    //this should be better and support years
     this.monday.day = day.toLocaleString('en-GB').substring(0, 5);
     day.setDate(day.getDate() + 1);
     this.tuesday.day = day.toLocaleString('en-GB').substring(0, 5);

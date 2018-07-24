@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Release} from '../planning-release-grid/planning-release-grid.component';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {WebService} from "../web.service";
+import {WebService} from '../web.service';
 
 @Component({
   selector: 'planningtruckgrid',
@@ -17,14 +17,14 @@ export class PlanningTruckGrid implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private webService : WebService) {}
+  constructor(private webService: WebService) {}
 
   ngOnInit() {
     this.webService.rounds.subscribe(() => {
         this.setupDataSource(this.webService.daysRounds);
     });
 
-    this.setupDataSource(TRUCKS);
+    // this.setupDataSource(TRUCKS);
   }
 
   updateTable() {
@@ -37,8 +37,7 @@ export class PlanningTruckGrid implements OnInit {
     this.day = !this.day;
   }
 
-  private setupDataSource(rounds)
-  {
+  private setupDataSource(rounds) {
     this.dataSource = new MatTableDataSource(rounds);
     this.dataSource.paginator = this.paginator;
   }

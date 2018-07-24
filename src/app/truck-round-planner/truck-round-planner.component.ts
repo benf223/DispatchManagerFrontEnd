@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
-import {DraghelperService} from "../draghelper.service";
+import {DraghelperService} from '../draghelper.service';
 
 @Component({
   selector: 'truckRoundPlanner',
