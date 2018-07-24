@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import {WebService} from "../web.service";
+import {DraghelperService} from "../draghelper.service";
 
 @Component({
   selector: 'planningordergrid',
@@ -11,7 +12,7 @@ export class PlanningReleaseGrid implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource;
 
-  constructor(private webService : WebService) {}
+  constructor(private webService : WebService, private draghelperService : DraghelperService) {}
 
   ngOnInit() {
     this.webService.releases.subscribe(() => {
@@ -29,6 +30,12 @@ export class PlanningReleaseGrid implements OnInit {
 
   emit(e) {
     console.log(e);
+  }
+
+  setRelease(release : Release) {
+    console.log('start drag');
+
+    this.draghelperService.onReleaseGrab(release);
   }
 
   private setDataSource(releases)

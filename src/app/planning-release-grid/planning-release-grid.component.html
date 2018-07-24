@@ -5,7 +5,7 @@
   <ng-container matColumnDef="release">
       <th mat-header-cell *matHeaderCellDef>Release Number</th>
       <td mat-cell *matCellDef="let release">
-        <mat-button-toggle [ngStyle]="{'background-color': release.colour ? release.colour : '#FFF'}" style="text-align: center; color: black;" (change)="emit(release.release);">
+        <mat-button-toggle appDroppable (dragStart)="setRelease(release)" [ngStyle]="{'background-color': release.colour ? release.colour : '#FFF'}" style="text-align: center; color: black;" (change)="emit(release.release);">
           {{release.release}}
         </mat-button-toggle>
       </td>

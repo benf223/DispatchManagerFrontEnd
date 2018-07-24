@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
+import {DraghelperService} from "../draghelper.service";
 
-//is this too abstract?
 @Component({
   selector: 'truckRoundPlanner',
   templateUrl: './truck-round-planner.component.html',
@@ -9,9 +9,15 @@ import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 })
 export class TruckRoundPlanner implements OnInit {
 
+  constructor (private draghelperService : DraghelperService) {}
+
   @Input() slots: Slot[];
 
   ngOnInit() {
+
   }
 
+  log(e) {
+    console.log(e);
+  }
 }
