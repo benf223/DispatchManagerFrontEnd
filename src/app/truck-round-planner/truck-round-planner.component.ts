@@ -9,8 +9,6 @@ import {DraghelperService} from "../draghelper.service";
 })
 export class TruckRoundPlanner implements OnInit {
 
-  constructor (private draghelperService : DraghelperService) {}
-
   @Input() slots: Slot[];
 
   ngOnInit() {
