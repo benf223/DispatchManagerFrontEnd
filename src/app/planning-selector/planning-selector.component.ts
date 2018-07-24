@@ -1,5 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
+interface Day
+{
+  day: string;
+  disabled: boolean;
+}
+
 //Can we make this component cleaner
 @Component({
   selector: 'planningselector',
@@ -7,30 +13,31 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['../app.component.scss']
 })
 export class PlanningSelectorComponent implements OnInit {
-  monday = {day: '', disabled: false};
-  tuesday = {day: '', disabled: false};
-  wednesday = {day: '', disabled: false};
-  thursday = {day: '', disabled: false};
-  friday = {day: '', disabled: false};
-  saturday = {day: '', disabled: false};
-  sunday = {day: '', disabled: false};
 
-  selectedDay;
+  monday : Day = {day: '', disabled: false};
+  tuesday : Day = {day: '', disabled: false};
+  wednesday : Day = {day: '', disabled: false};
+  thursday : Day = {day: '', disabled: false};
+  friday : Day = {day: '', disabled: false};
+  saturday : Day = {day: '', disabled: false};
+  sunday : Day = {day: '', disabled: false};
+
+  selectedDay : Day;
 
   //need to update this so that the new date is emitted when needed to change the releases
   @Output() date = new EventEmitter<string>();
 
-  //need to accomodate year
-  loadDay(day) {
-    const selected = this.getDateFromString(day.day);
-
+  //click listener
+  loadDay(day : Day) {
     this.selectedDay.disabled = false;
     day.disabled = true;
     this.selectedDay = day;
+    console.log(this.selectedDay.day.split('/').join('-'));
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
-  getDateFromString(string) {
-    const dayString = string.split('/');
+  getDateFromString(dateString) {
+    const dayString = dateString.split('/');
     return new Date(new Date().getFullYear(), Number(dayString[1]) - 1, Number(dayString[0]));
   }
 
@@ -42,6 +49,8 @@ export class PlanningSelectorComponent implements OnInit {
     prevMonday.setDate(prevMonday.getDate() - 7);
 
     this.setDays(prevMonday);
+    console.log(this.selectedDay.day.split('/').join('-'));
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
   nextWeek() {
@@ -52,9 +61,11 @@ export class PlanningSelectorComponent implements OnInit {
     nextMonday.setDate(nextMonday.getDate() + 7);
 
     this.setDays(nextMonday);
+    console.log(this.selectedDay.day.split('/').join('-'));
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
-  setDays(day) {
+  setDays(day : Date) {
     switch (day.getDay()) {
       case 0:
         this.sunday.disabled = true;
@@ -89,21 +100,19 @@ export class PlanningSelectorComponent implements OnInit {
     const start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
     day.setDate(day.getDate() + start);
 
-    //this should be better and support years
-    this.monday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.monday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.tuesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.tuesday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.wednesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.wednesday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.thursday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.thursday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.friday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.friday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.saturday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.saturday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.sunday.day = day.toLocaleString('en-GB').substring(0, 5);
-
+    this.sunday.day = day.toLocaleString(this.locale).substring(0, 10);
   }
 
   ngOnInit() {
@@ -114,5 +123,9 @@ export class PlanningSelectorComponent implements OnInit {
     const currentDate = new Date();
 
     this.setDays(currentDate);
+    console.log(this.selectedDay.day.split('/').join('-'));
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
+
+  private locale = 'en-GB';
 }

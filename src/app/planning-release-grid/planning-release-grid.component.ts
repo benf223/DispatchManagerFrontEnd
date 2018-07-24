@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {WebService} from '../web.service';
 import {DraghelperService} from '../draghelper.service';
+import {ReleaseInformationComponent} from "../release-information/release-information.component";
 
 @Component({
   selector: 'planningordergrid',
@@ -12,7 +13,7 @@ export class PlanningReleaseGrid implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource;
 
-  constructor(private webService: WebService, private draghelperService: DraghelperService) {}
+  constructor(private webService: WebService, private draghelperService: DraghelperService, public dialog : MatDialog) {}
 
   ngOnInit() {
     this.webService.releases.subscribe(() => {
@@ -39,6 +40,18 @@ export class PlanningReleaseGrid implements OnInit {
   private setDataSource(releases) {
     this.dataSource = new MatTableDataSource(releases);
     this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) != -1);
+  }
+
+  openDialog(release : Release)
+  {
+    const dialogRef = this.dialog.open(ReleaseInformationComponent, {
+      width: '500px',
+      height: '500px',
+      data: release
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    // });
   }
 }
 

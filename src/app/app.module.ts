@@ -15,7 +15,8 @@ import {
   MatPaginatorModule,
   MatButtonToggleModule,
   MatBadgeModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -30,9 +31,9 @@ import { PlanningReleaseGrid } from './planning-release-grid/planning-release-gr
 import { PlanningTruckGrid } from './planning-truck-grid/planning-truck-grid.component';
 import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
+import { ReleaseInformationComponent } from './release-information/release-information.component';
 
 import { WebService } from './web.service';
-
 
 const routes = [
   {
@@ -41,11 +42,6 @@ const routes = [
   },
   {
     path: 'planning',
-    component: PlanningComponent
-  },
-  {
-    //unused?
-    path: 'planning/:date',
     component: PlanningComponent
   }
 ];
@@ -62,6 +58,7 @@ const routes = [
     TruckRoundPlanner,
     TruckSlotsComponent,
     PlanningReleaseGrid,
+    ReleaseInformationComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +74,7 @@ const routes = [
     MatButtonToggleModule,
     MatBadgeModule,
     MatTooltipModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
@@ -84,7 +82,8 @@ const routes = [
     DraggableModule
   ],
   providers: [ WebService ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [ ReleaseInformationComponent ]
 })
 export class AppModule {
 
