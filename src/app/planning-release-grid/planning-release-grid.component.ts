@@ -47,7 +47,8 @@ export class PlanningReleaseGrid implements OnInit {
     const dialogRef = this.dialog.open(ReleaseInformationComponent, {
       width: '500px',
       height: '500px',
-      data: release
+      data: release.release,
+      panelClass: 'releasePopupClass'
     });
 
     // dialogRef.afterClosed().subscribe(result => {

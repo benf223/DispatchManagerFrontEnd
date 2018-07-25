@@ -123,7 +123,6 @@ export class PlanningSelectorComponent implements OnInit {
     const currentDate = new Date();
 
     this.setDays(currentDate);
-    console.log(this.selectedDay.day.split('/').join('-'));
     this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 

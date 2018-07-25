@@ -1,4 +1,6 @@
-<p>
-  {{data.release}},
-  {{data.colour}}
+<p [ngStyle]="{'color': fullRelease.colour}">
+  {{fullRelease.release}}
+  {{fullRelease.qtyTwenty}}
+  {{fullRelease.qtyForty}}
+  {{fullRelease.colour}}
 </p>

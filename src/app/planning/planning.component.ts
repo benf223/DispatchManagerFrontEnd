@@ -21,6 +21,7 @@ export class PlanningComponent implements OnInit {
   }
 
   changeDay(day) {
+    this.webService.setCurrentDay(day);
     this.webService.getReleases(day);
     this.webService.getRounds(day);
   }
