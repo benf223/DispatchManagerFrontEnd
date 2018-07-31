@@ -34,7 +34,10 @@ export class PlanningTruckGrid
 
     this.day = !this.day;
   }
+	  
 }
+
+ 
 
 export interface Slot
 {

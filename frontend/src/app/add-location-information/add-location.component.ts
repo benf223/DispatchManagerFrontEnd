@@ -58,7 +58,7 @@ export class AddLocationComponent{
   @ViewChild(ViewLocationInformation) viewLocations;
   
   constructor(private modalService: NgbModal) {}
-  viewinfo = new ViewLocationInformation();
+  //viewinfo = new ViewLocationInformation();
   open() {
     const modalRef = this.modalService.open(AddLocationInformation);
   }

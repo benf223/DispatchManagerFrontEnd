@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   MatButtonModule,
@@ -13,26 +14,26 @@ import {
   MatGridListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatButtonToggleModule,
-  MatBadgeModule,
-  MatTooltipModule
+  MatButtonToggleModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
+import { LocationsComponent } from './locations/locations.component';
 import { PlanningSelectorComponent } from './planning-selector/planning-selector.component';
 import { PlanningReleaseGrid } from './planning-release-grid/planning-release-grid.component';
 import { PlanningTruckGrid } from './planning-truck-grid/planning-truck-grid.component';
 import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
+import { AddLocationComponent } from './add-location-information/add-location.component';
+import { AddLocationInformation } from './add-location-information/add-location.component';
+import { ViewLocationInformation } from './add-location-information/view-location-information.component';
+
 
 import { WebService } from './web.service';
-
 
 let routes = [
   {
@@ -47,7 +48,11 @@ let routes = [
     //unused?
     path: 'planning/:date',
     component: PlanningComponent
-  }
+  },
+  {
+    path: 'Locations',
+    component: LocationsComponent
+  },
 ];
 
 @NgModule({
@@ -56,12 +61,16 @@ let routes = [
     NavComponent,
     HomeComponent,
     PlanningComponent,
+	LocationsComponent,
     PlanningSelectorComponent,
     PlanningReleaseGrid,
     PlanningTruckGrid,
     TruckRoundPlanner,
     TruckSlotsComponent,
     PlanningReleaseGrid,
+	AddLocationComponent,
+	AddLocationInformation,
+	ViewLocationInformation
   ],
   imports: [
     BrowserModule,
@@ -75,16 +84,15 @@ let routes = [
     MatTableModule,
     MatPaginatorModule,
     MatButtonToggleModule,
-    MatBadgeModule,
-    MatTooltipModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpModule,
-    DraggableModule
+	NgbModule.forRoot()
   ],
   providers: [ WebService ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [AddLocationInformation,ViewLocationInformation],
 })
 export class AppModule {
 
