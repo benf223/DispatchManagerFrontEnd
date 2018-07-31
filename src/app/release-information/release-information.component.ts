@@ -9,7 +9,7 @@ import {WebService} from '../web.service';
 })
 export class ReleaseInformationComponent implements OnInit {
   // The full release from the API
-  private fullRelease: FullRelease;
+  fullRelease: FullRelease;
 
   // Injects the webservice and other data from the parent component
   constructor(/* public dialogRef: MatDialogRef<ReleaseInformationComponent>, */@Inject(MAT_DIALOG_DATA) public data: string,
