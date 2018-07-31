@@ -5,7 +5,7 @@ import {Rounds} from './planning-truck-grid/planning-truck-grid.component';
 import {Release} from './planning-release-grid/planning-release-grid.component';
 import {FullRelease} from './release-information/release-information.component';
 
-const SERVER_URL = 'http://localhost:62176/';
+const SERVER_URL = 'https://demo-recur-api.herokuapp.com/';
 
 @Injectable()
 export class WebService {
