@@ -1,27 +1,34 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Release } from '../planning-release-grid/planning-release-grid.component';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
-import {DraghelperService} from '../draghelper.service';
+import {DragHelperService} from '../drag-helper.service';
 
 @Component({
-  selector: 'truckslotscomponent',
+  selector: 'app-truck-slots-component',
   templateUrl: './truck-slots.component.html',
   styleUrls: ['../app.component.scss']
 })
 export class TruckSlotsComponent implements OnInit {
+
+  // Input of data from parent component
   @Input() slots: Slot[];
+
+  // Two-way binding for the component
   releases: Release[];
 
-  constructor(private draghelperService: DraghelperService) {}
+  // Injects the draghelper service
+  constructor(private draghelperService: DragHelperService) {}
 
+  // Initialises the two-way bound data
   ngOnInit() {
-    this.releases = new Array();
+    this.releases = [];
 
     this.releases.push(this.slots[0].release);
     this.releases.push(this.slots[1].release);
     this.releases.push(this.slots[2].release);
   }
 
+  // Listener from the dropzone directive
   updateRelease(i) {
     if (this.draghelperService.getRelease()) {
 
@@ -29,9 +36,5 @@ export class TruckSlotsComponent implements OnInit {
     }
 
     this.draghelperService.onReleaseEnd();
-  }
-
-  log(i) {
-    console.log(this.releases[i].release);
   }
 }

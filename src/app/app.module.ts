@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,7 +16,8 @@ import {
   MatButtonToggleModule,
   MatBadgeModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule,
+  MatMenuModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,13 +28,15 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
 import { PlanningSelectorComponent } from './planning-selector/planning-selector.component';
-import { PlanningReleaseGrid } from './planning-release-grid/planning-release-grid.component';
-import { PlanningTruckGrid } from './planning-truck-grid/planning-truck-grid.component';
-import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.component';
+import { PlanningReleaseGridComponent } from './planning-release-grid/planning-release-grid.component';
+import { PlanningTruckGridComponent } from './planning-truck-grid/planning-truck-grid.component';
+import { TruckRoundPlannerComponent } from './truck-round-planner/truck-round-planner.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 import { ReleaseInformationComponent } from './release-information/release-information.component';
 
 import { WebService } from './web.service';
+import { AddReleaseComponent } from './add-release/add-release.component';
+import { DeleteReleaseComponent } from './delete-release/delete-release.component';
 
 const routes = [
   {
@@ -43,6 +46,14 @@ const routes = [
   {
     path: 'planning',
     component: PlanningComponent
+  },
+  {
+    path: 'release/add',
+    component: AddReleaseComponent
+  },
+  {
+    path: 'release/remove',
+    component: DeleteReleaseComponent
   }
 ];
 
@@ -53,15 +64,18 @@ const routes = [
     HomeComponent,
     PlanningComponent,
     PlanningSelectorComponent,
-    PlanningReleaseGrid,
-    PlanningTruckGrid,
-    TruckRoundPlanner,
+    PlanningReleaseGridComponent,
+    PlanningTruckGridComponent,
+    TruckRoundPlannerComponent,
     TruckSlotsComponent,
-    PlanningReleaseGrid,
+    PlanningReleaseGridComponent,
     ReleaseInformationComponent,
+    AddReleaseComponent,
+    DeleteReleaseComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
@@ -75,10 +89,10 @@ const routes = [
     MatBadgeModule,
     MatTooltipModule,
     MatDialogModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpModule,
     DraggableModule
   ],
   providers: [ WebService ],
