@@ -16,7 +16,7 @@ export class ReleaseInformationComponent implements OnInit {
               private webService: WebService) {
   }
 
-  // Retrieves the required data from the webservice before displaying it
+  // Retrieves the required data from the Webservice before displaying it
   ngOnInit() {
     this.fullRelease = { release: null, qtyTwenty: null, qtyForty: null, colour: null};
     this.webService.getFullRelease(this.data);
