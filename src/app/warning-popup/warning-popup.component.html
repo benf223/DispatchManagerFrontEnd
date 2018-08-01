@@ -1,0 +1,5 @@
+<h3 style="color: red">{{data.message}}</h3>
+<br>
+<button mat-button *ngIf="data.options[0]" (click)="onOk()">Ok</button>
+<button mat-button *ngIf="data.options[1]" (click)="onCancel()">Cancel</button>
+<button mat-button *ngIf="data.options[2]" (click)="onUnused()">Unused</button>

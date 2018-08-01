@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import { Release } from '../planning-release-grid/planning-release-grid.component';
 import { Slot } from '../planning-truck-grid/planning-truck-grid.component';
 import {DragHelperService} from '../drag-helper.service';
+import {MatDialog} from "@angular/material";
+import {WarningPopupComponent} from "../warning-popup/warning-popup.component";
 
 @Component({
   selector: 'app-truck-slots-component',
@@ -16,8 +18,8 @@ export class TruckSlotsComponent implements OnInit {
   // Two-way binding for the component
   releases: Release[];
 
-  // Injects the draghelper service
-  constructor(private draghelperService: DragHelperService) {}
+  // Injects the draghelper service and the dialog for warnings
+  constructor(private draghelperService: DragHelperService, public dialog: MatDialog) {}
 
   // Initialises the two-way bound data
   ngOnInit() {
@@ -32,9 +34,64 @@ export class TruckSlotsComponent implements OnInit {
   updateRelease(i) {
     if (this.draghelperService.getRelease()) {
 
-      this.releases[i] = this.draghelperService.getRelease();
-    }
+      let movedRelease = this.draghelperService.getRelease();
+      this.draghelperService.onReleaseEnd();
 
-    this.draghelperService.onReleaseEnd();
+      // Not clear if this is the intended functionality
+      if (movedRelease.size === 40) {
+        if (i === 2) {
+          this.openDialog('invalid slot').afterClosed().subscribe(result => {
+            console.log(result);
+          });
+          return;
+        }
+        else if (i === 1) {
+          if (this.releases[0]) {
+            if (!this.releases[2]) {
+              this.releases[2] = this.releases[0];
+              this.releases[0] = movedRelease;
+            } else {
+              this.openDialog('invalid slot').afterClosed().subscribe(result => {
+                console.log(result);
+              });
+              return;
+            }
+          } else {
+            this.openDialog('invalid slot').afterClosed().subscribe(result => {
+              console.log(result);
+            });
+            return;
+          }
+        } else {
+          if (this.releases[1]) {
+            if (!this.releases[2]) {
+              this.releases[2] = this.releases[1];
+              this.releases[1] = movedRelease;
+            } else {
+              this.openDialog('invalid slot').afterClosed().subscribe(result => {
+                console.log(result);
+              });
+              return;
+            }
+          } else {
+            this.openDialog('invalid slot').afterClosed().subscribe(result => {
+              console.log(result);
+            });
+            return;
+          }
+        }
+      }
+
+      this.releases[i] = movedRelease;
+    }
+  }
+
+  openDialog(message: string) {
+    return this.dialog.open(WarningPopupComponent, {
+      width: '500px',
+      height: '500px',
+      data: { message: message, options: [true, true, false], result: ['c', 'a', 'c', '']},
+      panelClass: 'warningPopupClass'
+    });
   }
 }

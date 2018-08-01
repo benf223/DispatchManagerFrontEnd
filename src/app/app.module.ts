@@ -21,6 +21,8 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { WebService } from './web.service';
+
 import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
@@ -33,10 +35,9 @@ import { PlanningTruckGridComponent } from './planning-truck-grid/planning-truck
 import { TruckRoundPlannerComponent } from './truck-round-planner/truck-round-planner.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 import { ReleaseInformationComponent } from './release-information/release-information.component';
-
-import { WebService } from './web.service';
 import { AddReleaseComponent } from './add-release/add-release.component';
-import { DeleteReleaseComponent } from './delete-release/delete-release.component';
+import { EditReleaseComponent } from './edit-release/edit-release.component';
+import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 
 const routes = [
   {
@@ -52,8 +53,8 @@ const routes = [
     component: AddReleaseComponent
   },
   {
-    path: 'release/remove',
-    component: DeleteReleaseComponent
+    path: 'release/edit',
+    component: EditReleaseComponent
   }
 ];
 
@@ -71,7 +72,8 @@ const routes = [
     PlanningReleaseGridComponent,
     ReleaseInformationComponent,
     AddReleaseComponent,
-    DeleteReleaseComponent,
+    EditReleaseComponent,
+    WarningPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ const routes = [
   ],
   providers: [ WebService ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ ReleaseInformationComponent ]
+  entryComponents: [ ReleaseInformationComponent, WarningPopupComponent ]
 })
 export class AppModule {
 

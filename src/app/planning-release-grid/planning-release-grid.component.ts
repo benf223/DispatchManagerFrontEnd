@@ -16,7 +16,7 @@ export class PlanningReleaseGridComponent implements OnInit {
   dataSource;
 
   // Injects the webservice and drag service.
-  constructor(private webService: WebService, private draghelperService: DragHelperService, public dialog: MatDialog) {}
+  constructor(private webService: WebService, private dragHelperService: DragHelperService, public dialog: MatDialog) {}
 
   // Subscribes to the releases from the API
   ngOnInit() {
@@ -36,7 +36,7 @@ export class PlanningReleaseGridComponent implements OnInit {
 
   // Data transmission for the drag and drop features
   setRelease(release: Release) {
-    this.draghelperService.onReleaseGrab(release);
+    this.dragHelperService.onReleaseGrab(release);
   }
 
   // Sets the table data source
@@ -53,7 +53,6 @@ export class PlanningReleaseGridComponent implements OnInit {
       data: release.release,
       panelClass: 'releasePopupClass'
     });
-
   }
 }
 

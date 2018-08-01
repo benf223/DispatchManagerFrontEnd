@@ -8,11 +8,13 @@ import {WebService} from '../web.service';
   styleUrls: ['./release-information.component.css']
 })
 export class ReleaseInformationComponent implements OnInit {
+
   // The full release from the API
   fullRelease: FullRelease;
 
   // Injects the webservice and other data from the parent component
-  constructor(/* public dialogRef: MatDialogRef<ReleaseInformationComponent>, */@Inject(MAT_DIALOG_DATA) public data: string,
+  constructor(/* public dialogRef: MatDialogRef<ReleaseInformationComponent>, */
+              @Inject(MAT_DIALOG_DATA) public data: string,
               private webService: WebService) {
   }
 
@@ -24,8 +26,6 @@ export class ReleaseInformationComponent implements OnInit {
     this.webService.fullRelease.subscribe(() => {
       this.fullRelease = this.webService.fullReleaseStore;
     });
-
-    // this.dialogRef.id;
   }
 
 }
