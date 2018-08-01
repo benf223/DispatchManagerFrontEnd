@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-warning-popup',
@@ -17,7 +17,7 @@ export class WarningPopupComponent implements OnInit {
   ngOnInit() {
     this.dialogRef.backdropClick().subscribe(() => {
       this.onBackdropClick();
-    })
+    });
   }
 
   // Listener for when the backdrop is clicked
@@ -46,8 +46,7 @@ export class WarningPopupComponent implements OnInit {
 // body: (to be implemented?)
 // options: boolean array specifying which buttons to enable in the popup 0=OK 1=Cancel 2=Unused
 // result: string array of data to be returned depending on button press 0=Click outside dialog 1=OK 2=Cancel 3=Unused
-export interface Warning
-{
+export interface Warning {
   message: string;
   options: boolean[];   // Defines what buttons should be available
   result: string[];     // Defines the form of response from the dialog
