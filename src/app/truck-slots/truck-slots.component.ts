@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material";
 import {WarningPopupComponent} from "../warning-popup/warning-popup.component";
 
 @Component({
-  selector: 'app-truck-slots-component',
+  selector: 'app-truck-slots',
   templateUrl: './truck-slots.component.html',
   styleUrls: ['../app.component.scss']
 })

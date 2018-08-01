@@ -32,7 +32,6 @@ import { PlanningComponent } from './planning/planning.component';
 import { PlanningSelectorComponent } from './planning-selector/planning-selector.component';
 import { PlanningReleaseGridComponent } from './planning-release-grid/planning-release-grid.component';
 import { PlanningTruckGridComponent } from './planning-truck-grid/planning-truck-grid.component';
-import { TruckRoundPlannerComponent } from './truck-round-planner/truck-round-planner.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
 import { ReleaseInformationComponent } from './release-information/release-information.component';
 import { AddReleaseComponent } from './add-release/add-release.component';
@@ -67,7 +66,6 @@ const routes = [
     PlanningSelectorComponent,
     PlanningReleaseGridComponent,
     PlanningTruckGridComponent,
-    TruckRoundPlannerComponent,
     TruckSlotsComponent,
     PlanningReleaseGridComponent,
     ReleaseInformationComponent,
