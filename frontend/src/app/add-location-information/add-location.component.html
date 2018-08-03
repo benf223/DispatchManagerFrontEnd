@@ -1,13 +1,16 @@
 <html>
 <head>
+  <script
+    src="../../../../../../Documents/GitHub/DispatchManagerFrontEnd/frontend/src/app/planning/planning.component.ts"></script>
 </head>
 <script src="./view-location-list.js"></script>
 <body>
-<button mat-raised-button color="primary" class="btn btn-lg btn-outline-primary" (click)="open()">Add New Location</button>
+<button mat-raised-button color="primary" class="btn btn-lg btn-outline-primary" (click)="add()">Add New Location</button>
 <ul>
     <li *ngFor="let location of locations; let i=index">
-      {{i}}{{ location.name }} {{location.address}} {{location.opentime}} {{location.closetime}} <a href="#" (click)="view(i)" onclick="return false">Edit</a>
+      {{i}}{{ location.name }} {{location.address}} {{location.opentime}} {{location.closetime}} {{location.type}} <a href="#" (click)="view(i)" onclick="return false">Edit</a>
       </li>
   </ul>
+<viewlocationinformation hidden></viewlocationinformation>
 </body>
 <html>
