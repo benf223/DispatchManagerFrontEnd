@@ -14,6 +14,6 @@ export class HomeComponent implements OnInit {
 
   // Gets the messages from the webservice
   ngOnInit() {
-    this.webService.getMessages();
+    this.webService.spinUpAPI();
   }
 }

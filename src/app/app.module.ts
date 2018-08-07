@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import {
   MatButtonModule,
   MatCardModule,
@@ -17,12 +16,14 @@ import {
   MatBadgeModule,
   MatTooltipModule,
   MatDialogModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDatepickerModule,
+  MatNativeDateModule, MatSelectModule, MatOptionModule, MAT_DATE_LOCALE, MatChipsModule, MatIconModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { WebService } from './web.service';
 
+import { WebService } from './web.service';
 import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { ReleaseInformationComponent } from './release-information/release-infor
 import { AddReleaseComponent } from './add-release/add-release.component';
 import { EditReleaseComponent } from './edit-release/edit-release.component';
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
+import {AuthService} from './auth.service';
 
 const routes = [
   {
@@ -90,12 +92,18 @@ const routes = [
     MatTooltipModule,
     MatDialogModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    DraggableModule
+    DraggableModule,
   ],
-  providers: [ WebService ],
+  providers: [ WebService, AuthService, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'} ],
   bootstrap: [ AppComponent ],
   entryComponents: [ ReleaseInformationComponent, WarningPopupComponent ]
 })

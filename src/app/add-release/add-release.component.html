@@ -1,3 +1,71 @@
-<p>
-  add-release works!
-</p>
+<mat-card>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input matInput [matDatepicker]="receivedPicker" placeholder="Date Received" [value]="getDate()">
+      <mat-datepicker-toggle matSuffix [for]="receivedPicker"></mat-datepicker-toggle>
+      <mat-datepicker #receivedPicker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Release">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select placeholder="Client">
+        <mat-option *ngFor="let client of clients" [value]="client.name">
+          {{client.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select placeholder="Route">
+        <mat-option *ngFor="let route of routes" [value]="route.route">
+          {{route.route}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Quantity of 20ft">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Quantity of 40ft">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Choose">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select placeholder="Container Type">
+        <mat-option *ngFor="let contType of contTypes" [value]="contType.type">
+          {{contType.type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let number of containerNumbers" (removed)="remove(number)">
+          {{number}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Container Numbers"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput [matDatepicker]="dueDayPicker" placeholder="Due Day" [value]="getDate()">
+      <mat-datepicker-toggle matSuffix [for]="dueDayPicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDayPicker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="time" placeholder="Due Time" value="{{getTime()}}" onchange="console.log(value)">
+    </mat-form-field>
+  </form>
+</mat-card>

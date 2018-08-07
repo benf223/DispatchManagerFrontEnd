@@ -48,7 +48,7 @@ export class TruckSlotsComponent implements OnInit {
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
             } else {
-              this.openDialog('Do you wish to replace: ' + this.releases[1].release + '. With: ' + movedRelease.release)
+              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[1] = movedRelease;
@@ -69,7 +69,7 @@ export class TruckSlotsComponent implements OnInit {
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
             } else {
-              this.openDialog('Do you wish to replace: ' + this.releases[2].release + '. With: ' + movedRelease.release)
+              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[1] = movedRelease;
@@ -90,7 +90,7 @@ export class TruckSlotsComponent implements OnInit {
               this.releases[0] = movedRelease;
               this.releases[1] = movedRelease;
             } else {
-              this.openDialog('Do you wish to replace: ' + this.releases[1].release + '. With: ' + movedRelease.release)
+              this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[0] = movedRelease;
@@ -108,11 +108,12 @@ export class TruckSlotsComponent implements OnInit {
     }
   }
 
-  openDialog(message: string) {
+  openDialog(message: string, body?: string[], result?: string[], options?: boolean[]) {
     return this.dialog.open(WarningPopupComponent, {
-      width: '500px',
-      height: '500px',
-      data: {message: message, options: [true, true, false], result: ['c', 'a', 'c', '']},
+      width: '280px',
+      height: '235px',
+      data: {body: body ? body : null, message: message, options: options ? options : [true, true, false],
+        result: result ? result : ['c', 'a', 'c', '']},
       panelClass: 'warningPopupClass'
     });
   }
