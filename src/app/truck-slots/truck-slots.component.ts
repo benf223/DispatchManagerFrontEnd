@@ -37,6 +37,10 @@ export class TruckSlotsComponent implements OnInit {
       this.draghelperService.onReleaseEnd();
 
       if (movedRelease.size === 40) {
+        if (this.releases[0].size === 40 || this.releases[1].size === 40) {
+          // Means that a 40 is already in a slot and will need to be handled or overwritten.
+        }
+
         // This implementation does not check to see if there is already a 40 in the truck and handle that interaction
         if (i === 2) {
           if (!this.releases[1]) {
@@ -103,6 +107,21 @@ export class TruckSlotsComponent implements OnInit {
           }
         }
       } else if (movedRelease.size === 20) {
+        if (this.releases[i].size === 40) {
+          // Means that there is a 40 in the slot already and will need to find the other part and possibly overwrite
+
+          if (i === 0) {
+            if (this.releases[1].size === 40) {
+              // Found the rest of the 40
+            }
+          } else if (i === 1) {
+            if (this.releases[0].size === 40) {
+              // Found the rest of the 40
+            } else if (this.releases[2].size === 40) {
+              // Found the rest of the 40 on the other side
+            }
+          }
+        }
         this.releases[i] = movedRelease;
       }
     }
