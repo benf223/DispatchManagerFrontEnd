@@ -16,7 +16,7 @@ export class PlanningReleaseGridComponent implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource;
 
-  // Injects the webservice and drag service.
+  // Injects the WebService and DragHelperService and the dialog
   constructor(private webService: WebService, private dragHelperService: DragHelperService, public dialog: MatDialog) {}
 
   // Subscribes to the releases from the API
@@ -24,8 +24,6 @@ export class PlanningReleaseGridComponent implements OnInit {
     this.webService.releases.subscribe(() => {
       this.setDataSource(this.webService.daysReleases);
     });
-
-    // this.setDataSource(SAMPLE_RELEASES);
   }
 
   // Filters the release grid
@@ -56,17 +54,3 @@ export class PlanningReleaseGridComponent implements OnInit {
     });
   }
 }
-
-
-// Sample data. Unused.
-// const SAMPLE_RELEASES: Release[] = [
-//   {release: '1', qty: 2, size: 40, colour: '#FF0000'},
-//   {release: '2', qty: 4, size: 20, colour: '#FF0000'},
-//   {release: '3', qty: 1, size: 40, colour: '#FFFF00'},
-//   {release: '4', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '5', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '6', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '7', qty: 5, size: 20, colour: '#FF00FF'},
-//   {release: '8', qty: 5, size: 20, colour: '#FF00FF'},
-//   {release: '9', qty: 5, size: 20, colour: '#FF00FF'}
-// ];

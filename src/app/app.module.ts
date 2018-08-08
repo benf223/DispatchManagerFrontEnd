@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -20,10 +21,9 @@ import {
   MatDatepickerModule,
   MatNativeDateModule, MatSelectModule, MatOptionModule, MAT_DATE_LOCALE, MatChipsModule, MatIconModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 import { WebService } from './web.service';
+import { AuthService } from './auth.service';
 import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
@@ -38,7 +38,6 @@ import { ReleaseInformationComponent } from './release-information/release-infor
 import { AddReleaseComponent } from './add-release/add-release.component';
 import { EditReleaseComponent } from './edit-release/edit-release.component';
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
-import {AuthService} from './auth.service';
 
 const routes = [
   {

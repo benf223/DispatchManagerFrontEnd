@@ -1,8 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {FullRelease} from './release-information/release-information.component';
-import {Release, TruckRounds, Trucks} from "./interfaces";
+import {FullRelease, Release, TruckRounds, Trucks} from './interfaces';
 
 // Constant that defines where the REST API is located
 const SERVER_URL = 'http://localhost:3000/api';
@@ -53,6 +52,7 @@ export class WebService {
   // Method that will retrieve and emit to the subscribers the releases for a given day
   getReleases(day) {
     this.httpClient.get<Release[]>(SERVER_URL + '/releases/' + day).subscribe(res => {
+      console.log(res);
       this.daysReleases = res;
       this.releasesSubject.next(this.daysReleases);
     });
@@ -66,6 +66,7 @@ export class WebService {
     });
   }
 
+  // Method that will find the truck that has been updated and will update the API via POST
   pushUpdateToAPI(truckID) {
     console.log(this.daysRounds);
     // this.httpClient.post(SERVER_URL + '/', {id: truckID, dayRounds: this.daysRounds});

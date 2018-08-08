@@ -12,8 +12,6 @@ import {Release, Slot} from "../interfaces";
 export class TruckSlotsComponent implements OnInit {
   // Input of data from parent component
   @Input() slots: Slot[];
-
-  // Index of the truck in the webservice
   @Input() truckID: number;
 
   // Outputs an event when the slot is updated
@@ -151,6 +149,7 @@ export class TruckSlotsComponent implements OnInit {
     }
   }
 
+  // Opens a warning popup to notify the user that there is a clash
   openDialog(message: string, body?: string[], result?: string[], options?: boolean[]) {
     return this.dialog.open(WarningPopupComponent, {
       width: '280px',

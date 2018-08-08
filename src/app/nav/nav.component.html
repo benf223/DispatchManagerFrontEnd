@@ -1,7 +1,6 @@
 <mat-toolbar color="primary">
   <button mat-button routerLink="/">Recur</button>
   <button mat-button routerLink="/planning">Planning</button>
-  <!--menu for all release related pages-->
   <button mat-button [matMenuTriggerFor]="menu">Release Management</button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/release/add">Add release</button>

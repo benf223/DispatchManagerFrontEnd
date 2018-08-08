@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {WebService} from '../web.service';
+import {TruckRounds} from '../interfaces';
 
 @Component({
   selector: 'app-planning-truck-grid',
@@ -21,7 +22,7 @@ export class PlanningTruckGridComponent implements OnInit {
   // Paginator for the table
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  // Injects the webservice
+  // Injects the WebService
   constructor(private webService: WebService) {}
 
   // Subscribes to the webservice for the round information.
@@ -29,8 +30,6 @@ export class PlanningTruckGridComponent implements OnInit {
     this.webService.rounds.subscribe(() => {
       this.setupDataSource(this.webService.daysRounds.rounds);
     });
-
-    // this.setupDataSource(TRUCKS);
   }
 
   // Listener for the day/night button
@@ -45,14 +44,14 @@ export class PlanningTruckGridComponent implements OnInit {
   }
 
   // Sets the tables data source
-  private setupDataSource(rounds) {
+  private setupDataSource(rounds : TruckRounds[]) {
     console.log(rounds);
     this.dataSource = new MatTableDataSource(rounds);
     this.dataSource.paginator = this.paginator;
   }
 
+  // Listener for events from truckslots to update the API
   pushData(truckID) {
-    // Ping the webservice
     this.webService.pushUpdateToAPI(truckID);
   }
 }
