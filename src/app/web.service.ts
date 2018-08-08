@@ -1,9 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Rounds} from './planning-truck-grid/planning-truck-grid.component';
-import {Release} from './planning-release-grid/planning-release-grid.component';
 import {FullRelease} from './release-information/release-information.component';
+import {Release, TruckRounds, Trucks} from "./interfaces";
 
 // Constant that defines where the REST API is located
 const SERVER_URL = 'http://localhost:3000/api';
@@ -15,7 +14,7 @@ export class WebService {
   private currentDay: string;
 
   // Observable and subject for Rounds
-  daysRounds: Rounds[] = [];
+  daysRounds : Trucks = {rounds: []};
   private roundsSubject = new Subject();
   rounds = this.roundsSubject.asObservable();
 
@@ -39,22 +38,22 @@ export class WebService {
 
   // Empty Method that will spin up the REST API
   spinUpAPI() {
-    this.httpClient.get<string>(SERVER_URL + '/start').subscribe(res => {
+    this.httpClient.get<string>(SERVER_URL + '/start').subscribe(() => {
     });
   }
 
   // Method that will retrieve and emit to the subscribers the rounds for a given day
   getRounds(day) {
-    this.httpClient.get<Test>(SERVER_URL + '/rounds/' + day).subscribe(res => {
-      this.daysRounds = res.rounds;
-      this.roundsSubject.next(this.daysRounds);
+    this.httpClient.get<TruckRounds[]>(SERVER_URL + '/rounds/' + day).subscribe((res) => {
+      this.daysRounds.rounds = res;
+      this.roundsSubject.next(this.daysRounds.rounds);
     });
   }
 
   // Method that will retrieve and emit to the subscribers the releases for a given day
   getReleases(day) {
-    this.httpClient.get<Test2>(SERVER_URL + '/releases/' + day).subscribe(res => {
-      this.daysReleases = res.releases;
+    this.httpClient.get<Release[]>(SERVER_URL + '/releases/' + day).subscribe(res => {
+      this.daysReleases = res;
       this.releasesSubject.next(this.daysReleases);
     });
   }
@@ -66,14 +65,9 @@ export class WebService {
       this.fullReleaseSubject.next(this.fullReleaseStore);
     });
   }
-}
 
-// Bad interface to enable typing for the return type of the the httpClient (remove)
-export interface Test {
-  rounds: Rounds[];
-}
-
-// Bad interface to enable typing for the return type of the the httpClient (remove)
-export interface Test2 {
-  releases: Release[];
+  pushUpdateToAPI(truckID) {
+    console.log(this.daysRounds);
+    // this.httpClient.post(SERVER_URL + '/', {id: truckID, dayRounds: this.daysRounds});
+  }
 }

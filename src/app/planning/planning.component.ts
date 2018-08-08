@@ -13,7 +13,7 @@ export class PlanningComponent implements OnInit {
 
   // Updates the component and children to the current day.
   ngOnInit() {
-    this.changeDay(this.getCurrentDay());
+    // this.changeDay(this.getCurrentDay());
   }
 
   // Retrieves the current day in a format the API will understand
@@ -29,5 +29,4 @@ export class PlanningComponent implements OnInit {
     this.webService.getReleases(day);
     this.webService.getRounds(day);
   }
-
 }

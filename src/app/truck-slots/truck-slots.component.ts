@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Release} from '../planning-release-grid/planning-release-grid.component';
-import {Slot} from '../planning-truck-grid/planning-truck-grid.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DragHelperService} from '../drag-helper.service';
 import {MatDialog} from '@angular/material';
 import {WarningPopupComponent} from '../warning-popup/warning-popup.component';
+import {Release, Slot} from "../interfaces";
 
 @Component({
   selector: 'app-truck-slots',
@@ -13,6 +12,12 @@ import {WarningPopupComponent} from '../warning-popup/warning-popup.component';
 export class TruckSlotsComponent implements OnInit {
   // Input of data from parent component
   @Input() slots: Slot[];
+
+  // Index of the truck in the webservice
+  @Input() truckID: number;
+
+  // Outputs an event when the slot is updated
+  @Output() updated = new EventEmitter();
 
   // Two-way binding for the component
   releases: Release[];
@@ -32,6 +37,7 @@ export class TruckSlotsComponent implements OnInit {
 
   // Listener from the dropzone directive
   updateRelease(i) {
+    let updated: boolean = false;
     if (this.draghelperService.getRelease()) {
       const movedRelease = this.draghelperService.getRelease();
       this.draghelperService.onReleaseEnd();
@@ -46,17 +52,21 @@ export class TruckSlotsComponent implements OnInit {
           if (!this.releases[1]) {
             this.releases[1] = movedRelease;
             this.releases[2] = movedRelease;
+            updated = true;
           } else {
             if (!this.releases[0]) {
               this.releases[0] = this.releases[1];
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
+              updated = true;
             } else {
-              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release, null])
+              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[1].release +
+              ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[1] = movedRelease;
                   this.releases[2] = movedRelease;
+                  this.updated.emit(this.truckID);
                 } else if (result === 'c') {
                   // Do nothing
                 }
@@ -67,17 +77,21 @@ export class TruckSlotsComponent implements OnInit {
           if (!this.releases[2]) {
             this.releases[1] = movedRelease;
             this.releases[2] = movedRelease;
+            updated = true;
           } else {
             if (!this.releases[0]) {
               this.releases[0] = this.releases[2];
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
+              updated = true;
             } else {
-              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release, null])
+              this.openDialog('Replace Data',['Do you wish to replace: ' + this.releases[2].release +
+              ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[1] = movedRelease;
                   this.releases[2] = movedRelease;
+                  this.updated.emit(this.truckID);
                 } else if (result === 'c') {
                   // Do nothing
                 }
@@ -88,17 +102,21 @@ export class TruckSlotsComponent implements OnInit {
           if (!this.releases[1]) {
             this.releases[0] = movedRelease;
             this.releases[1] = movedRelease;
+            updated = true;
           } else {
             if (!this.releases[2]) {
               this.releases[2] = this.releases[0];
               this.releases[0] = movedRelease;
               this.releases[1] = movedRelease;
+              updated = true;
             } else {
-              this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release, null])
+              this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[1].release +
+              ', with: ' + movedRelease.release, null])
                 .afterClosed().subscribe((result: string) => {
                 if (result === 'a') {
                   this.releases[0] = movedRelease;
                   this.releases[1] = movedRelease;
+                  this.updated.emit(this.truckID);
                 } else if (result === 'c') {
                   // Do nothing
                 }
@@ -121,9 +139,15 @@ export class TruckSlotsComponent implements OnInit {
               // Found the rest of the 40 on the other side
             }
           }
+        } else {
+          this.releases[i] = movedRelease;
+          updated = true;
         }
-        this.releases[i] = movedRelease;
       }
+    }
+
+    if (updated) {
+      this.updated.emit(this.truckID);
     }
   }
 

@@ -3,6 +3,7 @@ import {MatDialog, MatTableDataSource} from '@angular/material';
 import {WebService} from '../web.service';
 import {DragHelperService} from '../drag-helper.service';
 import {ReleaseInformationComponent} from '../release-information/release-information.component';
+import {Release} from "../interfaces";
 
 @Component({
   selector: 'app-planning-order-grid',
@@ -56,13 +57,6 @@ export class PlanningReleaseGridComponent implements OnInit {
   }
 }
 
-// Interface for the Release the will be used on the website.
-export interface Release {
-  release: string;
-  size: number;
-  qty: number;
-  colour: string;
-}
 
 // Sample data. Unused.
 // const SAMPLE_RELEASES: Release[] = [
