@@ -41,8 +41,54 @@ export class TruckSlotsComponent implements OnInit {
       this.draghelperService.onReleaseEnd();
 
       if (movedRelease.size === 40) {
-        if (this.releases[0].size === 40 || this.releases[1].size === 40) {
+        if (this.releases[0].size === 40) {
           // Means that a 40 is already in a slot and will need to be handled or overwritten.
+          // Should split the above condition to save time
+            if (i === 0) {
+              this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[1].release +
+              ', with: ' + movedRelease.release], null).afterClosed().subscribe((result: string) => {
+                if (result === 'a') {
+
+                } else if (result === 'c') {
+
+                }
+              });
+            } else if (i === 1) {
+              this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[0].release +
+              ', with: ' + movedRelease.release], null).afterClosed().subscribe((result: string) => {
+                if (result === 'a') {
+
+                } else if (result === 'c') {
+
+                }
+              });
+            } else {
+              // Should not be relevant
+            }
+        } else if (this.releases[1].size === 40) {
+          if (i === 0) {
+            // Is this correct
+            this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[0].release +
+            ', with: ' + movedRelease.release], null).afterClosed().subscribe((result: string) => {
+              if (result === 'a') {
+
+              } else if (result === 'c') {
+
+              }
+            });
+          } else if (i === 1) {
+            // Should not be relevant
+          } else {
+            // Is this correct
+            this.openDialog('Replace Data', ['Do you wish to replace: ' + this.releases[2].release +
+            ', with: ' + movedRelease.release], null).afterClosed().subscribe((result: string) => {
+              if (result === 'a') {
+
+              } else if (result === 'c') {
+
+              }
+            });
+          }
         }
 
         // This implementation does not check to see if there is already a 40 in the truck and handle that interaction

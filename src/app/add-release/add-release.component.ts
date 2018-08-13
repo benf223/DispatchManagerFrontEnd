@@ -24,6 +24,8 @@ export class AddReleaseComponent implements OnInit {
 
   // List for the container numbers
   containerNumbers: string[] = ['Cont-1-a', 'Cont-2-a', 'Cont-3-a'];
+  statuses: string[] = ['Started', 'Enroute', 'Delivered'];
+  invoiceStatuses: string[] = ['Sent', 'Unsent', 'Paid'];
 
   // Inject the WebService and FormBuilder
   constructor(private webService : WebService, private formBuilder : FormBuilder) {
@@ -67,5 +69,15 @@ export class AddReleaseComponent implements OnInit {
   // Returns current date to fill the form with date values
   getDate() {
     return new Date();
+  }
+
+  // Will verify and attempt to submit the form to the API
+  submitForm() {
+    console.log('Submitted');
+  }
+
+  // Will reset the values in the form to empty or default
+  resetForm() {
+    console.log('Reset Form');
   }
 }
