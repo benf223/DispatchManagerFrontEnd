@@ -224,20 +224,110 @@ export class TruckSlotsComponent implements OnInit {
               // the 40 should be at i = 1
               if (this.releases[0].release === this.releases[1].release) {
                 // Found the forty and need to replace/delete or replace i = 2
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[0] = movedRelease;
+                    this.releases[1] = null;
+                    updated = true;
+                  } else if (result === 'c') {
+                    // Need to see if there is something that might need to be replaced in i = 2
+                    if (this.releases[2]) {
+                      this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                        if (result === 'a') {
+                          this.releases[2] = movedRelease;
+                          updated = true;
+                        } else if (result === 'c') {
+                          // Do nothing
+                        }
+                      });
+                    } else {
+                      this.releases[2] = movedRelease;
+                    }
+                  }
+                });
               } else {
                 // invalid state
+                console.log('How could this happen to me: 6');
+                console.log(this.releases[i]);
+                console.log(movedRelease);
               }
             } else if (i === 1) {
               if (this.releases[0].release === this.releases[1].release) {
                 // Found the rest of the forty and need to replace/delete or replace i = 2
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[1] = movedRelease;
+                    this.releases[0] = null;
+                    updated = true;
+                  } else if (result === 'c') {
+                    // Need to see if there is something that might need to be replaced in i = 2
+                    if (this.releases[2]) {
+                      this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                        if (result === 'a') {
+                          this.releases[2] = movedRelease;
+                          updated = true;
+                        } else if (result === 'c') {
+                          // Do nothing
+                        }
+                      });
+                    } else {
+                      this.releases[2] = movedRelease;
+                    }
+                  }
+                });
               } else if (this.releases[1].release === this.releases[2].release) {
                 // Found the rest of the forty and need to replace/delete or replace i = 0
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[1] = movedRelease;
+                    this.releases[2] = null;
+                    updated = true;
+                  } else if (result === 'c') {
+                    // Need to see if there is something that might need to be replaced in i = 0
+                    if (this.releases[0]) {
+                      this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                        if (result === 'a') {
+                          this.releases[0] = movedRelease;
+                          updated = true;
+                        } else if (result === 'c') {
+                          // Do nothing
+                        }
+                      });
+                    } else {
+                      this.releases[0] = movedRelease;
+                    }
+                  }
+                });
               }
             } else if (i === 2) {
               if (this.releases[1].release === this.releases[2].release) {
                 // Found the rest of the forty and need to replace/delete or replace i = 0
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[1] = movedRelease;
+                    this.releases[2] = null;
+                    updated = true;
+                  } else if (result === 'c') {
+                    // Need to see if there is something that might need to be replaced in i = 0
+                    if (this.releases[0]) {
+                      this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                        if (result === 'a') {
+                          this.releases[0] = movedRelease;
+                          updated = true;
+                        } else if (result === 'c') {
+                          // Do nothing
+                        }
+                      });
+                    } else {
+                      this.releases[0] = movedRelease;
+                    }
+                  }
+                });
               } else {
                 // invalid state
+                console.log('How could this happen to me: 7');
+                console.log(this.releases[i]);
+                console.log(movedRelease);
               }
             }
           } else {
