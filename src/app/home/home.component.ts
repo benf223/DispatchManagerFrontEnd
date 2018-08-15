@@ -8,12 +8,12 @@ import {WebService} from '../web.service';
 })
 export class HomeComponent implements OnInit {
 
-  // Injects the webservice
+  // Injects the WebService
   constructor(public webService: WebService) {
   }
 
-  // Gets the messages from the webservice
+  // Gets the messages from the WebService
   ngOnInit() {
-    this.webService.getMessages();
+    this.webService.spinUpAPI();
   }
 }

@@ -3,6 +3,7 @@ import {MatDialog, MatTableDataSource} from '@angular/material';
 import {WebService} from '../web.service';
 import {DragHelperService} from '../drag-helper.service';
 import {ReleaseInformationComponent} from '../release-information/release-information.component';
+import {Release} from "../interfaces";
 
 @Component({
   selector: 'app-planning-order-grid',
@@ -15,16 +16,14 @@ export class PlanningReleaseGridComponent implements OnInit {
   displayedColumns = ['release', 'qty', 'size'];
   dataSource;
 
-  // Injects the webservice and drag service.
-  constructor(private webService: WebService, private draghelperService: DragHelperService, public dialog: MatDialog) {}
+  // Injects the WebService and DragHelperService and the dialog
+  constructor(private webService: WebService, private dragHelperService: DragHelperService, public dialog: MatDialog) {}
 
   // Subscribes to the releases from the API
   ngOnInit() {
     this.webService.releases.subscribe(() => {
       this.setDataSource(this.webService.daysReleases);
     });
-
-    // this.setDataSource(SAMPLE_RELEASES);
   }
 
   // Filters the release grid
@@ -36,7 +35,7 @@ export class PlanningReleaseGridComponent implements OnInit {
 
   // Data transmission for the drag and drop features
   setRelease(release: Release) {
-    this.draghelperService.onReleaseGrab(release);
+    this.dragHelperService.onReleaseGrab(release);
   }
 
   // Sets the table data source
@@ -53,27 +52,5 @@ export class PlanningReleaseGridComponent implements OnInit {
       data: release.release,
       panelClass: 'releasePopupClass'
     });
-
   }
 }
-
-// Interface for the Release the will be used on the website.
-export interface Release {
-  release: string;
-  size: number;
-  qty: number;
-  colour: string;
-}
-
-// Sample data. Unused.
-// const SAMPLE_RELEASES: Release[] = [
-//   {release: '1', qty: 2, size: 40, colour: '#FF0000'},
-//   {release: '2', qty: 4, size: 20, colour: '#FF0000'},
-//   {release: '3', qty: 1, size: 40, colour: '#FFFF00'},
-//   {release: '4', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '5', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '6', qty: 5, size: 20, colour: '#FFFF00'},
-//   {release: '7', qty: 5, size: 20, colour: '#FF00FF'},
-//   {release: '8', qty: 5, size: 20, colour: '#FF00FF'},
-//   {release: '9', qty: 5, size: 20, colour: '#FF00FF'}
-// ];

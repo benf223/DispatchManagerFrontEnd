@@ -1,75 +1,74 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Rounds} from './planning-truck-grid/planning-truck-grid.component';
-import {Release} from './planning-release-grid/planning-release-grid.component';
-import {FullRelease} from './release-information/release-information.component';
+import {FullRelease, Release, TruckRounds, Trucks} from './interfaces';
 
+// Constant that defines where the REST API is located
 const SERVER_URL = 'https://demo-recur-api.herokuapp.com/';
 
 @Injectable()
 export class WebService {
 
-  private messageStore;
-  private messageSubject = new Subject();
-  messages = this.messageSubject.asObservable();
+  // Stores the current loaded day on the planning page
+  private currentDay: string;
 
-  daysRounds: Rounds[] = [];
+  // Observable and subject for Rounds
+  daysRounds : Trucks = {rounds: []};
   private roundsSubject = new Subject();
   rounds = this.roundsSubject.asObservable();
 
+  // Observable and subject for Releases
   daysReleases: Release[] = [];
   private releasesSubject = new Subject();
   releases = this.releasesSubject.asObservable();
 
-  private currentDay: string;
-
+  // Observable and subject for the full release data used in the release popups
   fullReleaseStore: FullRelease;
   private fullReleaseSubject = new Subject();
   fullRelease = this.fullReleaseSubject.asObservable();
 
+  // Inject the HTTPClient functionality
   constructor(private httpClient: HttpClient) {}
 
+  // Setter for the current day
   setCurrentDay(day: string) {
     this.currentDay = day;
   }
 
-  getMessages() {
-    this.httpClient.get<string>(SERVER_URL + 'test').subscribe(res => {
-      console.log(res);
-      this.messageStore = res;
-      this.messageSubject.next(this.messageStore);
+  // Empty Method that will spin up the REST API
+  spinUpAPI() {
+    this.httpClient.get<string>(SERVER_URL + '/start').subscribe(() => {
     });
   }
 
-  // customise this so that it will retrieve the rounds for the current day (day and night)
+  // Method that will retrieve and emit to the subscribers the rounds for a given day
   getRounds(day) {
-    this.httpClient.get<Test>(SERVER_URL + 'api/rounds/' + day).subscribe(res => {
-      this.daysRounds = res.rounds;
-      this.roundsSubject.next(this.daysRounds);
+    this.httpClient.get<TruckRounds[]>(SERVER_URL + '/rounds/' + day).subscribe((res) => {
+      this.daysRounds.rounds = res;
+      this.roundsSubject.next(this.daysRounds.rounds);
     });
   }
 
-  // customise this so that it will retrieve the releases relevant for the current day
+  // Method that will retrieve and emit to the subscribers the releases for a given day
   getReleases(day) {
-    this.httpClient.get<Test2>(SERVER_URL + 'api/releases/' + day).subscribe(res => {
-      this.daysReleases = res.releases;
+    this.httpClient.get<Release[]>(SERVER_URL + '/releases/' + day).subscribe(res => {
+      console.log(res);
+      this.daysReleases = res;
       this.releasesSubject.next(this.daysReleases);
     });
   }
 
+  // Method that will retrieve and emit to the subscribers the full releases for a given day
   getFullRelease(releaseID: string) {
-    this.httpClient.get<FullRelease>(SERVER_URL + 'api/full_releases/' + this.currentDay + '@' + releaseID).subscribe(res => {
+    this.httpClient.get<FullRelease>(SERVER_URL + '/full_releases/' + this.currentDay + '@' + releaseID).subscribe(res => {
       this.fullReleaseStore = res;
       this.fullReleaseSubject.next(this.fullReleaseStore);
     });
   }
-}
 
-export interface Test {
-  rounds: Rounds[];
-}
-
-export interface Test2 {
-  releases: Release[];
+  // Method that will find the truck that has been updated and will update the API via POST
+  pushUpdateToAPI(truckID) {
+    console.log(this.daysRounds);
+    // this.httpClient.post(SERVER_URL + '/', {id: truckID, dayRounds: this.daysRounds});
+  }
 }
