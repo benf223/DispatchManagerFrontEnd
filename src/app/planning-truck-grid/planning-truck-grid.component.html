@@ -8,57 +8,73 @@
   <ng-container matColumnDef="dayRound1">
     <th mat-header-cell *matHeaderCellDef>Round 1</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[0].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[0].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[0].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[0].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound2">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 2</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[1].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[1].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[1].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[1].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound3">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 3</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[2].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[2].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[2].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[2].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound4">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 4</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[3].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[3].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[3].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[3].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound5">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 5</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[4].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[4].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[4].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[4].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound6">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 6</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[5].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[5].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[5].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[5].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound7">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 7</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[6].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[6].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[6].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[6].slots"></app-truck-slots>
     </td>
   </ng-container>
   <ng-container matColumnDef="dayRound8">
     <th mat-header-cell *matHeaderCellDef style="min-width: 30%">Round 8</th>
     <td mat-cell *matCellDef="let truck">
-      <app-truck-round-planner *ngIf="day" [slots]="truck.dayRounds[7].slots"></app-truck-round-planner>
-      <app-truck-round-planner *ngIf="!day" [slots]="truck.nightRounds[7].slots"></app-truck-round-planner>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="day" [slots]="truck.dayRounds[7].slots"></app-truck-slots>
+      <app-truck-slots (updated)="pushData($event)" [truckID]="truck.id"
+                       *ngIf="!day" [slots]="truck.nightRounds[7].slots"></app-truck-slots>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

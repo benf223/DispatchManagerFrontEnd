@@ -1,9 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
-interface Day {
-  day: string;
-  disabled: boolean;
-}
+import {Day} from '../interfaces';
 
 @Component({
   selector: 'app-planning-selector',
@@ -53,7 +49,6 @@ export class PlanningSelectorComponent implements OnInit {
     prevMonday.setDate(prevMonday.getDate() - 7);
 
     this.setDays(prevMonday);
-    console.log(this.selectedDay.day.split('/').join('-'));
     this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
@@ -66,7 +61,6 @@ export class PlanningSelectorComponent implements OnInit {
     nextMonday.setDate(nextMonday.getDate() + 7);
 
     this.setDays(nextMonday);
-    console.log(this.selectedDay.day.split('/').join('-'));
     this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 

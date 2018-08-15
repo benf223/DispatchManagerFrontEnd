@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Release} from './planning-release-grid/planning-release-grid.component';
+import {Release} from "./interfaces";
 
 @Injectable({
   providedIn: 'root'
