@@ -27,6 +27,11 @@ export class WebService {
   private fullReleaseSubject = new Subject();
   fullRelease = this.fullReleaseSubject.asObservable();
 
+  // Observable and subject for all the full release data used in the edit release popups
+  fullReleasesStore: FullRelease[];
+  private fullReleasesSubject = new Subject();
+  fullReleases = this.fullReleasesSubject.asObservable();
+
   // Inject the HTTPClient functionality
   constructor(private httpClient: HttpClient) {}
 
@@ -63,6 +68,14 @@ export class WebService {
       this.fullReleaseStore = res;
       this.fullReleaseSubject.next(this.fullReleaseStore);
     });
+  }
+
+  getFullReleases()
+  {
+    this.httpClient.get<FullRelease[]>(SERVER_URL + '/full_releases/').subscribe(res => {
+      this.fullReleasesStore = res;
+      this.fullReleasesSubject.next(this.fullReleasesStore);
+    })
   }
 
   // Method that will find the truck that has been updated and will update the API via POST
