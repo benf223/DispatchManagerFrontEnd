@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WebService} from "../web.service";
 import {MatTableDataSource} from "@angular/material";
-import {Release} from "../interfaces";
+import {FullRelease, Release} from "../interfaces";
 
 @Component({
   selector: 'app-edit-release',
@@ -13,6 +13,9 @@ export class EditReleaseComponent implements OnInit {
   // Data to setup the table
   displayedColumns = ['release', 'edit'];
   dataSource;
+  showForm: boolean = false;
+
+  release : FullRelease = {release: null, colour: null, qtyForty: 0, qtyTwenty: 0};
 
   constructor(private webService : WebService) { }
 
@@ -39,6 +42,8 @@ export class EditReleaseComponent implements OnInit {
 
   loadEditor(release)
   {
+    this.release = release;
+    this.showForm = true;
     console.log(release);
   }
 }

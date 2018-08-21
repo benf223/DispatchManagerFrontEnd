@@ -38,6 +38,7 @@ import { ReleaseInformationComponent } from './release-information/release-infor
 import { AddReleaseComponent } from './add-release/add-release.component';
 import { EditReleaseComponent } from './edit-release/edit-release.component';
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
+import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.component';
 
 const routes = [
   {
@@ -55,7 +56,7 @@ const routes = [
   {
     path: 'release/edit',
     component: EditReleaseComponent
-  }
+  },
 ];
 
 @NgModule({
@@ -73,6 +74,7 @@ const routes = [
     AddReleaseComponent,
     EditReleaseComponent,
     WarningPopupComponent,
+    EditReleaseFormComponent,
   ],
   imports: [
     BrowserModule,
