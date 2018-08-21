@@ -45,7 +45,6 @@ export class PlanningTruckGridComponent implements OnInit {
 
   // Sets the tables data source
   private setupDataSource(rounds : TruckRounds[]) {
-    console.log(rounds);
     this.dataSource = new MatTableDataSource(rounds);
     this.dataSource.paginator = this.paginator;
   }

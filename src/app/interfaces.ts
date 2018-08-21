@@ -57,4 +57,3 @@ export interface Day {
   day: string;
   disabled: boolean;
 }
-
