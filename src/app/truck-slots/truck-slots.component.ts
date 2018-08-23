@@ -35,6 +35,7 @@ export class TruckSlotsComponent implements OnInit {
 
   // Listener from the dropzone directive
   updateRelease(i) {
+    console.log(i);
     if (this.draghelperService.getRelease()) {
       const movedRelease = this.draghelperService.getRelease();
       this.draghelperService.onReleaseEnd();
@@ -212,6 +213,75 @@ export class TruckSlotsComponent implements OnInit {
               }
             }
           }
+        } else {
+          // TODO this needs to check for 40's in the area affected and replace them
+          if (i === 0) {
+            if (this.releases[1]) {
+              if (this.releases[1].size === 40) {
+                // fek
+              } else {
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[1] = movedRelease;
+                    this.releases[0] = movedRelease;
+                    this.updated.emit(this.truckID);
+                  } else if (result === 'c') {
+                    // Do nothing
+                  }
+                });
+              }
+            } else {
+              this.releases[i] = movedRelease;
+              this.releases[1] = movedRelease;
+            }
+          } else if (i === 1) {
+            // check that it will fit in i = 2 then if not will it fit in i = 0
+            if (this.releases[2]) {
+              // there is something there need to ask to replace
+              this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                if (result === 'a') {
+                  this.releases[1] = movedRelease;
+                  this.releases[2] = movedRelease;
+                  this.updated.emit(this.truckID);
+                } else if (result === 'c') {
+                  // if not allowed to replace try to replace i = 0
+                  this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                    if (result === 'a') {
+                      this.releases[1] = movedRelease;
+                      this.releases[0] = movedRelease;
+                      this.updated.emit(this.truckID);
+                    } else if (result === 'c') {
+                      // Do nothing
+                    }
+                  });
+                }
+              });
+            } else {
+              // just overwrite i = 1 and write to i = 2
+              this.releases[1] = movedRelease;
+              this.releases[2] = movedRelease;
+              this.updated.emit(this.truckID);
+            }
+          } else if (i === 2) {
+            if (this.releases[1]) {
+              if (this.releases[1].size === 40) {
+                // fek
+              } else {
+                this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    this.releases[1] = movedRelease;
+                    this.releases[2] = movedRelease;
+                    this.updated.emit(this.truckID);
+                  } else if (result === 'c') {
+                    // Do nothing
+                  }
+                });
+              }
+            } else {
+              this.releases[i] = movedRelease;
+              this.releases[1] = movedRelease;
+            }
+          }
         }
       } else {
         // moving 20's
@@ -337,8 +407,9 @@ export class TruckSlotsComponent implements OnInit {
             this.releases[i] = movedRelease;
             this.updated.emit(this.truckID);
           }
+        } else {
+          this.releases[i] = movedRelease;
         }
-
       }
     }
   }

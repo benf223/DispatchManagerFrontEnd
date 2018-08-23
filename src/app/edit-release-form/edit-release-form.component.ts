@@ -42,5 +42,4 @@ export class EditReleaseFormComponent implements OnInit {
   getDate() {
     return new Date();
   }
-
 }
