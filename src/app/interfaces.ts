@@ -57,3 +57,12 @@ export interface Day {
   day: string;
   disabled: boolean;
 }
+
+// Interface that will be used by the WebService to update the releases on the client and server
+export interface Change {
+  truckID: string;
+  increase1: Release;
+  increase2: Release;
+  decrease1: Release;
+  decrease2: Release;
+}

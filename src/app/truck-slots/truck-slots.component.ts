@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DragHelperService} from '../drag-helper.service';
 import {MatDialog} from '@angular/material';
 import {WarningPopupComponent} from '../warning-popup/warning-popup.component';
-import {Release, Slot} from "../interfaces";
+import {Change, Release, Slot} from '../interfaces';
 
 @Component({
   selector: 'app-truck-slots',
@@ -12,10 +12,10 @@ import {Release, Slot} from "../interfaces";
 export class TruckSlotsComponent implements OnInit {
   // Input of data from parent component
   @Input() slots: Slot[];
-  @Input() truckID: number;
+  @Input() truckID: string;
 
   // Outputs an event when the slot is updated
-  @Output() updated = new EventEmitter();
+  @Output() updated = new EventEmitter<Change>();
 
   // Two-way binding for the component
   releases: Release[];
@@ -35,7 +35,6 @@ export class TruckSlotsComponent implements OnInit {
 
   // Listener from the dropzone directive
   updateRelease(i) {
-    console.log(i);
     if (this.draghelperService.getRelease()) {
       const movedRelease = this.draghelperService.getRelease();
       this.draghelperService.onReleaseEnd();
@@ -51,9 +50,11 @@ export class TruckSlotsComponent implements OnInit {
                 // this should be the same 40
                 this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    // TODO check that this data is the correct to send based on the current case then add to each case
+                    let change = { increase1: this.releases[1], increase2: this.releases[i], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[i] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -71,7 +72,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[0] = movedRelease;
                     this.releases[i] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -82,7 +83,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[2] = movedRelease;
                     this.releases[i] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -100,7 +101,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[i] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -124,7 +125,7 @@ export class TruckSlotsComponent implements OnInit {
                     if (result === 'a') {
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     } else if (result === 'c') {
                       // Do nothing
                     }
@@ -141,7 +142,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[i] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -155,14 +156,14 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // if not allowed to replace try to replace i = 0
                     this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                       if (result === 'a') {
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
-                        this.updated.emit(this.truckID);
+                        this.updated.emit(null);
                       } else if (result === 'c') {
                         // Do nothing
                       }
@@ -173,7 +174,7 @@ export class TruckSlotsComponent implements OnInit {
                 // just overwrite i = 1 and write to i = 2
                 this.releases[1] = movedRelease;
                 this.releases[2] = movedRelease;
-                this.updated.emit(this.truckID);
+                this.updated.emit(null);
               }
             } else if (i === 2) {
               // check that i = 1 can be replaced ...
@@ -187,7 +188,7 @@ export class TruckSlotsComponent implements OnInit {
                       if (result === 'a') {
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
-                        this.updated.emit(this.truckID);
+                        this.updated.emit(null);
                       } else if (result === 'c') {
                         // Do nothing
                       }
@@ -204,7 +205,7 @@ export class TruckSlotsComponent implements OnInit {
                     if (result === 'a') {
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     } else if (result === 'c') {
                       // Do nothing
                     }
@@ -224,7 +225,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[0] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -242,14 +243,14 @@ export class TruckSlotsComponent implements OnInit {
                 if (result === 'a') {
                   this.releases[1] = movedRelease;
                   this.releases[2] = movedRelease;
-                  this.updated.emit(this.truckID);
+                  this.updated.emit(null);
                 } else if (result === 'c') {
                   // if not allowed to replace try to replace i = 0
                   this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                     if (result === 'a') {
                       this.releases[1] = movedRelease;
                       this.releases[0] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     } else if (result === 'c') {
                       // Do nothing
                     }
@@ -260,7 +261,7 @@ export class TruckSlotsComponent implements OnInit {
               // just overwrite i = 1 and write to i = 2
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
-              this.updated.emit(this.truckID);
+              this.updated.emit(null);
             }
           } else if (i === 2) {
             if (this.releases[1]) {
@@ -271,7 +272,7 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -297,21 +298,21 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[0] = movedRelease;
                     this.releases[1] = null;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
                     if (this.releases[2]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
                           this.releases[2] = movedRelease;
-                          this.updated.emit(this.truckID);
+                          this.updated.emit(null);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
                       this.releases[2] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     }
                   }
                 });
@@ -328,21 +329,21 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[0] = null;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
                     if (this.releases[2]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
                           this.releases[2] = movedRelease;
-                          this.updated.emit(this.truckID);
+                          this.updated.emit(null);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
                       this.releases[2] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     }
                   }
                 });
@@ -352,21 +353,21 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
                     if (this.releases[0]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
                           this.releases[0] = movedRelease;
-                          this.updated.emit(this.truckID);
+                          this.updated.emit(null);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
                       this.releases[0] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     }
                   }
                 });
@@ -378,21 +379,21 @@ export class TruckSlotsComponent implements OnInit {
                   if (result === 'a') {
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
-                    this.updated.emit(this.truckID);
+                    this.updated.emit(null);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
                     if (this.releases[0]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
                           this.releases[0] = movedRelease;
-                          this.updated.emit(this.truckID);
+                          this.updated.emit(null);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
                       this.releases[0] = movedRelease;
-                      this.updated.emit(this.truckID);
+                      this.updated.emit(null);
                     }
                   }
                 });
@@ -405,7 +406,7 @@ export class TruckSlotsComponent implements OnInit {
             }
           } else {
             this.releases[i] = movedRelease;
-            this.updated.emit(this.truckID);
+            this.updated.emit(null);
           }
         } else {
           this.releases[i] = movedRelease;

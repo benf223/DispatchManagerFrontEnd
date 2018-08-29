@@ -35,6 +35,10 @@ export class PlanningReleaseGridComponent implements OnInit {
 
   // Data transmission for the drag and drop features
   setRelease(release: Release) {
+    if (release.qty === 0) {
+      return;
+    }
+
     this.dragHelperService.onReleaseGrab(release);
   }
 

@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {FullRelease, Release, TruckRounds, Trucks} from './interfaces';
+import {Change, FullRelease, Release, TruckRounds, Trucks} from './interfaces';
 
 // Constant that defines where the REST API is located
 const SERVER_URL = 'http://localhost:3000/api';
@@ -79,15 +79,18 @@ export class WebService {
   }
 
   // Method that will find the truck that has been updated and will update the API via POST
-  pushUpdateToAPI(truckID) {
+  pushUpdateToAPI(change : Change) {
     let client = this.httpClient;
 
     this.daysRounds.rounds.forEach(function (round : TruckRounds)
     {
-      if (round.id === truckID)
+      if (round.id === change.truckID)
       {
         client.post(SERVER_URL + '/update_rounds', round);
       }
     });
+
+    // also need to update the releases
+    client.post(SERVER_URL + '/update_release', change);
   }
 }
