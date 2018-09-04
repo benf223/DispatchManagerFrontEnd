@@ -78,7 +78,7 @@ export class WebService {
     })
   }
 
-  // Method that will find the truck that has been updated and will update the API via POST
+  // Method that will find the truck and releases that have been updated and will update the API via POST
   pushUpdateToAPI(change : Change) {
     let client = this.httpClient;
 
