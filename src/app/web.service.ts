@@ -93,4 +93,8 @@ export class WebService {
     // also need to update the releases
     client.post(SERVER_URL + '/update_release', change);
   }
+
+  deleteRelease(releaseID) {
+    this.httpClient.delete(SERVER_URL + '/delete_release/' + releaseID);
+  }
 }
