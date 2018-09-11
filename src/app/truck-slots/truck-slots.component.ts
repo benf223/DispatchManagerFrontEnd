@@ -415,6 +415,107 @@ export class TruckSlotsComponent implements OnInit {
     }
   }
 
+  deleteRelease(i) {
+    if (this.releases[i]) {
+
+      if (this.releases[i].size === 40) {
+        let tmp = this.releases[i];
+        if (i === 0) {
+          if (this.releases[0].release === this.releases[1].release) {
+            this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
+              if (result === 'a') {
+                this.releases[i] = null;
+                this.releases[1] = null;
+                this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
+              } else if (result === 'c') {
+
+              }
+            });
+          }
+        } else if (i === 1) {
+          if (this.releases[0].release === this.releases[1].release) {
+              this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
+                if (result === 'a') {
+                  this.releases[i] = null;
+                  this.releases[1] = null;
+                  this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
+                } else if (result === 'c') {
+
+                }
+              });
+          } else if (this.releases[1].release === this.releases[2].release) {
+              this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
+                if (result === 'a') {
+                  this.releases[i] = null;
+                  this.releases[2] = null;
+                  this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
+                } else if (result === 'c') {
+
+                }
+              });
+          }
+        } else if (i === 2) {
+          if (this.releases[2].release === this.releases[1].release) {
+            this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
+              if (result === 'a') {
+                this.releases[i] = null;
+                this.releases[1] = null;
+                this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
+              } else if (result === 'c') {
+
+              }
+            });
+          }
+        }
+      } else {
+        let tmp = this.releases[i];
+        this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
+
+          // The method call for a test run of the completeDialog method
+          // this.completeDialog(result, i, null, null, null, false);
+
+          if (result === 'a') {
+            // Is this the correct way to represent this?
+            this.releases[i] = null;
+            this.updated.emit({increase1: tmp, increase2: null, decrease1: null, decrease2: null, truckID: this.truckID});
+          } else if (result === 'c') {
+
+          }
+        });
+      }
+    }
+  }
+
+  // Possibly try to complete this method to simplify these functions.
+  private completeDialog(result, a : number, b : number, releaseA : Release, releaseB : Release, increase : boolean, fail?, failData?) {
+    if (result === 'a') {
+      let tmpA;
+      let tmpB;
+
+      if (a) {
+        tmpA = this.releases[a];
+        this.releases[a] = releaseA;
+      }
+
+      if (b) {
+        tmpB = this.releases[b];
+        this.releases[b] = releaseB;
+      }
+
+      if (increase) {
+        this.updated.emit({increase1: releaseA, increase2: releaseB, decrease1: tmpA, decrease2: tmpB, truckID: this.truckID});
+      } else {
+        this.updated.emit({increase1: tmpA, increase2: tmpB, decrease1: releaseA, decrease2: releaseB, truckID: this.truckID});
+      }
+
+    } else if (result === 'c') {
+      // Doesn't this generally make another dialog if relevant?
+      if (fail) {
+        fail(failData);
+      }
+    }
+  }
+
   // Opens a warning popup to notify the user that there is a clash
   openDialog(message: string, body?: string[], result?: string[], options?: boolean[]) {
     return this.dialog.open(WarningPopupComponent, {

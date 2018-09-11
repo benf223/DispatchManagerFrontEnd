@@ -97,4 +97,10 @@ export class WebService {
   deleteRelease(releaseID) {
     this.httpClient.delete(SERVER_URL + '/delete_release/' + releaseID);
   }
+
+  // is this data correct
+  addRelease(data)
+  {
+    this.httpClient.post(SERVER_URL + '/add_release/', data);
+  }
 }

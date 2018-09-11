@@ -105,6 +105,7 @@ export class AddReleaseComponent implements OnInit {
     data.status = null;
 
     // This will be where the data is sent to the API
+    this.webService.addRelease(data);
   }
 
   // Will reset the values in the form to empty or default
