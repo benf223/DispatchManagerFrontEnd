@@ -46,6 +46,7 @@ export class TruckSlotsComponent implements OnInit {
           if (this.releases[i].size === 40) {
             // there is a 40 there we need to find the rest of the 40 and see if it should be overwritten
             if (i === 0) {
+              // TODO verify this.releases[1] != null same applies to other locations
               if (this.releases[1].release === this.releases[i].release) {
                 // this should be the same 40
                 this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
@@ -219,7 +220,7 @@ export class TruckSlotsComponent implements OnInit {
           if (i === 0) {
             if (this.releases[1]) {
               if (this.releases[1].size === 40) {
-                // fek
+                                                                              // fek
               } else {
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
@@ -236,7 +237,7 @@ export class TruckSlotsComponent implements OnInit {
               this.releases[1] = movedRelease;
             }
           } else if (i === 1) {
-            // check that it will fit in i = 2 then if not will it fit in i = 0
+                                                          // check that it will fit in i = 2 then if not will it fit in i = 0
             if (this.releases[2]) {
               // there is something there need to ask to replace
               this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
@@ -258,7 +259,7 @@ export class TruckSlotsComponent implements OnInit {
                 }
               });
             } else {
-              // just overwrite i = 1 and write to i = 2
+                                                          // just overwrite i = 1 and write to i = 2
               this.releases[1] = movedRelease;
               this.releases[2] = movedRelease;
               this.updated.emit(null);
@@ -266,7 +267,7 @@ export class TruckSlotsComponent implements OnInit {
           } else if (i === 2) {
             if (this.releases[1]) {
               if (this.releases[1].size === 40) {
-                // fek
+                                                           // fek
               } else {
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
@@ -417,10 +418,10 @@ export class TruckSlotsComponent implements OnInit {
 
   deleteRelease(i) {
     if (this.releases[i]) {
-
       if (this.releases[i].size === 40) {
         let tmp = this.releases[i];
         if (i === 0) {
+          // TODO same as above need to verify that this.releases[1] != null
           if (this.releases[0].release === this.releases[1].release) {
             this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
               if (result === 'a') {

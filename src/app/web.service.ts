@@ -94,13 +94,14 @@ export class WebService {
     client.post(SERVER_URL + '/update_release', change);
   }
 
+  // is this data correct
+  addRelease(data : FullRelease) {
+    this.httpClient.post(SERVER_URL + '/add_release/', data);
+  }
+
   deleteRelease(releaseID) {
     this.httpClient.delete(SERVER_URL + '/delete_release/' + releaseID);
   }
 
-  // is this data correct
-  addRelease(data)
-  {
-    this.httpClient.post(SERVER_URL + '/add_release/', data);
-  }
+
 }

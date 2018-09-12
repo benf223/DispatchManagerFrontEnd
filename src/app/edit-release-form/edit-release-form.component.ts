@@ -42,4 +42,8 @@ export class EditReleaseFormComponent implements OnInit {
   getDate() {
     return new Date();
   }
+
+  submitForm() {
+    console.log('Edited');
+  }
 }

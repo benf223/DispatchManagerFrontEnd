@@ -29,7 +29,7 @@ export interface Release {
 	colour: string;
 }
 
-// Initial draft interface for a Full Releases stored by the API
+// TODO change this to represent the data from the add release page.
 export interface FullRelease {
   release: string;
   qtyForty: number;
