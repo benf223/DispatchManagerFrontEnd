@@ -6,8 +6,6 @@ import {LOCATIONS} from './location-list';
 import {ViewLocationInformation} from './view-location-information.component';
 import {getTemplate} from 'codelyzer/util/ngQuery';
 
-//import '../../../../../../Documents/GitHub/DispatchManagerFrontEnd/frontend/src/app/db.js';
-
 @Component({
   selector: 'addlocationinformation',
   template: `
@@ -59,8 +57,19 @@ export class AddLocationInformation implements AfterViewInit {
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
 	let Require = this.require.nativeElement.checked;
-    LOCATIONS.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
-    this.activeModal.close('Close click');
+	for(var i=0;i<LOCATIONS.length;i++){
+		var checkName = LOCATIONS[i].name==Name;
+		var checkAddress = LOCATIONS[i].address==Address;
+		if(checkName||checkAddress){break;}
+	}
+	if(checkName){
+		alert("The location Name already exist");
+	} else if(checkAddress) {
+		alert("The location Address already exist");
+	} else{
+		LOCATIONS.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		this.activeModal.close('Close click');
+	}
   }
 
   change(value) {
@@ -81,7 +90,9 @@ export class AddLocationComponent implements AfterViewInit {
   ngAfterViewInit() {
     //
   }
-
+   ngOnInit(){
+	   //fetching data from database
+   }
   constructor(private modalService: NgbModal) {
   }
 
