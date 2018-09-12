@@ -1,5 +1,4 @@
 import {Component, ViewChild, Input, AfterViewInit, ElementRef} from '@angular/core';
-
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Location} from './location';
 import {LOCATIONS} from './location-list';
@@ -30,6 +29,7 @@ import {LOCATIONS} from './location-list';
           <option value="" (change)="change(type)">{{viewLocation.type}}</option>
           <option *ngFor="let x of types">{{x}}</option>
         </select></p>
+	  <p><span style="display:inline-block;width:190px;text-align:right;">Require Booking&nbsp;</span><input type="checkbox" #require></p>
       <p><span style="display:inline-block;width:190px;text-align:right;"></span><a href="#">Booking System</a></p>
     </div>
     <div class="modal-footer">
@@ -46,6 +46,7 @@ export class ViewLocationInformation {
   @ViewChild('address') inputAddress: ElementRef;
   @ViewChild('optime') inputOpTime: ElementRef;
   @ViewChild('cltime') inputClTime: ElementRef;
+  @ViewChild('require') require: ElementRef;
 
   constructor(public activeModal: NgbActiveModal) {
   }
@@ -53,11 +54,11 @@ export class ViewLocationInformation {
   types: string[] = ['Port', 'Yard'];
   type: string = '';
   viewLocation = new Location(LOCATIONS[this.index].name, LOCATIONS[this.index].address,
-    LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type);
+    LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type,LOCATIONS[this.index].require);
 
   update(value) {
     this.viewLocation = new Location(LOCATIONS[this.index].name, LOCATIONS[this.index].address,
-      LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type);
+      LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type,LOCATIONS[this.index].require);
   }
 
   save() {

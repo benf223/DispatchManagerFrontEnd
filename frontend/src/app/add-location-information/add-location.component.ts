@@ -27,6 +27,7 @@ import {getTemplate} from 'codelyzer/util/ngQuery';
           <option value="">Select Location type</option>
           <option *ngFor="let x of types">{{x}}</option>
         </select></p>
+		<p><span style="display:inline-block;width:190px;text-align:right;">Require Booking&nbsp;</span><input type="checkbox" #require></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-save" (click)="save()">Add</button>
@@ -42,7 +43,7 @@ export class AddLocationInformation implements AfterViewInit {
   @ViewChild('address') inputAddress: ElementRef;
   @ViewChild('optime') inputOpTime: ElementRef;
   @ViewChild('cltime') inputClTime: ElementRef;
-
+  @ViewChild('require') require: ElementRef;
   types: string[] = ['Port', 'Yard'];
   type: string = '';
 
@@ -57,7 +58,8 @@ export class AddLocationInformation implements AfterViewInit {
     let Address = this.inputAddress.nativeElement.value;
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
-    LOCATIONS.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype));
+	let Require = this.require.nativeElement.checked;
+    LOCATIONS.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
     this.activeModal.close('Close click');
   }
 

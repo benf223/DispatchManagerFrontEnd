@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule ,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   MatButtonModule,
@@ -90,7 +90,7 @@ let routes = [
     HttpModule,
 	NgbModule.forRoot()
   ],
-  providers: [ WebService ],
+  providers: [ WebService,NgbActiveModal],
   bootstrap: [ AppComponent ],
   entryComponents: [AddLocationInformation,ViewLocationInformation],
 })

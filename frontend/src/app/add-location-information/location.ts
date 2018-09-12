@@ -4,6 +4,7 @@ export class Location {
     public address: string,
     public opentime: string,
     public closetime: string,
-    public type: string) {
+    public type: string,
+	public require: boolean) {
   }
 }
