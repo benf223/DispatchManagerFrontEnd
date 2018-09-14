@@ -4,6 +4,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule ,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { WebService } from './web.service';
+import {HttpClientModule} from '@angular/common/http';
 
 import {
   MatButtonModule,
@@ -32,8 +34,6 @@ import { AddLocationComponent } from './add-location-information/add-location.co
 import { AddLocationInformation } from './add-location-information/add-location.component';
 import { ViewLocationInformation } from './add-location-information/view-location-information.component';
 
-
-import { WebService } from './web.service';
 
 let routes = [
   {
@@ -88,6 +88,7 @@ let routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpModule,
+	HttpClientModule,
 	NgbModule.forRoot()
   ],
   providers: [ WebService,NgbActiveModal],

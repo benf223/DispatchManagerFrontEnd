@@ -5,7 +5,8 @@ import {Location} from './location';
 import {LOCATIONS} from './location-list';
 import {ViewLocationInformation} from './view-location-information.component';
 import {getTemplate} from 'codelyzer/util/ngQuery';
-
+import {WebService} from '../web.service';
+import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'addlocationinformation',
   template: `
@@ -35,6 +36,10 @@ import {getTemplate} from 'codelyzer/util/ngQuery';
 })
 
 export class AddLocationInformation implements AfterViewInit {
+	
+  constructor(public activeModal: NgbActiveModal,private webService:WebService) {
+  }
+  
   @Input() name;
   @Input() inputtype;
   @ViewChild('name') inputName: ElementRef;
@@ -44,9 +49,8 @@ export class AddLocationInformation implements AfterViewInit {
   @ViewChild('require') require: ElementRef;
   types: string[] = ['Port', 'Yard'];
   type: string = '';
-
-  constructor(public activeModal: NgbActiveModal) {
-  }
+  locationdata = this.webService.locationstore;
+ 
 
   ngAfterViewInit() {
   }
@@ -57,9 +61,9 @@ export class AddLocationInformation implements AfterViewInit {
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
 	let Require = this.require.nativeElement.checked;
-	for(var i=0;i<LOCATIONS.length;i++){
-		var checkName = LOCATIONS[i].name==Name;
-		var checkAddress = LOCATIONS[i].address==Address;
+	for(var i=0;i<4;i++){
+		var checkName = this.locationdata[i].name==Name;
+		var checkAddress = this.locationdata[i].address==Address;
 		if(checkName||checkAddress){break;}
 	}
 	if(checkName){
@@ -67,7 +71,8 @@ export class AddLocationInformation implements AfterViewInit {
 	} else if(checkAddress) {
 		alert("The location Address already exist");
 	} else{
-		LOCATIONS.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		//this.locationdata.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		this.webService.addLocation(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
 		this.activeModal.close('Close click');
 	}
   }
@@ -92,8 +97,10 @@ export class AddLocationComponent implements AfterViewInit {
   }
    ngOnInit(){
 	   //fetching data from database
+	   this.webService.getLocation();
+	   console.log(this.webService.locationstore);
    }
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal,private webService:WebService) {
   }
 
   add() {
@@ -113,5 +120,5 @@ export class AddLocationComponent implements AfterViewInit {
     this.selectedlocation = lOcation;
   }
 
-  public locations = LOCATIONS;
+  public locations = this.webService.locationstore;
 }

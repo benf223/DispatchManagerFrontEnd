@@ -14,7 +14,7 @@ export class HomeComponent
 
   ngOnInit()
   {
-    this.webService.getMessages();
+    this.webService.spinUpAPI();
   }
 
 }

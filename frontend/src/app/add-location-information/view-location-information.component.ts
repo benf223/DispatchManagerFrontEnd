@@ -2,6 +2,8 @@ import {Component, ViewChild, Input, AfterViewInit, ElementRef} from '@angular/c
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Location} from './location';
 import {LOCATIONS} from './location-list';
+import {WebService} from '../web.service'
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'viewlocationinformation',
@@ -47,18 +49,19 @@ export class ViewLocationInformation {
   @ViewChild('optime') inputOpTime: ElementRef;
   @ViewChild('cltime') inputClTime: ElementRef;
   @ViewChild('require') require: ElementRef;
-
-  constructor(public activeModal: NgbActiveModal) {
+  
+  locationsdata = this.webService.locationstore;
+  constructor(public activeModal: NgbActiveModal,private webService: WebService) {
   }
 
   types: string[] = ['Port', 'Yard'];
   type: string = '';
-  viewLocation = new Location(LOCATIONS[this.index].name, LOCATIONS[this.index].address,
-    LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type,LOCATIONS[this.index].require);
+  viewLocation = new Location(this.locationsdata[this.index].name,this.locationsdata[this.index].address,
+    this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
 
   update(value) {
-    this.viewLocation = new Location(LOCATIONS[this.index].name, LOCATIONS[this.index].address,
-      LOCATIONS[this.index].opentime, LOCATIONS[this.index].closetime, LOCATIONS[this.index].type,LOCATIONS[this.index].require);
+    this.viewLocation = new Location(this.locationsdata[this.index].name, this.locationsdata[this.index].address,
+      this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
   }
 
   save() {
@@ -67,6 +70,7 @@ export class ViewLocationInformation {
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
     // update data to database
+	
     this.activeModal.close('Close click');
   }
 
