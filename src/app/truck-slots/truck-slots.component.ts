@@ -35,6 +35,7 @@ export class TruckSlotsComponent implements OnInit {
 
   // Listener from the dropzone directive
   updateRelease(i) {
+    // TODO check at appropriate times that the releases aren't null to ensure no issues
     if (this.draghelperService.getRelease()) {
       const movedRelease = this.draghelperService.getRelease();
       this.draghelperService.onReleaseEnd();
@@ -46,72 +47,66 @@ export class TruckSlotsComponent implements OnInit {
           if (this.releases[i].size === 40) {
             // there is a 40 there we need to find the rest of the 40 and see if it should be overwritten
             if (i === 0) {
-              // TODO verify this.releases[1] != null same applies to other locations
-              if (this.releases[1].release === this.releases[i].release) {
+              if (this.releases[1]) {
+                if (this.releases[1].release === this.releases[0].release) {
+                  // this should be the same 40
+                  this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                    if (result === 'a') {
+                      let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                      this.releases[1] = movedRelease;
+                      this.releases[0] = movedRelease;
+                      this.updated.emit(change);
+                    } else if (result === 'c') {
+                      // Do nothing
+                    }
+                  });
+                } else {
+                  // This is an invalid state
+                }
+              }
+            } else if (i === 1) {
+              if (this.releases[0].release === this.releases[1].release) {
                 // this should be the same 40
-                this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
-                    // TODO check that this data is the correct to send based on the current case then add to each case
-                    let change = { increase1: this.releases[1], increase2: this.releases[i], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                    this.releases[0] = movedRelease;
                     this.releases[1] = movedRelease;
-                    this.releases[i] = movedRelease;
+                    this.updated.emit(change);
+                  } else if (result === 'c') {
+                    // Do nothing
+                  }
+                });
+              } else if (this.releases[2].release === this.releases[1].release) {
+                // this should be the same 40
+                this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                  if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                    this.releases[2] = movedRelease;
+                    this.releases[1] = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
                 });
               } else {
-                // This is an invalid state
-                console.log('How did this happen to me: 1');
-                console.log(this.releases[i]);
-                console.log(movedRelease);
-              }
-            } else if (i === 1) {
-              if (this.releases[0].release === this.releases[i].release) {
-                // this should be the same 40
-                this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
-                  if (result === 'a') {
-                    this.releases[0] = movedRelease;
-                    this.releases[i] = movedRelease;
-                    this.updated.emit(null);
-                  } else if (result === 'c') {
-                    // Do nothing
-                  }
-                });
-              } else if (this.releases[2].release === this.releases[i].release) {
-                // this should be the same 40
-                this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
-                  if (result === 'a') {
-                    this.releases[2] = movedRelease;
-                    this.releases[i] = movedRelease;
-                    this.updated.emit(null);
-                  } else if (result === 'c') {
-                    // Do nothing
-                  }
-                });
-              } else {
                 // this is an invalid state
-                console.log('How could this happen to me: 2');
-                console.log(this.releases[i]);
-                console.log(movedRelease);
               }
             } else if (i === 2) {
               if (this.releases[1].release === this.releases[i].release) {
                 // this should be the same 40
                 this.openDialog('Replace release', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
-                    this.releases[i] = movedRelease;
-                    this.updated.emit(null);
+                    this.releases[2] = movedRelease;
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
                 });
               } else {
                 // this is an invalid state
-                console.log('How could this happen to me: 3');
-                console.log(this.releases[i]);
-                console.log(movedRelease);
               }
             }
           } else {
@@ -124,26 +119,25 @@ export class TruckSlotsComponent implements OnInit {
                   // if this is a forty we just offer to replace the 40 rather than the 20
                   this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ' and ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                     if (result === 'a') {
+                      let change = { increase1: this.releases[1], increase2: this.releases[2], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
                     }
                   });
                 } else {
                   // invalid state
-                  console.log('How could this happen to me: 4');
-                  console.log(this.releases[i]);
-                  console.log(movedRelease);
                 }
               } else {
                 // i = 1 is a 20 so we just ask to replace it
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
-                    this.releases[i] = movedRelease;
-                    this.updated.emit(null);
+                    this.releases[0] = movedRelease;
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
@@ -155,16 +149,18 @@ export class TruckSlotsComponent implements OnInit {
                 // there is something there need to ask to replace
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: this.releases[2], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // if not allowed to replace try to replace i = 0
                     this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                       if (result === 'a') {
+                        let change = { increase1: this.releases[1], increase2: this.releases[0], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
-                        this.updated.emit(null);
+                        this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
                       }
@@ -173,12 +169,13 @@ export class TruckSlotsComponent implements OnInit {
                 });
               } else {
                 // just overwrite i = 1 and write to i = 2
+                let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                 this.releases[1] = movedRelease;
                 this.releases[2] = movedRelease;
-                this.updated.emit(null);
+                this.updated.emit(change);
               }
             } else if (i === 2) {
-              // check that i = 1 can be replaced ...
+              // check that i = 1 can be replaced
               if (this.releases[1]) {
                 // there is something there need to see if it will fit and that it isn't a 40
                 if (this.releases[1].size === 40) {
@@ -187,26 +184,34 @@ export class TruckSlotsComponent implements OnInit {
                     // if this is a forty we just offer to replace the 40 rather than the 20
                     this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ' and ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                       if (result === 'a') {
+                        let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
-                        this.updated.emit(null);
+                        this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
                       }
                     });
-                  } else {
-                    // invalid state
-                    console.log('How could this happen to me: 5');
-                    console.log(this.releases[i]);
-                    console.log(movedRelease);
+                  } else if (this.releases[1].release === this.releases[2].release) {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ' and ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[0] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        // Do nothing
+                      }
+                    });
                   }
                 } else {
                   // i = 1 is a 20 so can just ask to replace it
                   this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                     if (result === 'a') {
+                      let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
                     }
@@ -216,72 +221,215 @@ export class TruckSlotsComponent implements OnInit {
             }
           }
         } else {
-          // TODO this needs to check for 40's in the area affected and replace them
+          // Nothing there
           if (i === 0) {
             if (this.releases[1]) {
               if (this.releases[1].size === 40) {
-                                                                              // fek
+                if (this.releases[2]) {
+                  if (this.releases[2].release === this.releases[1].release) {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[2] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        // Do nothing
+                      }
+                    });
+                  } else {
+                    // Invalid state
+                  }
+                } else {
+                  // Invalid state
+                }
               } else {
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[0] = movedRelease;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
                 });
               }
             } else {
-              this.releases[i] = movedRelease;
+              let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+              this.releases[0] = movedRelease;
               this.releases[1] = movedRelease;
+              this.updated.emit(change);
             }
           } else if (i === 1) {
-                                                          // check that it will fit in i = 2 then if not will it fit in i = 0
-            if (this.releases[2]) {
-              // there is something there need to ask to replace
-              this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
-                if (result === 'a') {
-                  this.releases[1] = movedRelease;
-                  this.releases[2] = movedRelease;
-                  this.updated.emit(null);
-                } else if (result === 'c') {
-                  // if not allowed to replace try to replace i = 0
-                  this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+            if (this.releases[1]) {
+              if (this.releases[1].size === 40) {
+                if (this.releases[2]) {
+                  if (this.releases[2].release === this.releases[1].release) {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[2] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        // Do nothing
+                      }
+                    });
+                  } else {
+                    if (this.releases[0]) {
+                      if (this.releases[0].release === this.releases[1].release) {
+                        this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                          if (result === 'a') {
+                            let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                            this.releases[1] = movedRelease;
+                            this.releases[0] = movedRelease;
+                            this.updated.emit(change);
+                          } else if (result === 'c') {
+                            // Do nothing
+                          }
+                        });
+                      }
+                    }
+                  }
+                }
+              } else {
+                if (this.releases[2]) {
+                  if (this.releases[0]) {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[0] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                          if (result === 'a') {
+                            let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                            this.releases[1] = movedRelease;
+                            this.releases[2] = movedRelease;
+                            this.updated.emit(change);
+                          } else if (result === 'c') {
+                            // Do nothing
+                          }
+                        });
+                      }
+                    });
+                  } else {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[0] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        // Do nothing
+                      }
+                    });
+                  }
+                } else {
+                  this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                     if (result === 'a') {
+                      let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
-                      this.releases[0] = movedRelease;
-                      this.updated.emit(null);
+                      this.releases[2] = movedRelease;
+                      this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
                     }
                   });
                 }
-              });
+              }
             } else {
-                                                          // just overwrite i = 1 and write to i = 2
-              this.releases[1] = movedRelease;
-              this.releases[2] = movedRelease;
-              this.updated.emit(null);
+              if (this.releases[2]) {
+                if (this.releases[2].size === 40) {
+                  // Invalid State?
+                } else {
+                  this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                    if (result === 'a') {
+                      let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                      this.releases[1] = movedRelease;
+                      this.releases[2] = movedRelease;
+                      this.updated.emit(change);
+                    } else if (result === 'c') {
+                      if (this.releases[0]) {
+                        this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                          if (result === 'a') {
+                            let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                            this.releases[1] = movedRelease;
+                            this.releases[0] = movedRelease;
+                            this.updated.emit(change);
+                          } else if (result === 'c') {
+                            // Do nothing
+                          }
+                        });
+                      } else {
+                        let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[0] = movedRelease;
+                        this.updated.emit(change);
+                      }
+                    }
+                  });
+                }
+              } else {
+                let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                this.releases[1] = movedRelease;
+                this.releases[2] = movedRelease;
+                this.updated.emit(change);
+              }
             }
           } else if (i === 2) {
             if (this.releases[1]) {
               if (this.releases[1].size === 40) {
-                                                           // fek
+                if (this.releases[0]) {
+                  if (this.releases[0].release === this.releases[1].release) {
+                    this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                      if (result === 'a') {
+                        let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                        this.releases[1] = movedRelease;
+                        this.releases[0] = movedRelease;
+                        this.updated.emit(change);
+                      } else if (result === 'c') {
+                        // Do nothing
+                      }
+                    });
+                  }
+                } else {
+                  if (this.releases[2]) {
+                    if (this.releases[2].release === this.releases[1].release) {
+                      this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
+                        if (result === 'a') {
+                          let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
+                          this.releases[1] = movedRelease;
+                          this.releases[2] = movedRelease;
+                          this.updated.emit(change);
+                        } else if (result === 'c') {
+                          // Do nothing
+                        }
+                      });
+                    } else {
+                      // Invalid state
+                    }
+                  }
+                }
               } else {
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
                   }
                 });
               }
             } else {
+              let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
               this.releases[i] = movedRelease;
               this.releases[1] = movedRelease;
+              this.updated.emit(change);
             }
           }
         }
@@ -297,54 +445,57 @@ export class TruckSlotsComponent implements OnInit {
                 // Found the forty and need to replace/delete or replace i = 2
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[0] = movedRelease;
                     this.releases[1] = null;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
                     if (this.releases[2]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
+                          let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[2] = movedRelease;
-                          this.updated.emit(null);
+                          this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
+                      let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[2] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     }
                   }
                 });
               } else {
                 // invalid state
-                console.log('How could this happen to me: 6');
-                console.log(this.releases[i]);
-                console.log(movedRelease);
               }
             } else if (i === 1) {
               if (this.releases[0].release === this.releases[1].release) {
                 // Found the rest of the forty and need to replace/delete or replace i = 2
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[0] = null;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
                     if (this.releases[2]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
+                          let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[2] = movedRelease;
-                          this.updated.emit(null);
+                          this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
+                      let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[2] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     }
                   }
                 });
@@ -352,23 +503,26 @@ export class TruckSlotsComponent implements OnInit {
                 // Found the rest of the forty and need to replace/delete or replace i = 0
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
                     if (this.releases[0]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
+                          let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[0] = movedRelease;
-                          this.updated.emit(null);
+                          this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
+                      let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[0] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     }
                   }
                 });
@@ -378,39 +532,42 @@ export class TruckSlotsComponent implements OnInit {
                 // Found the rest of the forty and need to replace/delete or replace i = 0
                 this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[1].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                   if (result === 'a') {
+                    let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
-                    this.updated.emit(null);
+                    this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
                     if (this.releases[0]) {
                       this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[0].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
                         if (result === 'a') {
+                          let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[0] = movedRelease;
-                          this.updated.emit(null);
+                          this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
                         }
                       });
                     } else {
+                      let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[0] = movedRelease;
-                      this.updated.emit(null);
+                      this.updated.emit(change);
                     }
                   }
                 });
               } else {
                 // invalid state
-                console.log('How could this happen to me: 7');
-                console.log(this.releases[i]);
-                console.log(movedRelease);
               }
             }
           } else {
+            let change = { increase1: this.releases[i], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
             this.releases[i] = movedRelease;
-            this.updated.emit(null);
+            this.updated.emit(change);
           }
         } else {
+          let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
           this.releases[i] = movedRelease;
+          this.updated.emit(change);
         }
       }
     }
@@ -421,7 +578,6 @@ export class TruckSlotsComponent implements OnInit {
       if (this.releases[i].size === 40) {
         let tmp = this.releases[i];
         if (i === 0) {
-          // TODO same as above need to verify that this.releases[1] != null
           if (this.releases[0].release === this.releases[1].release) {
             this.openDialog('Remove Release', ['Would you like to remove: ' + tmp.release]).afterClosed().subscribe((result) => {
               if (result === 'a') {
@@ -429,7 +585,7 @@ export class TruckSlotsComponent implements OnInit {
                 this.releases[1] = null;
                 this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
               } else if (result === 'c') {
-
+                // Do nothing
               }
             });
           }
@@ -441,7 +597,7 @@ export class TruckSlotsComponent implements OnInit {
                   this.releases[1] = null;
                   this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
                 } else if (result === 'c') {
-
+                  // Do nothing
                 }
               });
           } else if (this.releases[1].release === this.releases[2].release) {
@@ -451,7 +607,7 @@ export class TruckSlotsComponent implements OnInit {
                   this.releases[2] = null;
                   this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
                 } else if (result === 'c') {
-
+                  // Do nothing
                 }
               });
           }
@@ -463,7 +619,7 @@ export class TruckSlotsComponent implements OnInit {
                 this.releases[1] = null;
                 this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
               } else if (result === 'c') {
-
+                // Do nothing
               }
             });
           }
@@ -480,7 +636,7 @@ export class TruckSlotsComponent implements OnInit {
             this.releases[i] = null;
             this.updated.emit({increase1: tmp, increase2: null, decrease1: null, decrease2: null, truckID: this.truckID});
           } else if (result === 'c') {
-
+            // Do nothing
           }
         });
       }
