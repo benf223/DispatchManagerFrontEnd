@@ -55,6 +55,8 @@ export class TruckSlotsComponent implements OnInit {
                       let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[0] = movedRelease;
+                      this.slots[1].release = movedRelease;
+                      this.slots[0].release = movedRelease;
                       this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
@@ -72,6 +74,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[0] = movedRelease;
                     this.releases[1] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[0].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -84,6 +88,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[2] = movedRelease;
                     this.releases[1] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -100,6 +106,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -122,6 +130,8 @@ export class TruckSlotsComponent implements OnInit {
                       let change = { increase1: this.releases[1], increase2: this.releases[2], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
+                      this.slots[1].release = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
@@ -137,6 +147,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[0] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[0].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -152,6 +164,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: this.releases[2], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // if not allowed to replace try to replace i = 0
@@ -160,6 +174,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[1], increase2: this.releases[0], decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -172,6 +188,8 @@ export class TruckSlotsComponent implements OnInit {
                 let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                 this.releases[1] = movedRelease;
                 this.releases[2] = movedRelease;
+                this.slots[1].release = movedRelease;
+                this.slots[2].release = movedRelease;
                 this.updated.emit(change);
               }
             } else if (i === 2) {
@@ -187,6 +205,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -198,6 +218,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -211,6 +233,8 @@ export class TruckSlotsComponent implements OnInit {
                       let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
+                      this.slots[1].release = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
@@ -232,6 +256,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[2] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[2].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -249,6 +275,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[0] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[0].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -259,6 +287,8 @@ export class TruckSlotsComponent implements OnInit {
               let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
               this.releases[0] = movedRelease;
               this.releases[1] = movedRelease;
+              this.slots[1].release = movedRelease;
+              this.slots[0].release = movedRelease;
               this.updated.emit(change);
             }
           } else if (i === 1) {
@@ -271,6 +301,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[2] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[2].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -284,6 +316,8 @@ export class TruckSlotsComponent implements OnInit {
                             let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                             this.releases[1] = movedRelease;
                             this.releases[0] = movedRelease;
+                            this.slots[1].release = movedRelease;
+                            this.slots[0].release = movedRelease;
                             this.updated.emit(change);
                           } else if (result === 'c') {
                             // Do nothing
@@ -301,6 +335,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         this.openDialog('Replace releases', ['Do you wish to replace: ' + this.releases[2].release + ', with: ' + movedRelease.release + '?']).afterClosed().subscribe((result: string) => {
@@ -308,6 +344,8 @@ export class TruckSlotsComponent implements OnInit {
                             let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                             this.releases[1] = movedRelease;
                             this.releases[2] = movedRelease;
+                            this.slots[1].release = movedRelease;
+                            this.slots[2].release = movedRelease;
                             this.updated.emit(change);
                           } else if (result === 'c') {
                             // Do nothing
@@ -321,6 +359,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -333,6 +373,8 @@ export class TruckSlotsComponent implements OnInit {
                       let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
+                      this.slots[1].release = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     } else if (result === 'c') {
                       // Do nothing
@@ -350,6 +392,8 @@ export class TruckSlotsComponent implements OnInit {
                       let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[1] = movedRelease;
                       this.releases[2] = movedRelease;
+                      this.slots[1].release = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     } else if (result === 'c') {
                       if (this.releases[0]) {
@@ -358,6 +402,8 @@ export class TruckSlotsComponent implements OnInit {
                             let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                             this.releases[1] = movedRelease;
                             this.releases[0] = movedRelease;
+                            this.slots[1].release = movedRelease;
+                            this.slots[0].release = movedRelease;
                             this.updated.emit(change);
                           } else if (result === 'c') {
                             // Do nothing
@@ -367,6 +413,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       }
                     }
@@ -376,6 +424,8 @@ export class TruckSlotsComponent implements OnInit {
                 let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                 this.releases[1] = movedRelease;
                 this.releases[2] = movedRelease;
+                this.slots[1].release = movedRelease;
+                this.slots[2].release = movedRelease;
                 this.updated.emit(change);
               }
             }
@@ -389,6 +439,8 @@ export class TruckSlotsComponent implements OnInit {
                         let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                         this.releases[1] = movedRelease;
                         this.releases[0] = movedRelease;
+                        this.slots[1].release = movedRelease;
+                        this.slots[0].release = movedRelease;
                         this.updated.emit(change);
                       } else if (result === 'c') {
                         // Do nothing
@@ -403,6 +455,8 @@ export class TruckSlotsComponent implements OnInit {
                           let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[1] = movedRelease;
                           this.releases[2] = movedRelease;
+                          this.slots[1].release = movedRelease;
+                          this.slots[2].release = movedRelease;
                           this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
@@ -419,6 +473,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = movedRelease;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = movedRelease;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Do nothing
@@ -429,6 +485,8 @@ export class TruckSlotsComponent implements OnInit {
               let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
               this.releases[i] = movedRelease;
               this.releases[1] = movedRelease;
+              this.slots[1].release = movedRelease;
+              this.slots[i].release = movedRelease;
               this.updated.emit(change);
             }
           }
@@ -448,6 +506,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[0] = movedRelease;
                     this.releases[1] = null;
+                    this.slots[0].release = movedRelease;
+                    this.slots[1].release = null;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
@@ -456,6 +516,7 @@ export class TruckSlotsComponent implements OnInit {
                         if (result === 'a') {
                           let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[2] = movedRelease;
+                          this.slots[2].release = movedRelease;
                           this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
@@ -464,6 +525,7 @@ export class TruckSlotsComponent implements OnInit {
                     } else {
                       let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[2] = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     }
                   }
@@ -479,6 +541,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[0] = null;
+                    this.slots[1].release = movedRelease;
+                    this.slots[0].release = null;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 2
@@ -487,6 +551,7 @@ export class TruckSlotsComponent implements OnInit {
                         if (result === 'a') {
                           let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[2] = movedRelease;
+                          this.slots[2].release = movedRelease;
                           this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
@@ -495,6 +560,7 @@ export class TruckSlotsComponent implements OnInit {
                     } else {
                       let change = { increase1: this.releases[2], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[2] = movedRelease;
+                      this.slots[2].release = movedRelease;
                       this.updated.emit(change);
                     }
                   }
@@ -506,6 +572,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = null;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
@@ -514,6 +582,7 @@ export class TruckSlotsComponent implements OnInit {
                         if (result === 'a') {
                           let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[0] = movedRelease;
+                          this.slots[0].release = movedRelease;
                           this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
@@ -522,6 +591,7 @@ export class TruckSlotsComponent implements OnInit {
                     } else {
                       let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[0] = movedRelease;
+                      this.slots[0].release = movedRelease;
                       this.updated.emit(change);
                     }
                   }
@@ -535,6 +605,8 @@ export class TruckSlotsComponent implements OnInit {
                     let change = { increase1: this.releases[1], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                     this.releases[1] = movedRelease;
                     this.releases[2] = null;
+                    this.slots[1].release = movedRelease;
+                    this.slots[2].release = null;
                     this.updated.emit(change);
                   } else if (result === 'c') {
                     // Need to see if there is something that might need to be replaced in i = 0
@@ -543,6 +615,7 @@ export class TruckSlotsComponent implements OnInit {
                         if (result === 'a') {
                           let change = { increase1: this.releases[0], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                           this.releases[0] = movedRelease;
+                          this.slots[0].release = movedRelease;
                           this.updated.emit(change);
                         } else if (result === 'c') {
                           // Do nothing
@@ -551,6 +624,7 @@ export class TruckSlotsComponent implements OnInit {
                     } else {
                       let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
                       this.releases[0] = movedRelease;
+                      this.slots[0].release = movedRelease;
                       this.updated.emit(change);
                     }
                   }
@@ -562,11 +636,13 @@ export class TruckSlotsComponent implements OnInit {
           } else {
             let change = { increase1: this.releases[i], increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
             this.releases[i] = movedRelease;
+            this.slots[i].release = movedRelease;
             this.updated.emit(change);
           }
         } else {
           let change = { increase1: null, increase2: null, decrease1: movedRelease, decrease2: null, truckID: `${this.truckID}`};
           this.releases[i] = movedRelease;
+          this.slots[i].release = movedRelease;
           this.updated.emit(change);
         }
       }
@@ -583,6 +659,8 @@ export class TruckSlotsComponent implements OnInit {
               if (result === 'a') {
                 this.releases[i] = null;
                 this.releases[1] = null;
+                this.slots[i].release = null;
+                this.slots[1].release = null;
                 this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
               } else if (result === 'c') {
                 // Do nothing
@@ -595,6 +673,8 @@ export class TruckSlotsComponent implements OnInit {
                 if (result === 'a') {
                   this.releases[i] = null;
                   this.releases[1] = null;
+                  this.slots[i].release = null;
+                  this.slots[1].release = null;
                   this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
                 } else if (result === 'c') {
                   // Do nothing
@@ -605,6 +685,8 @@ export class TruckSlotsComponent implements OnInit {
                 if (result === 'a') {
                   this.releases[i] = null;
                   this.releases[2] = null;
+                  this.slots[i].release = null;
+                  this.slots[2].release = null;
                   this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
                 } else if (result === 'c') {
                   // Do nothing
@@ -617,6 +699,8 @@ export class TruckSlotsComponent implements OnInit {
               if (result === 'a') {
                 this.releases[i] = null;
                 this.releases[1] = null;
+                this.slots[i].release = null;
+                this.slots[1].release = null;
                 this.updated.emit({increase1: tmp, increase2: tmp, decrease1: null, decrease2: null, truckID: this.truckID});
               } else if (result === 'c') {
                 // Do nothing
@@ -634,6 +718,7 @@ export class TruckSlotsComponent implements OnInit {
           if (result === 'a') {
             // Is this the correct way to represent this?
             this.releases[i] = null;
+            this.slots[i].release = null;
             this.updated.emit({increase1: tmp, increase2: null, decrease1: null, decrease2: null, truckID: this.truckID});
           } else if (result === 'c') {
             // Do nothing

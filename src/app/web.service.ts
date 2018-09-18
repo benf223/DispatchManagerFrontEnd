@@ -80,18 +80,24 @@ export class WebService {
 
   // Method that will find the truck and releases that have been updated and will update the API via POST
   pushUpdateToAPI(change : Change) {
+    console.log(change);
+
     let client = this.httpClient;
 
     this.daysRounds.rounds.forEach(function (round : TruckRounds)
     {
       if (round.id === change.truckID)
       {
-        client.post(SERVER_URL + '/update_rounds', round);
+        client.post(SERVER_URL + '/update_rounds/', round).subscribe(() => {
+        });
       }
     });
 
     // also need to update the releases
-    client.post(SERVER_URL + '/update_release', change);
+    client.post(SERVER_URL + '/update_release/', change).subscribe(() => {
+      // Should update the releases
+      this.getReleases(this.currentDay);
+    });
   }
 
   // is this data correct
