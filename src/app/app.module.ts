@@ -39,6 +39,7 @@ import { AddReleaseComponent } from './add-release/add-release.component';
 import { EditReleaseComponent } from './edit-release/edit-release.component';
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 const routes = [
   {
@@ -57,6 +58,15 @@ const routes = [
     path: 'release/edit',
     component: EditReleaseComponent
   },
+  {
+    path: 'admin',
+    component: AdministrationComponent
+  },
+  {
+    path: 'login',
+    component: AdministrationComponent
+  },
+
 ];
 
 @NgModule({
@@ -75,6 +85,7 @@ const routes = [
     EditReleaseComponent,
     WarningPopupComponent,
     EditReleaseFormComponent,
+    AdministrationComponent,
   ],
   imports: [
     BrowserModule,

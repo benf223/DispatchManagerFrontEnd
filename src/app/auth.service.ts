@@ -7,6 +7,8 @@ const SERVER_URL = 'http://localhost:3000/auth';
 @Injectable()
 export class AuthService {
 
+  private loggedIn : boolean = false;
+
   // Inject the HttpClient (rather than using WebService)
   constructor(private httpClient : HttpClient) { }
 
@@ -15,5 +17,21 @@ export class AuthService {
     this.httpClient.post(SERVER_URL + '/register', user).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  // Send login data and get a token back
+  login() {
+    // this.httpClient
+
+    this.loggedIn = true;
+    // Is this correct?
+  }
+
+  isLoggedIn() {
+    return this.loggedIn;
+  }
+
+  logout() {
+    this.loggedIn = false;
   }
 }
