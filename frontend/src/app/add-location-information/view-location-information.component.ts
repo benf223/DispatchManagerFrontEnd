@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'viewlocationinformation',
+  //popup menu for edit current selected location information
   template: `
     <div class="modal-header">
       <h4 class="modal-title">Location Information</h4>
@@ -41,6 +42,7 @@ import {HttpClient} from '@angular/common/http';
   `
 })
 export class ViewLocationInformation {
+	//variables of location information
   @Input() index = 0;
   @Input() name;
   @Input() inputtype;
@@ -49,16 +51,18 @@ export class ViewLocationInformation {
   @ViewChild('optime') inputOpTime: ElementRef;
   @ViewChild('cltime') inputClTime: ElementRef;
   @ViewChild('require') require: ElementRef;
-  
+  //get all locations from database 
   locationsdata = this.webService.locationstore;
   constructor(public activeModal: NgbActiveModal,private webService: WebService) {
   }
 
   types: string[] = ['Port', 'Yard'];
   type: string = '';
+  //tempary variable for storing current selected location information
   viewLocation = new Location(this.locationsdata[this.index].name,this.locationsdata[this.index].address,
     this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
 
+  //update changed data to local location variable 
   update(value) {
     this.viewLocation = new Location(this.locationsdata[this.index].name, this.locationsdata[this.index].address,
       this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
@@ -69,7 +73,7 @@ export class ViewLocationInformation {
     let Address = this.inputAddress.nativeElement.value;
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
-    // update data to database
+    // update changed data to database
 	
     this.activeModal.close('Close click');
   }

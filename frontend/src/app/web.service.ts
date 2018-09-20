@@ -41,7 +41,7 @@ export class WebService {
 		 this.locationstore.locations = res;
 	  });
   }
-  
+  //Method that will add new location to the database 
   addLocation(data: Location){
 	  this.httpClient.post(SERVER_URL + 'add_location',data);
 	  

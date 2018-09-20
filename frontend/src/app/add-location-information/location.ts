@@ -1,3 +1,4 @@
+//constructor of location object
 export class Location {
   constructor(
     public name: string,
