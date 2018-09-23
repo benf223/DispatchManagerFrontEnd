@@ -52,9 +52,11 @@ export class ViewLocationInformation {
   @ViewChild('cltime') inputClTime: ElementRef;
   @ViewChild('require') require: ElementRef;
   //get all locations from database 
-  locationsdata = this.webService.locationstore;
+  //locationsdata = this.webService.locationstore;
+  
   constructor(public activeModal: NgbActiveModal,private webService: WebService) {
   }
+  locationsdata: LOCATIONS=[new Location("auckland","address","9","13","port",true)];
 
   types: string[] = ['Port', 'Yard'];
   type: string = '';

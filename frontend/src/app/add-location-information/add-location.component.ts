@@ -97,6 +97,7 @@ export class AddLocationInformation implements AfterViewInit {
 
 export class AddLocationComponent implements AfterViewInit {
   @ViewChild(ViewLocationInformation) viewLocations: ViewLocationInformation;
+  
 
   ngAfterViewInit() {
     //
@@ -119,6 +120,13 @@ export class AddLocationComponent implements AfterViewInit {
     const modalRef = this.modalService.open(ViewLocationInformation).componentInstance;
     modalRef.index = index;
     modalRef.update(index);
+  }
+  //open up confirm dialog 
+  //if confirmed action delete seleted location from database
+  deleteLocation(String name){
+	if(confirm("Are you sure to delete "+name+" location?")){
+		this.webService.deleteLocation(name);
+	}
   }
 
   selectedlocation: Location;

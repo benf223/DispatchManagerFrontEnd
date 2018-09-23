@@ -46,4 +46,12 @@ export class WebService {
 	  this.httpClient.post(SERVER_URL + 'add_location',data);
 	  
   }
+  
+  deleteLocation(name:Location){
+	this.httpClient.post(SERVER_URL+'delete_location',name);
+  }
+  
+  updateLocation(name:Location){
+	this.httpClient.post(SERVER_URL+'update_location',name);
+  }
 }

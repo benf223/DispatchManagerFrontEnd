@@ -33,34 +33,16 @@ api.get('/add_location'),(req,res)=>{
 	res.sendStatus(200);
 }
 // Gets a Change object from the frontend and will update the truncated version of the releases in the database with the new information
-api.post('/update_release', (req, res) => {
+api.post('/update_location', (req, res) => {
 	console.log(req.body);
-
-	if (req.body.increase1) {
-		console.log(`Increase ${req.body.increase1.release}`);
-		dbHelper.releases.update(null, null);
-	}
-
-	if (req.body.increase2) {
-		console.log(`Increase ${req.body.increase2.release}`);
-		dbHelper.releases.update(null, null);
-	}
-
-	if (req.body.decrease1) {
-		console.log(`Decrease ${req.body.decrease1.release}`);
-		dbHelper.releases.update(null, null);
-	}
-
-	if (req.body.decrease2) {
-		console.log(`Decrease ${req.body.decrease2.release}`);
-		dbHelper.releases.update(null, null);
-	}
+	dbHelper.releases.update(null, null);
+	
 
 	res.sendStatus(200);
 });
 
 // Need to find and remove the release based on it's ID as given
-api.delete('/delete_release/:release', (req, res) => {
+api.delete('/delete_location/:locationname', (req, res) => {
 	console.log(req.params.release);
 	res.sendStatus(200);
 });
