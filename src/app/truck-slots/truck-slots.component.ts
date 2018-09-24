@@ -749,7 +749,6 @@ export class TruckSlotsComponent implements OnInit {
       } else {
         this.updated.emit({increase1: tmpA, increase2: tmpB, decrease1: releaseA, decrease2: releaseB, truckID: this.truckID});
       }
-
     } else if (result === 'c') {
       // Doesn't this generally make another dialog if relevant?
       if (fail) {
