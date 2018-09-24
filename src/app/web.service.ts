@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {Change, FullRelease, Release, TruckRounds, Trucks} from './interfaces';
 
 // Constant that defines where the REST API is located
-const SERVER_URL = 'http://localhost:3000/api';
+const SERVER_URL = 'https://demo-recur-api.herokuapp.com/api';
 
 @Injectable()
 export class WebService {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 // Constant that defines where the REST API is located
-const SERVER_URL = 'http://localhost:3000/auth';
+const SERVER_URL = 'https://demo-recur-api.herokuapp.com/auth';
 
 @Injectable()
 export class AuthService {
