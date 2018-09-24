@@ -8,7 +8,7 @@ import {AuthService} from "../auth.service";
 })
 export class NavComponent {
 
-  constructor(protected authService : AuthService) {
+  constructor(public authService : AuthService) {
   }
 
   logout() {
