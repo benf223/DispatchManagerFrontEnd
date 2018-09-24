@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FullRelease} from "../interfaces";
 import {FormBuilder} from "@angular/forms";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-edit-release-form',
@@ -8,6 +10,9 @@ import {FormBuilder} from "@angular/forms";
   styleUrls: ['./edit-release-form.component.css']
 })
 export class EditReleaseFormComponent implements OnInit {
+
+  // Constants
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @Input() release : FullRelease;
 
@@ -45,5 +50,19 @@ export class EditReleaseFormComponent implements OnInit {
 
   submitForm() {
     console.log('Edited');
+  }
+
+  // Adds item to the chip list
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.containerNumbers.push(value.trim());
+    }
+
+    if (input) {
+      input.value = '';
+    }
   }
 }

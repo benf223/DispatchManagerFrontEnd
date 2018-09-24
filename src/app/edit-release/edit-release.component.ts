@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {WebService} from "../web.service";
 import {MatTableDataSource} from "@angular/material";
 import {FullRelease, Release} from "../interfaces";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-edit-release',
