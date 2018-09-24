@@ -65,4 +65,13 @@ export class EditReleaseFormComponent implements OnInit {
       input.value = '';
     }
   }
+
+  // Removes items from chip list
+  remove(containerNumber: string): void {
+    const index = this.containerNumbers.indexOf(containerNumber);
+
+    if (index >= 0) {
+      this.containerNumbers.splice(index, 1);
+    }
+  }
 }
