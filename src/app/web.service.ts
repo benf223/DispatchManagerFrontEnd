@@ -1,10 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {FullRelease, Release, TruckRounds, Trucks} from './interfaces';
+import {Change, FullRelease, Release, TruckRounds, Trucks} from './interfaces';
 
 // Constant that defines where the REST API is located
-const SERVER_URL = 'https://demo-recur-api.herokuapp.com/api';
+const SERVER_URL = 'http://localhost:3000/api';
 
 @Injectable()
 export class WebService {
@@ -26,6 +26,11 @@ export class WebService {
   fullReleaseStore: FullRelease;
   private fullReleaseSubject = new Subject();
   fullRelease = this.fullReleaseSubject.asObservable();
+
+  // Observable and subject for all the full release data used in the edit release popups
+  fullReleasesStore: FullRelease[];
+  private fullReleasesSubject = new Subject();
+  fullReleases = this.fullReleasesSubject.asObservable();
 
   // Inject the HTTPClient functionality
   constructor(private httpClient: HttpClient) {}
@@ -52,7 +57,6 @@ export class WebService {
   // Method that will retrieve and emit to the subscribers the releases for a given day
   getReleases(day) {
     this.httpClient.get<Release[]>(SERVER_URL + '/releases/' + day).subscribe(res => {
-      console.log(res);
       this.daysReleases = res;
       this.releasesSubject.next(this.daysReleases);
     });
@@ -66,9 +70,44 @@ export class WebService {
     });
   }
 
-  // Method that will find the truck that has been updated and will update the API via POST
-  pushUpdateToAPI(truckID) {
-    console.log(this.daysRounds);
-    // this.httpClient.post(SERVER_URL + '/', {id: truckID, dayRounds: this.daysRounds});
+  getFullReleases()
+  {
+    this.httpClient.get<FullRelease[]>(SERVER_URL + '/full_releases/').subscribe(res => {
+      this.fullReleasesStore = res;
+      this.fullReleasesSubject.next(this.fullReleasesStore);
+    })
   }
+
+  // Method that will find the truck and releases that have been updated and will update the API via POST
+  pushUpdateToAPI(change : Change) {
+    console.log(change);
+
+    let client = this.httpClient;
+
+    this.daysRounds.rounds.forEach(function (round : TruckRounds)
+    {
+      if (round.id === change.truckID)
+      {
+        client.post(SERVER_URL + '/update_rounds/', round).subscribe(() => {
+        });
+      }
+    });
+
+    // also need to update the releases
+    client.post(SERVER_URL + '/update_release/', change).subscribe(() => {
+      // Should update the releases
+      this.getReleases(this.currentDay);
+    });
+  }
+
+  // is this data correct
+  addRelease(data : FullRelease) {
+    this.httpClient.post(SERVER_URL + '/add_release/', data);
+  }
+
+  deleteRelease(releaseID) {
+    this.httpClient.delete(SERVER_URL + '/delete_release/' + releaseID);
+  }
+
+
 }

@@ -14,8 +14,11 @@ export class AddReleaseComponent implements OnInit {
   // Constants
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  // Form for FormControl?/Builder?
+  // Form for FormBuilder
   form;
+
+  // Data from advanced elements
+  status;
 
   // Data for select components
   clients = [{name: 'client1'}, {name: 'client2'}, {name: 'client3'}];
@@ -30,7 +33,22 @@ export class AddReleaseComponent implements OnInit {
   // Inject the WebService and FormBuilder
   constructor(private webService : WebService, private formBuilder : FormBuilder) {
     this.form = formBuilder.group({
-      release: ''
+      receivedDate: this.getDate(),
+      release: '',
+      client: '',
+      route: '',
+      qty20s: '',
+      qty40s: '',
+      choose: '',
+      containerType: '',
+      containerNumbers: '',
+      dueDate: this.getDate(),
+      dueTime: this.getTime(),
+      reference: '',
+      notes: '',
+      status: '',
+      completeDate: this.getDate(),
+      invoiced: '',
     });
   }
 
@@ -74,10 +92,19 @@ export class AddReleaseComponent implements OnInit {
   // Will verify and attempt to submit the form to the API
   submitForm() {
     console.log('Submitted');
-  }
+    console.log(this.form.value);
+    console.log(this.status);
 
-  // Will reset the values in the form to empty or default
-  resetForm() {
-    console.log('Reset Form');
+    let data = this.form.value;
+
+    data.client = null;
+    data.containerNumbers = null;
+    data.containerType = null;
+    data.invoiced = null;
+    data.route = null;
+    data.status = null;
+
+    // This will be where the data is sent to the API
+    this.webService.addRelease(data);
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {WebService} from '../web.service';
-import {TruckRounds} from '../interfaces';
+import {Change, TruckRounds} from '../interfaces';
 
 @Component({
   selector: 'app-planning-truck-grid',
@@ -45,13 +45,12 @@ export class PlanningTruckGridComponent implements OnInit {
 
   // Sets the tables data source
   private setupDataSource(rounds : TruckRounds[]) {
-    console.log(rounds);
     this.dataSource = new MatTableDataSource(rounds);
     this.dataSource.paginator = this.paginator;
   }
 
   // Listener for events from truckslots to update the API
-  pushData(truckID) {
-    this.webService.pushUpdateToAPI(truckID);
+  pushData(change : Change) {
+    this.webService.pushUpdateToAPI(change);
   }
 }

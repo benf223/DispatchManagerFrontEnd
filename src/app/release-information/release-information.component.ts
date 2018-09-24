@@ -11,7 +11,7 @@ import {FullRelease} from '../interfaces';
 export class ReleaseInformationComponent implements OnInit {
 
   // The full release from the API
-  fullRelease: FullRelease;
+  fullRelease: FullRelease = {release: 'Loading', qtyTwenty: 0, qtyForty: 0, colour: '#FFF'};
 
   // Injects the webservice and other data from the parent component
   constructor(
@@ -22,11 +22,12 @@ export class ReleaseInformationComponent implements OnInit {
 
   // Retrieves the required data from the Webservice before displaying it
   ngOnInit() {
-    this.fullRelease = { release: null, qtyTwenty: null, qtyForty: null, colour: null};
     this.webService.getFullRelease(this.data);
 
     this.webService.fullRelease.subscribe(() => {
-      this.fullRelease = this.webService.fullReleaseStore;
+      if (this.webService.fullReleaseStore) {
+        this.fullRelease = this.webService.fullReleaseStore;
+      }
     });
   }
 }

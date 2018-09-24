@@ -29,7 +29,7 @@ export interface Release {
 	colour: string;
 }
 
-// Initial draft interface for a Full Releases stored by the API
+// TODO change this to represent the data from the add release page.
 export interface FullRelease {
   release: string;
   qtyForty: number;
@@ -58,3 +58,11 @@ export interface Day {
   disabled: boolean;
 }
 
+// Interface that will be used by the WebService to update the releases on the client and server
+export interface Change {
+  truckID: string;
+  increase1: Release;
+  increase2: Release;
+  decrease1: Release;
+  decrease2: Release;
+}

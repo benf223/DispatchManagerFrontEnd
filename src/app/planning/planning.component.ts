@@ -22,7 +22,7 @@ export class PlanningComponent implements OnInit {
     return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
   }
 
-  // Causes the WebService to retrieve the specified day
+  // Causes the WebService to retrieve the specified day.
   changeDay(day) {
     this.webService.setCurrentDay(day);
     this.webService.getReleases(day);
