@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Subject} from "rxjs";
 
 // Constant that defines where the REST API is located
 const SERVER_URL = 'http://localhost:3000/auth';
@@ -7,7 +8,8 @@ const SERVER_URL = 'http://localhost:3000/auth';
 @Injectable()
 export class AuthService {
 
-  private loggedIn : boolean = false;
+  private subject = new Subject();
+  values = this.subject.asObservable();
 
   // Inject the HttpClient (rather than using WebService)
   constructor(private httpClient : HttpClient) { }
@@ -20,18 +22,19 @@ export class AuthService {
   }
 
   // Send login data and get a token back
-  login() {
-    // this.httpClient
+  login(username : String, password : String) {
+    this.httpClient.post<any>(SERVER_URL + '/login', { username: username, password: password}).subscribe((res) => {
+      let user = res;
 
-    this.loggedIn = true;
-    // Is this correct?
-  }
+      if (user && user.token){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
 
-  isLoggedIn() {
-    return this.loggedIn;
+      this.subject.next(user);
+    });
   }
 
   logout() {
-    this.loggedIn = false;
+    localStorage.removeItem('currentUser');
   }
 }

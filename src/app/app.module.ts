@@ -40,6 +40,8 @@ import { EditReleaseComponent } from './edit-release/edit-release.component';
 import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.component';
 import { AdministrationComponent } from './administration/administration.component';
+import { LoginComponent } from './login/login.component';
+import {AuthGuard} from "./auth.guard";
 
 const routes = [
   {
@@ -48,25 +50,32 @@ const routes = [
   },
   {
     path: 'planning',
-    component: PlanningComponent
+    component: PlanningComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'release/add',
-    component: AddReleaseComponent
+    component: AddReleaseComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'release/edit',
-    component: EditReleaseComponent
+    component: EditReleaseComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'admin',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    component: AdministrationComponent
+    component: LoginComponent
   },
-
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
@@ -86,6 +95,7 @@ const routes = [
     WarningPopupComponent,
     EditReleaseFormComponent,
     AdministrationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +125,7 @@ const routes = [
     RouterModule.forRoot(routes),
     DraggableModule,
   ],
-  providers: [ WebService, AuthService, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'} ],
+  providers: [ WebService, AuthService, AuthGuard, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'} ],
   bootstrap: [ AppComponent ],
   entryComponents: [ ReleaseInformationComponent, WarningPopupComponent ]
 })
