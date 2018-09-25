@@ -4,7 +4,7 @@ import {LOCATIONS} from './add-location-information/location-list'
 import {Location} from './add-location-information/location'
 
 // Constant that defines where the REST API is located
-const SERVER_URL = 'https://demo-recur-api.herokuapp.com';
+const SERVER_URL = 'https://recur-app-peter.herokuapp.com';
 
 @Injectable()
 export class WebService {
