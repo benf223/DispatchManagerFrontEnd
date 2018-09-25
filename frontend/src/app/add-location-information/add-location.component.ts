@@ -123,8 +123,9 @@ export class AddLocationComponent implements AfterViewInit {
   }
   //open up confirm dialog 
   //if confirmed action delete seleted location from database
-  deleteLocation(String name){
-	if(confirm("Are you sure to delete "+name+" location?")){
+  deleteLocation(name){
+	  var confirmdelete=confirm("Are you sure to delete "+name+" location?");
+	if(confirmdelete){
 		this.webService.deleteLocation(name);
 	}
   }
