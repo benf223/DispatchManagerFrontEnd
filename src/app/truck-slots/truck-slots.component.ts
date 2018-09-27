@@ -757,7 +757,7 @@ export class TruckSlotsComponent implements OnInit {
     }
   }
 
-  // Opens a warning popup to notify the user that there is a clash
+  // Opens a warning popup to notify the username that there is a clash
   openDialog(message: string, body?: string[], result?: string[], options?: boolean[]) {
     return this.dialog.open(WarningPopupComponent, {
       width: '280px',

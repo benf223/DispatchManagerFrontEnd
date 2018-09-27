@@ -42,6 +42,7 @@ import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.
 import { AdministrationComponent } from './administration/administration.component';
 import { LoginComponent } from './login/login.component';
 import {AuthGuard} from "./auth.guard";
+import { CreateUserComponent } from './create-user/create-user.component';
 
 const routes = [
   {
@@ -96,6 +97,7 @@ const routes = [
     EditReleaseFormComponent,
     AdministrationComponent,
     LoginComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

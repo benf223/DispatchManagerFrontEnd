@@ -66,3 +66,8 @@ export interface Change {
   decrease1: Release;
   decrease2: Release;
 }
+
+export interface User {
+  username : string;
+  token : string;
+}
