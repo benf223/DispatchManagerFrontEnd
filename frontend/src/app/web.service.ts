@@ -4,7 +4,7 @@ import {LOCATIONS} from './add-location-information/location-list'
 import {Location} from './add-location-information/location'
 
 // Constant that defines where the REST API is located
-const SERVER_URL = 'https://recur-app-peter.herokuapp.com';
+const SERVER_URL = 'https://recur-app-peter.herokuapp.com/api';
 
 @Injectable()
 export class WebService {
@@ -47,11 +47,12 @@ export class WebService {
 	  
   }
   
-  deleteLocation(name:Location){
+  deleteLocation(name:String){
 	this.httpClient.post(SERVER_URL+'delete_location',name);
   }
   
-  updateLocation(name:Location){
-	this.httpClient.post(SERVER_URL+'update_location',name);
+  updateLocation(locationup:Location,name: String){
+	console.log(locationup+name);
+	this.httpClient.post(SERVER_URL+'update_location',name,);
   }
 }
