@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -24,6 +24,8 @@ import {
 
 import { WebService } from './web.service';
 import { AuthService } from './auth.service';
+import { AlertService } from './alert.service';
+
 import { DraggableModule } from './draggable/draggable.module';
 
 import { AppComponent } from './app.component';
@@ -41,8 +43,11 @@ import { WarningPopupComponent } from './warning-popup/warning-popup.component';
 import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { LoginComponent } from './login/login.component';
-import {AuthGuard} from "./auth.guard";
 import { CreateUserComponent } from './create-user/create-user.component';
+import { AlertComponent } from './alert/alert.component';
+
+import { AuthGuard } from "./auth.guard";
+import { JwtInterceptor } from './jwt.interceptor';
 
 const routes = [
   {
@@ -98,6 +103,7 @@ const routes = [
     AdministrationComponent,
     LoginComponent,
     CreateUserComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,7 +133,7 @@ const routes = [
     RouterModule.forRoot(routes),
     DraggableModule,
   ],
-  providers: [ WebService, AuthService, AuthGuard, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'} ],
+  providers: [ WebService, AuthService, AuthGuard, AlertService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'} ],
   bootstrap: [ AppComponent ],
   entryComponents: [ ReleaseInformationComponent, WarningPopupComponent ]
 })

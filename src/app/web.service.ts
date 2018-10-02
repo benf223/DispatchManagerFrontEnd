@@ -110,4 +110,10 @@ export class WebService {
   }
 
 
+  addTruck(truckName: String)
+  {
+    this.httpClient.post(SERVER_URL + '/add_truck', {truckName: truckName}).subscribe(() => {
+      // if successful need to update the webservice.
+    })
+  }
 }

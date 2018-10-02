@@ -1,3 +1,14 @@
 <mat-card>
+  <label><b>Add Truck</b></label>
+  <form (ngSubmit)="createTruck()">
+    <mat-form-field style="margin: 5px">
+      <input matInput type="text" name="Truck Name" [(ngModel)]="truckName">
+    </mat-form-field>
+    <button mat-raised-button style="margin: 5px" color="primary">Create truck</button>
+  </form>
+</mat-card>
+<br>
+<mat-card>
+  <label><b>Create User</b></label>
   <app-create-user></app-create-user>
 </mat-card>
