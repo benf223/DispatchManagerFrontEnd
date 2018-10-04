@@ -88,6 +88,7 @@ export class WebService {
     {
       if (round.id === change.truckID)
       {
+        // Send the day
         client.post(SERVER_URL + '/update_rounds/', round).subscribe(() => {
         });
       }
