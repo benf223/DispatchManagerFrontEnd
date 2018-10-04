@@ -31,10 +31,23 @@ export interface Release {
 
 // TODO change this to represent the data from the add release page.
 export interface FullRelease {
-  release: string;
-  qtyForty: number;
-  qtyTwenty: number;
-  colour: string;
+  receivedDate: string,
+  release: string,
+  client: string,
+  route: string,
+  qty20s: number,
+  qty40s: number,
+  choose: string,
+  containerType: string,
+  containerNumbers: string[],
+  dueDate: string,
+  dueTime: string,
+  reference: string,
+  notes: string,
+  status: string,
+  completeDate: string,
+  invoiced: string,
+  colour: string
 }
 
 // Interface to describe how a warning popup should be constructed

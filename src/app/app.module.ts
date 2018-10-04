@@ -22,6 +22,8 @@ import {
   MatNativeDateModule, MatSelectModule, MatOptionModule, MAT_DATE_LOCALE, MatChipsModule, MatIconModule
 } from '@angular/material';
 
+import { MccColorPickerModule } from "material-community-components";
+
 import { WebService } from './web.service';
 import { AuthService } from './auth.service';
 import { AlertService } from './alert.service';
@@ -128,6 +130,9 @@ const routes = [
     MatOptionModule,
     MatChipsModule,
     MatIconModule,
+    MccColorPickerModule.forRoot({
+      empty_color: '#FFFFFF'
+    }),
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),

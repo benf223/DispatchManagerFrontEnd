@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
     this.webService.spinUpAPI();
   }
 
-  onClick() {
-    console.log("Click");
+  onClick(event) {
+    console.log(event);
     return false;
   }
 }

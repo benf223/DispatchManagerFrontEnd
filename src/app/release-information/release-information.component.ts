@@ -11,7 +11,7 @@ import {FullRelease} from '../interfaces';
 export class ReleaseInformationComponent implements OnInit {
 
   // The full release from the API
-  fullRelease: FullRelease = {release: 'Loading', qtyTwenty: 0, qtyForty: 0, colour: '#FFF'};
+  fullRelease: FullRelease = null;//{release: 'Loading', qtyTwenty: 0, qtyForty: 0, colour: '#FFF'};
 
   // Injects the webservice and other data from the parent component
   constructor(

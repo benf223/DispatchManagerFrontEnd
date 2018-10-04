@@ -3,6 +3,7 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import {WebService} from '../web.service';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {FullRelease} from "../interfaces";
 
 @Component({
   selector: 'app-add-release',
@@ -29,6 +30,8 @@ export class AddReleaseComponent implements OnInit {
   containerNumbers: string[] = ['Cont-1-a', 'Cont-2-a', 'Cont-3-a'];
   statuses: string[] = ['Started', 'Enroute', 'Delivered'];
   invoiceStatuses: string[] = ['Sent', 'Unsent', 'Paid'];
+
+  colour : string = "#FFFFFF";
 
   // Inject the WebService and FormBuilder
   constructor(private webService : WebService, private formBuilder : FormBuilder) {
@@ -95,16 +98,21 @@ export class AddReleaseComponent implements OnInit {
     console.log(this.form.value);
     console.log(this.status);
 
-    let data = this.form.value;
+    let data : FullRelease = null;
+    this.form.value;
 
-    data.client = null;
-    data.containerNumbers = null;
-    data.containerType = null;
-    data.invoiced = null;
-    data.route = null;
-    data.status = null;
+    // data.client = null;
+    // data.containerNumbers = null;
+    // data.containerType = null;
+    // data.invoiced = null;
+    // data.route = null;
+    // data.status = null;
 
     // This will be where the data is sent to the API
     this.webService.addRelease(data);
+  }
+
+  saveColour(colour) {
+    this.colour = colour;
   }
 }

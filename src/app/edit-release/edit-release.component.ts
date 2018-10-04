@@ -15,7 +15,7 @@ export class EditReleaseComponent implements OnInit {
   dataSource;
   showForm: boolean = false;
 
-  release : FullRelease = {release: null, colour: null, qtyForty: 0, qtyTwenty: 0};
+  release : FullRelease = null;//{release: null, colour: null, qtyForty: 0, qtyTwenty: 0};
 
   constructor(private webService : WebService) { }
 
