@@ -29,14 +29,13 @@ export interface Release {
 	colour: string;
 }
 
-// TODO change this to represent the data from the add release page.
 export interface FullRelease {
   receivedDate: string,
   release: string,
   client: string,
   route: string,
-  qty20s: number,
-  qty40s: number,
+  qtyTwenty: number,
+  qtyForty: number,
   choose: string,
   containerType: string,
   containerNumbers: string[],

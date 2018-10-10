@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FullRelease} from "../interfaces";
 import {FormBuilder} from "@angular/forms";
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-edit-release-form',
@@ -10,6 +12,9 @@ import {FormBuilder} from "@angular/forms";
 export class EditReleaseFormComponent implements OnInit {
 
   @Input() release : FullRelease;
+
+  // Constants
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   form;
 
@@ -30,6 +35,20 @@ export class EditReleaseFormComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  // Adds item to the chip list
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      this.containerNumbers.push(value.trim());
+    }
+
+    if (input) {
+      input.value = '';
+    }
   }
 
   // Returns current time to fill the form with time values

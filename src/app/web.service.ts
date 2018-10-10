@@ -83,13 +83,13 @@ export class WebService {
     console.log(change);
 
     let client = this.httpClient;
-
+    let roundsUrl = SERVER_URL + '/update_rounds/' + this.currentDay;
     this.daysRounds.rounds.forEach(function (round : TruckRounds)
     {
       if (round.id === change.truckID)
       {
         // Send the day
-        client.post(SERVER_URL + '/update_rounds/', round).subscribe(() => {
+        client.post(roundsUrl, round).subscribe(() => {
         });
       }
     });
