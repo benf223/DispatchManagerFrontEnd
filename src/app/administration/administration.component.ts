@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WebService} from '../web.service';
+import {WebService} from '../services/web.service';
 
 @Component({
   selector: 'app-administration',
@@ -8,19 +8,17 @@ import {WebService} from '../web.service';
 })
 export class AdministrationComponent implements OnInit {
 
+  // Two-way bound variable to hold a name for a truck being added
   truckName : String;
 
+  // Inject the WebService
   constructor(private webService : WebService) { }
 
   ngOnInit() {
   }
 
+  // Listener for the add truck button to add a truck.
   createTruck() {
-    console.log(this.truckName);
-    this.truckName = '';
-
     this.webService.addTruck(this.truckName);
-
   }
-
 }

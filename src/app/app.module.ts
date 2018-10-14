@@ -24,9 +24,9 @@ import {
 
 import { MccColorPickerModule } from "material-community-components";
 
-import { WebService } from './web.service';
-import { AuthService } from './auth.service';
-import { AlertService } from './alert.service';
+import { WebService } from './services/web.service';
+import { AuthService } from './services/auth.service';
+import { AlertService } from './services/alert.service';
 
 import { DraggableModule } from './draggable/draggable.module';
 

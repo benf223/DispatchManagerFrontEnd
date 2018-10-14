@@ -29,6 +29,7 @@ export interface Release {
 	colour: string;
 }
 
+// Interface that defines the data comprising a Full Release
 export interface FullRelease {
   receivedDate: string,
   release: string,
@@ -79,6 +80,7 @@ export interface Change {
   decrease2: Release;
 }
 
+// Interface for representing a user object
 export interface User {
   username : string;
   token : string;

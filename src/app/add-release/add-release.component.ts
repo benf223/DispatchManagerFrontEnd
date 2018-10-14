@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
-import {WebService} from '../web.service';
+import {WebService} from '../services/web.service';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FullRelease} from "../interfaces";
@@ -31,9 +31,10 @@ export class AddReleaseComponent implements OnInit {
   statuses: string[] = ['Started', 'Enroute', 'Delivered'];
   invoiceStatuses: string[] = ['Sent', 'Unsent', 'Paid'];
 
-  colour : string = "#FFFFFF";
+  // Default colour for releases
+  colour : string = "#000000";
 
-  // Inject the WebService and FormBuilder
+  // Inject the WebService and FormBuilder and prepare initial data.
   constructor(private webService : WebService, private formBuilder : FormBuilder) {
     this.form = formBuilder.group({
       receivedDate: this.getDate(),
@@ -58,7 +59,7 @@ export class AddReleaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  // Adds item to the chip list
+  // Adds item to the chip list of containers
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -99,19 +100,12 @@ export class AddReleaseComponent implements OnInit {
     console.log(this.status);
 
     let data : FullRelease = null;
-    this.form.value;
-
-    // data.client = null;
-    // data.containerNumbers = null;
-    // data.containerType = null;
-    // data.invoiced = null;
-    // data.route = null;
-    // data.status = null;
 
     // This will be where the data is sent to the API
     this.webService.addRelease(data);
   }
 
+  // Listener for when the colour picker is closed
   saveColour(colour) {
     this.colour = colour;
   }

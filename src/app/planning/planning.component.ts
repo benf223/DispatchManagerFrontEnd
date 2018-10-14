@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WebService} from '../web.service';
+import {WebService} from '../services/web.service';
 
 @Component({
   selector: 'app-planning',
@@ -12,14 +12,6 @@ export class PlanningComponent implements OnInit {
   constructor(private webService: WebService) {}
 
   ngOnInit() {
-  }
-
-  // Retrieves the current day in a format the API will understand
-  // Unused?
-  private getCurrentDay() {
-    const date = new Date();
-
-    return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
   }
 
   // Causes the WebService to retrieve the specified day.

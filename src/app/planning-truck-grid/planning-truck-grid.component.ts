@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {WebService} from '../web.service';
+import {WebService} from '../services/web.service';
 import {Change, TruckRounds} from '../interfaces';
 
 @Component({

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DragHelperService} from '../drag-helper.service';
+import {DragHelperService} from '../services/drag-helper.service';
 import {MatDialog} from '@angular/material';
 import {WarningPopupComponent} from '../warning-popup/warning-popup.component';
 import {Change, Release, Slot} from '../interfaces';
@@ -649,6 +649,7 @@ export class TruckSlotsComponent implements OnInit {
     }
   }
 
+  // Listener for right clicks on the releases to delete them
   deleteRelease(i) {
     if (this.releases[i]) {
       if (this.releases[i].size === 40) {
@@ -724,35 +725,6 @@ export class TruckSlotsComponent implements OnInit {
             // Do nothing
           }
         });
-      }
-    }
-  }
-
-  // Possibly try to complete this method to simplify these functions.
-  private completeDialog(result, a : number, b : number, releaseA : Release, releaseB : Release, increase : boolean, fail?, failData?) {
-    if (result === 'a') {
-      let tmpA;
-      let tmpB;
-
-      if (a) {
-        tmpA = this.releases[a];
-        this.releases[a] = releaseA;
-      }
-
-      if (b) {
-        tmpB = this.releases[b];
-        this.releases[b] = releaseB;
-      }
-
-      if (increase) {
-        this.updated.emit({increase1: releaseA, increase2: releaseB, decrease1: tmpA, decrease2: tmpB, truckID: this.truckID});
-      } else {
-        this.updated.emit({increase1: tmpA, increase2: tmpB, decrease1: releaseA, decrease2: releaseB, truckID: this.truckID});
-      }
-    } else if (result === 'c') {
-      // Doesn't this generally make another dialog if relevant?
-      if (fail) {
-        fail(failData);
       }
     }
   }

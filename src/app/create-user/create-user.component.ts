@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {User} from "../interfaces";
 
 @Component({
@@ -10,11 +10,16 @@ import {User} from "../interfaces";
 })
 export class CreateUserComponent implements OnInit {
 
+  // Form for the formbuilder
   createUserForm : FormGroup;
+
+  // Field to control form submission
   submitted = false;
 
+  // Inject the formbuilder and AuthService
   constructor(private formBuilder : FormBuilder, private authService : AuthService) { }
 
+  // Setup the form
   ngOnInit() {
     this.createUserForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -24,8 +29,10 @@ export class CreateUserComponent implements OnInit {
     });
   }
 
+  // Getter for the form
   get f() { return this.createUserForm.controls; }
 
+  // Listener for the form submission, attempts to generate a user.
   submitForm() {
     this.submitted = true;
 

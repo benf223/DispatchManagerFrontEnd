@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,11 +9,14 @@ import {Router} from "@angular/router";
 })
 export class NavComponent implements OnInit {
 
+  // Variable to control if a button can be shown
   canShow;
 
+  // Inject the AuthService and the router
   constructor(protected authService : AuthService, private router : Router) {
   }
 
+  // Setup for listener to determine button visibility
   ngOnInit() {
     this.updateVisibility();
 
@@ -22,10 +25,12 @@ export class NavComponent implements OnInit {
     });
   }
 
+  // Changes the visibility of the buttons if the user is logged in or not
   updateVisibility() {
     this.canShow = !!localStorage.getItem('currentUser');
   }
 
+  // Logs the user out
   logout() {
     this.authService.logout();
     this.updateVisibility();

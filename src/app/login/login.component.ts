@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -10,12 +10,15 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
+  // Control data for the form
   loginForm : FormGroup;
   returnUrl : string;
   submitted = false;
 
+  // Inject relevant objects
   constructor(private authService : AuthService, private formBuilder : FormBuilder, private router : Router, private route: ActivatedRoute,) { }
 
+  // Setup the form and return routes
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -27,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
+  // Listener for form submission that will attempt to login the user
   onSubmit() {
     this.submitted = true;
 
@@ -44,5 +48,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Getter for the form data
   get f() { return this.loginForm.controls };
 }

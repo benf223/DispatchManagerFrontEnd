@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WebService} from "../web.service";
+import {WebService} from "../services/web.service";
 import {MatTableDataSource} from "@angular/material";
 import {FullRelease, Release} from "../interfaces";
 
@@ -14,11 +14,12 @@ export class EditReleaseComponent implements OnInit {
   displayedColumns = ['release', 'edit'];
   dataSource;
   showForm: boolean = false;
-
   release : FullRelease = null;//{release: null, colour: null, qtyForty: 0, qtyTwenty: 0};
 
+  // Inject the webservice
   constructor(private webService : WebService) { }
 
+  // Retrieve the data and display it
   ngOnInit() {
     this.webService.getFullReleases();
 
@@ -40,6 +41,7 @@ export class EditReleaseComponent implements OnInit {
     this.dataSource.filterPredicate = (data: Release, filter: string) => (data.release.indexOf(filter) !== -1);
   }
 
+  // Shows the edit form for a selected release
   loadEditor(release)
   {
     this.release = release;

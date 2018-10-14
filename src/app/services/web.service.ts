@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {Change, FullRelease, Release, TruckRounds, Trucks} from './interfaces';
+import {Change, FullRelease, Release, TruckRounds, Trucks} from '../interfaces';
 
 // Constant that defines where the REST API is located
 const SERVER_URL = 'http://localhost:3000/api';
@@ -40,13 +40,13 @@ export class WebService {
     this.currentDay = day;
   }
 
-  // Empty Method that will spin up the REST API
+  // Empty method that starts the REST API if it is halted
   spinUpAPI() {
     this.httpClient.get<string>(SERVER_URL + '/start').subscribe(() => {
     });
   }
 
-  // Method that will retrieve and emit to the subscribers the rounds for a given day
+  // Method that retrieves and emits to the subscribers the rounds for a given day
   getRounds(day) {
     this.httpClient.get<TruckRounds[]>(SERVER_URL + '/rounds/' + day).subscribe((res) => {
       this.daysRounds.rounds = res;
@@ -54,7 +54,7 @@ export class WebService {
     });
   }
 
-  // Method that will retrieve and emit to the subscribers the releases for a given day
+  // Method that retrieves and emits to the subscribers the releases for a given day
   getReleases(day) {
     this.httpClient.get<Release[]>(SERVER_URL + '/releases/' + day).subscribe(res => {
       this.daysReleases = res;
@@ -62,7 +62,7 @@ export class WebService {
     });
   }
 
-  // Method that will retrieve and emit to the subscribers the full releases for a given day
+  // Method that retrieves and emits to the subscribers a full release given an ID
   getFullRelease(releaseID: string) {
     this.httpClient.get<FullRelease>(SERVER_URL + '/full_releases/' + this.currentDay + '@' + releaseID).subscribe(res => {
       this.fullReleaseStore = res;
@@ -70,6 +70,7 @@ export class WebService {
     });
   }
 
+  // Method that retrieves all the full releases from the API and emits to the subscribers
   getFullReleases()
   {
     this.httpClient.get<FullRelease[]>(SERVER_URL + '/full_releases/').subscribe(res => {
@@ -78,7 +79,7 @@ export class WebService {
     })
   }
 
-  // Method that will find the truck and releases that have been updated and will update the API via POST
+  // Method that finds the truck and releases that have been updated and updates the backend
   pushUpdateToAPI(change : Change) {
     console.log(change);
 
@@ -94,23 +95,23 @@ export class WebService {
       }
     });
 
-    // also need to update the releases
     client.post(SERVER_URL + '/update_release/', change).subscribe(() => {
       // Should update the releases
       this.getReleases(this.currentDay);
     });
   }
 
-  // is this data correct
+  // Posts a newly created release to the backend
   addRelease(data : FullRelease) {
     this.httpClient.post(SERVER_URL + '/add_release/', data);
   }
 
+  // Deletes a release corresponding to the given ID from the backend
   deleteRelease(releaseID) {
     this.httpClient.delete(SERVER_URL + '/delete_release/' + releaseID);
   }
 
-
+  // Adds a new truck to the backend
   addTruck(truckName: String)
   {
     this.httpClient.post(SERVER_URL + '/add_truck', {truckName: truckName}).subscribe(() => {

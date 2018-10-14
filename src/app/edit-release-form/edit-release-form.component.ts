@@ -3,6 +3,7 @@ import {FullRelease} from "../interfaces";
 import {FormBuilder} from "@angular/forms";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
+import {WebService} from '../services/web.service';
 
 @Component({
   selector: 'app-edit-release-form',
@@ -11,11 +12,13 @@ import {MatChipInputEvent} from '@angular/material';
 })
 export class EditReleaseFormComponent implements OnInit {
 
+  // The release to be edited
   @Input() release : FullRelease;
 
   // Constants
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  // The form for the formbuilder
   form;
 
   // Data for select components
@@ -28,7 +31,8 @@ export class EditReleaseFormComponent implements OnInit {
   statuses: string[] = ['Started', 'Enroute', 'Delivered'];
   invoiceStatuses: string[] = ['Sent', 'Unsent', 'Paid'];
 
-  constructor(private formBuilder : FormBuilder) {
+  // Setup the form and inject the webservice
+  constructor(private formBuilder : FormBuilder, private webService : WebService) {
     this.form = formBuilder.group({
       release: ''
     });
@@ -62,7 +66,9 @@ export class EditReleaseFormComponent implements OnInit {
     return new Date();
   }
 
+  // Submits the changes to the release to the webservice
   submitForm() {
+    // this.webService
     console.log('Edited');
   }
 }

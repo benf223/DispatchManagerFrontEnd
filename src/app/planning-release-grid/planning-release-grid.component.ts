@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatTableDataSource} from '@angular/material';
-import {WebService} from '../web.service';
-import {DragHelperService} from '../drag-helper.service';
+import {WebService} from '../services/web.service';
+import {DragHelperService} from '../services/drag-helper.service';
 import {ReleaseInformationComponent} from '../release-information/release-information.component';
 import {Release} from "../interfaces";
 

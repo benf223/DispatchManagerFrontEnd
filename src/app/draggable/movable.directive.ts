@@ -43,6 +43,7 @@ export class MovableDirective extends DraggableDirective {
 
 }
 
+// Interface that describes a position on the website.
 interface Position {
   x: number;
   y: number;

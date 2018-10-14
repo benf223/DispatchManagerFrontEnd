@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WebService} from '../web.service';
+import {WebService} from '../services/web.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +15,5 @@ export class HomeComponent implements OnInit {
   // Gets the messages from the WebService
   ngOnInit() {
     this.webService.spinUpAPI();
-  }
-
-  onClick(event) {
-    console.log(event);
-    return false;
   }
 }
