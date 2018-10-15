@@ -20,9 +20,9 @@ export class ReleaseInformationComponent implements OnInit {
   ngOnInit() {
     this.webService.getFullRelease(this.data);
 
-    this.webService.fullRelease.subscribe(() => {
-      if (this.webService.fullReleaseStore) {
-        this.fullRelease = this.webService.fullReleaseStore;
+    this.webService.fullRelease.subscribe((fullRelease) => {
+      if (fullRelease) {
+        this.fullRelease = fullRelease;
       }
     });
   }

@@ -23,8 +23,8 @@ export class EditReleaseComponent implements OnInit {
   ngOnInit() {
     this.webService.getFullReleases();
 
-    this.webService.fullReleases.subscribe(() => {
-      this.setDataSource(this.webService.fullReleasesStore);
+    this.webService.fullReleases.subscribe((fullReleases) => {
+      this.setDataSource(fullReleases);
     });
   }
 

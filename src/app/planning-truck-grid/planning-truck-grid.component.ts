@@ -27,8 +27,8 @@ export class PlanningTruckGridComponent implements OnInit {
 
   // Subscribes to the webservice for the round information.
   ngOnInit() {
-    this.webService.rounds.subscribe(() => {
-      this.setupDataSource(this.webService.daysRounds.rounds);
+    this.webService.rounds.subscribe((rounds) => {
+      this.setupDataSource(rounds.rounds);
     });
   }
 

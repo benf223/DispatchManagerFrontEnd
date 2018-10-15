@@ -99,7 +99,25 @@ export class AddReleaseComponent implements OnInit {
     console.log(this.form.value);
     console.log(this.status);
 
-    let data : FullRelease = null;
+    let data : FullRelease = {
+      receivedDate: this.form.value.receivedDate,
+      release: this.form.value.release,
+      client: this.form.value.client,
+      route: this.form.value.route,
+      qtyTwenty: this.form.value.qty20s,
+      qtyForty: this.form.value.qty40s,
+      choose: this.form.value.choose,
+      containerType: this.form.value.containerType,
+      containerNumbers: this.containerNumbers,
+      dueDate: this.form.value.dueDate,
+      dueTime: this.form.value.dueTime,
+      reference: this.form.value.reference,
+      notes: this.form.value.notes,
+      status: this.form.value.status,
+      completeDate: this.form.value.completeDate,
+      invoiced: this.form.value.invoiced,
+      colour: this.colour
+    };
 
     // This will be where the data is sent to the API
     this.webService.addRelease(data);

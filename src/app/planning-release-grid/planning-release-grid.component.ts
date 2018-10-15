@@ -21,8 +21,8 @@ export class PlanningReleaseGridComponent implements OnInit {
 
   // Subscribes to the releases from the API
   ngOnInit() {
-    this.webService.releases.subscribe(() => {
-      this.setDataSource(this.webService.daysReleases);
+    this.webService.releases.subscribe((releases) => {
+      this.setDataSource(releases);
     });
   }
 
