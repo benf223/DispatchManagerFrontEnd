@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {User} from "../interfaces";
+import {AlertService} from '../services/alert.service';
 
 @Component({
   selector: 'app-create-user',
@@ -17,7 +18,7 @@ export class CreateUserComponent implements OnInit {
   submitted = false;
 
   // Inject the formbuilder and AuthService
-  constructor(private formBuilder : FormBuilder, private authService : AuthService) { }
+  constructor(private formBuilder : FormBuilder, private authService : AuthService, private alertService : AlertService) { }
 
   // Setup the form
   ngOnInit() {
@@ -42,13 +43,14 @@ export class CreateUserComponent implements OnInit {
 
     this.authService.register(this.createUserForm.value);
 
-    this.authService.values.subscribe((res : User) => {
+    this.authService.values.subscribe((res) => {
       if (res.token) {
         // not our concern
         return;
       }
 
       // Alert user
+      this.alertService.success(res.message);
     });
   }
 

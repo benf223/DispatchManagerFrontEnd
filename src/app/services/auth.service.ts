@@ -3,16 +3,17 @@ import {HttpClient} from '@angular/common/http';
 import {Subject} from "rxjs";
 import {User} from "../interfaces";
 import {environment} from '../../environments/environment';
+import {AlertService} from './alert.service';
 
 @Injectable()
 export class AuthService {
 
   // Observable and subject for notifying the app about changes to users
-  private subject = new Subject<User>();
+  private subject = new Subject<any>();
   values = this.subject.asObservable();
 
   // Inject the HttpClient (rather than using WebService)
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient : HttpClient, private alertService : AlertService) { }
 
   // Attempts to create a user by registering it with the backend
   register(user) {
@@ -28,11 +29,16 @@ export class AuthService {
     this.httpClient.post<any>(environment.authURL + '/login', { username: username, password: password}).subscribe((res) => {
       let user = res;
 
-      if (user && user.token){
-        localStorage.setItem('currentUser', JSON.stringify(user));
+      if (user) {
+        if (user.token) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.subject.next(user);
+        }
+      } else {
+        this.alertService.error('Error logging in');
       }
-
-      this.subject.next(user);
+    }, (error) => {
+      this.alertService.error('Error logging in');
     });
   }
 

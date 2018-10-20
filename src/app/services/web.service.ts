@@ -120,9 +120,13 @@ export class WebService {
     })
   }
 
-  // Listener for polling the API every 2s
+  // Listener for polling the API every 5s
   update() {
-    this.getRounds(this.currentDay);
-    this.getReleases(this.currentDay);
+    if (localStorage.getItem('currentUser'))
+    {
+      this.getRounds(this.currentDay);
+      this.getReleases(this.currentDay);
+    }
+
   }
 }

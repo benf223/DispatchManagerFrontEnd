@@ -10,6 +10,7 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let release">
       <button mat-raised-button (click)="loadEditor(release)">Edit</button>
+      <button mat-raised-button (click)="deleteRelease(release)">Delete</button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

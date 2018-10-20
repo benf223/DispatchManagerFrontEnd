@@ -14,7 +14,7 @@ export class EditReleaseComponent implements OnInit {
   displayedColumns = ['release', 'edit'];
   dataSource;
   showForm: boolean = false;
-  release : FullRelease = null;//{release: null, colour: null, qtyForty: 0, qtyTwenty: 0};
+  release : FullRelease = null;
 
   // Inject the webservice
   constructor(private webService : WebService) { }
@@ -47,5 +47,12 @@ export class EditReleaseComponent implements OnInit {
     this.release = release;
     this.showForm = true;
     console.log(release);
+  }
+
+  // Deletes the release corresponding to the releaseID from the database
+  deleteRelease(release)
+  {
+    // Perhaps a prompt
+    this.webService.deleteRelease(release);
   }
 }

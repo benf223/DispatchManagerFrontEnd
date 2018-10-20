@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AlertService} from '../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   // Inject relevant objects
-  constructor(private authService : AuthService, private formBuilder : FormBuilder, private router : Router, private route: ActivatedRoute,) { }
+  constructor(private authService : AuthService, private formBuilder : FormBuilder, private router : Router, private route: ActivatedRoute, private alertService : AlertService) { }
 
   // Setup the form and return routes
   ngOnInit() {

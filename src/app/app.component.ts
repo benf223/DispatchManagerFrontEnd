@@ -11,9 +11,9 @@ export class AppComponent implements OnInit {
 
   constructor(private webService : WebService) {}
 
-  // Setup to poll the API every 2 seconds
+  // Setup to poll the API every 5 seconds
   ngOnInit() {
-    interval(2000).subscribe(() => {
+    interval(5000).subscribe(() => {
       this.webService.update();
       }
     )
