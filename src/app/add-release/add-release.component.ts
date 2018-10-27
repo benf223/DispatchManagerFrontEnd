@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {WebService} from '../services/web.service';
 import {MatChipInputEvent} from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -34,6 +34,9 @@ export class AddReleaseComponent implements OnInit {
   // Default colour for releases
   colour : string = "#000000";
 
+  completeDate;
+  dueDate;
+
   // Inject the WebService and FormBuilder and prepare initial data.
   constructor(private webService : WebService, private formBuilder : FormBuilder) {
     this.form = formBuilder.group({
@@ -57,6 +60,8 @@ export class AddReleaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.completeDate = this.getDate();
+    this.dueDate = this.getDate();
   }
 
   // Adds item to the chip list of containers
@@ -84,8 +89,8 @@ export class AddReleaseComponent implements OnInit {
 
   // Returns current time to fill the form with time values
   getTime() {
-    let date = new Date();
-    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + date.getMinutes();
+    let date = this.getDate();
+    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + ((date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes());
   }
 
   // Returns current date to fill the form with date values
@@ -95,9 +100,7 @@ export class AddReleaseComponent implements OnInit {
 
   // Will verify and attempt to submit the form to the API
   submitForm() {
-    console.log('Submitted');
-    console.log(this.form.value);
-    console.log(this.status);
+    // TODO formvalidators
 
     let data : FullRelease = {
       receivedDate: this.form.value.receivedDate,

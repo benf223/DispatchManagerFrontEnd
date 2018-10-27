@@ -1,51 +1,46 @@
 <mat-card>
-  <form [formGroup]="form">
-    <mat-form-field>
-      <input matInput [matDatepicker]="receivedPicker" placeholder="Date Received" [value]="getDate()">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="receivedPicker" placeholder="Date Received" [value]="getDate()" formControlName="receivedDate">
       <mat-datepicker-toggle matSuffix [for]="receivedPicker"></mat-datepicker-toggle>
       <mat-datepicker #receivedPicker></mat-datepicker>
     </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Release" value="{{release.release}}">
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Release" formControlName="release">
     </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-select placeholder="Client">
-        <mat-option *ngFor="let client of clients" [value]="client.name">
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Client" >
+        <mat-option *ngFor="let client of clients" [value]="client.name" >
           {{client.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br>
-    <mat-form-field>
+    <mat-form-field style="margin: 5px">
       <mat-select placeholder="Route">
         <mat-option *ngFor="let route of routes" [value]="route.route">
           {{route.route}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <br>
     <mat-form-field>
-      <input matInput type="number" placeholder="Quantity of 20ft">
+      <input matInput type="number" placeholder="Quantity of 20ft" formControlName="qty20s">
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="number" placeholder="Quantity of 40ft">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="Choose">
+    <mat-form-field style="margin: 5px">
+      <input matInput type="number" placeholder="Quantity of 40ft" formControlName="qty40s">
     </mat-form-field>
     <br>
-    <mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Choose" formControlName="choose">
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
       <mat-select placeholder="Container Type">
         <mat-option *ngFor="let contType of contTypes" [value]="contType.type">
           {{contType.type}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <br>
-    <mat-form-field class="example-chip-list">
+    <mat-form-field style="margin: 5px"  class="example-chip-list">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let number of containerNumbers" (removed)="remove(number)">
           {{number}}
@@ -54,39 +49,39 @@
         <input placeholder="Container Numbers"
                [matChipInputFor]="chipList"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               (matChipInputTokenEnd)="add($event)">
+               (matChipInputTokenEnd)="add($event)" formControlName="containerNumbers">
       </mat-chip-list>
     </mat-form-field>
     <br>
-    <mat-form-field>
-      <input matInput [matDatepicker]="dueDayPicker" placeholder="Due Day" [value]="getDate()">
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="dueDayPicker" placeholder="Due Day" [value]="dueDate" formControlName="dueDate">
       <mat-datepicker-toggle matSuffix [for]="dueDayPicker"></mat-datepicker-toggle>
       <mat-datepicker #dueDayPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="time" placeholder="Due Time" value="{{getTime()}}" onchange="console.log(value)">
+    <mat-form-field style="margin: 5px">
+      <input matInput type="time" placeholder="Due Time" value="{{getTime()}}" formControlName="dueTime">
     </mat-form-field>
     <br>
-    <mat-form-field>
-      <input matInput placeholder="Reference">
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Reference" formControlName="reference">
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Notes">
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Notes" formControlName="notes">
     </mat-form-field>
     <br>
-    <mat-form-field>
-      <mat-select placeholder="Status">
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Status" [(value)]="status">
         <mat-option *ngFor="let status of statuses" [value]="status">
           {{status}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="completeDayPicker" placeholder="Complete Date" [value]="getDate()">
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="completeDayPicker" placeholder="Complete Date" [value]="completeDate" formControlName="completeDate">
       <mat-datepicker-toggle matSuffix [for]="completeDayPicker"></mat-datepicker-toggle>
       <mat-datepicker #completeDayPicker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field style="margin: 5px">
       <mat-select placeholder="Invoiced">
         <mat-option *ngFor="let invoiceStatus of invoiceStatuses" [value]="invoiceStatus">
           {{invoiceStatus}}
@@ -94,8 +89,12 @@
       </mat-select>
     </mat-form-field>
     <br>
+    <mat-label>
+      Colour
+      <mcc-color-picker hideUsedColors="true" hideEmpty="true" hideHexForms="true" (selected)="saveColour($event)"></mcc-color-picker>
+    </mat-label>
     <br>
-    <button mat-raised-button (click)="submitForm()" style="margin: 5px" color="primary">Submit</button>
+    <button mat-raised-button style="margin: 5px" color="primary">Submit</button>
   </form>
 </mat-card>
 

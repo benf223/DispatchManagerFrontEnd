@@ -48,8 +48,14 @@ export class WebService {
   // Method that retrieves and emits to the subscribers the rounds for a given day
   getRounds(day) {
     this.httpClient.get<TruckRounds[]>(environment.apiURL + '/rounds/' + day).subscribe((res) => {
-      this.daysRounds.rounds = res;
-      this.roundsSubject.next(this.daysRounds);
+      if (res)
+      {
+        this.daysRounds.rounds = res;
+        this.roundsSubject.next(this.daysRounds);
+      }
+      else {
+        console.log('cant set rounds')
+      }
       
     });
   }
@@ -57,8 +63,13 @@ export class WebService {
   // Method that retrieves and emits to the subscribers the releases for a given day
   getReleases(day) {
     this.httpClient.get<Release[]>(environment.apiURL + '/releases/' + day).subscribe(res => {
-      this.daysReleases = res;
-      this.releasesSubject.next(this.daysReleases);
+      if (res) {
+        this.daysReleases = res;
+        this.releasesSubject.next(this.daysReleases);
+      }
+      else {
+        console.log('cant set releases');
+      }
     });
   }
 
@@ -107,6 +118,11 @@ export class WebService {
     // this.httpClient.post(environment.apiURL + '/add_release/', data);
   }
 
+  editRelease(data : FullRelease) {
+    console.log(data);
+    // this.httpClient.post(environment.apiURL + '/edit_release', data);
+  }
+
   // Deletes a release corresponding to the given ID from the backend
   deleteRelease(releaseID) {
     this.httpClient.delete(environment.apiURL + '/delete_release/' + releaseID);
@@ -124,8 +140,15 @@ export class WebService {
   update() {
     if (localStorage.getItem('currentUser'))
     {
-      this.getRounds(this.currentDay);
-      this.getReleases(this.currentDay);
+      try
+      {
+        this.getRounds(this.currentDay);
+        this.getReleases(this.currentDay);
+      }
+      catch (e)
+      {
+        console.log('Error');
+      }
     }
 
   }

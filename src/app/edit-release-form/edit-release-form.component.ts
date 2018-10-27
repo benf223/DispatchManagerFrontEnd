@@ -31,6 +31,12 @@ export class EditReleaseFormComponent implements OnInit {
   statuses: string[] = ['Started', 'Enroute', 'Delivered'];
   invoiceStatuses: string[] = ['Sent', 'Unsent', 'Paid'];
 
+  // Default colour for releases
+  colour : string = "#000000";
+
+  completeDate;
+  dueDate;
+
   // Setup the form and inject the webservice
   constructor(private formBuilder : FormBuilder, private webService : WebService) {
     this.form = formBuilder.group({
@@ -39,6 +45,8 @@ export class EditReleaseFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.completeDate = this.getDate();
+    this.dueDate = this.getDate();
   }
 
   // Adds item to the chip list
@@ -57,8 +65,8 @@ export class EditReleaseFormComponent implements OnInit {
 
   // Returns current time to fill the form with time values
   getTime() {
-    let date = new Date();
-    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + date.getMinutes();
+    let date = this.getDate();
+    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + ((date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes());
   }
 
   // Returns current date to fill the form with date values
@@ -68,7 +76,34 @@ export class EditReleaseFormComponent implements OnInit {
 
   // Submits the changes to the release to the webservice
   submitForm() {
-    // this.webService
-    console.log('Edited');
+    // TODO formvalidators
+
+    let data : FullRelease = {
+      receivedDate: this.form.value.receivedDate,
+      release: this.form.value.release,
+      client: this.form.value.client,
+      route: this.form.value.route,
+      qtyTwenty: this.form.value.qty20s,
+      qtyForty: this.form.value.qty40s,
+      choose: this.form.value.choose,
+      containerType: this.form.value.containerType,
+      containerNumbers: this.containerNumbers,
+      dueDate: this.form.value.dueDate,
+      dueTime: this.form.value.dueTime,
+      reference: this.form.value.reference,
+      notes: this.form.value.notes,
+      status: this.form.value.status,
+      completeDate: this.form.value.completeDate,
+      invoiced: this.form.value.invoiced,
+      colour: this.colour
+    };
+
+    // This will be where the data is sent to the API
+    this.webService.editRelease(data);
+  }
+
+  // Listener for when the colour picker is closed
+  saveColour(colour) {
+    this.colour = colour;
   }
 }
