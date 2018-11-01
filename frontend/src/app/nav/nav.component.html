@@ -1,6 +1,13 @@
 <mat-toolbar color="primary">
   <button mat-button routerLink="/">Recur</button>
-  <button mat-button routerLink="/planning">Planning</button>
-  <button mat-button routerLink="/Locations">Locations</button>
+  <button mat-button *ngIf="authService.isLoggedIn()" routerLink="/planning">Planning</button>
+  <button mat-button *ngIf="authService.isLoggedIn()" [matMenuTriggerFor]="menu">Release Management</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/release/add">Add release</button>
+    <button mat-menu-item routerLink="/release/edit">Edit release</button>
+  </mat-menu>
   <span style="flex: 1 1 auto"></span>
+    <button mat-button *ngIf="authService.isLoggedIn()" routerLink="/admin">Admin</button>
+    <button mat-button *ngIf="!authService.isLoggedIn()" routerLink="/login">Login</button>
+    <button mat-button *ngIf="authService.isLoggedIn()" (click)="logout()">Logout</button>
 </mat-toolbar>

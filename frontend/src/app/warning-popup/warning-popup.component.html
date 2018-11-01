@@ -1,0 +1,8 @@
+<h2 style="color: red; alignment: center">{{data.message}}</h2>
+<p *ngIf="data.body">{{data.body[0]}}</p>
+<br>
+<button mat-button style="padding: 5px;" *ngIf="data.options[0]" (click)="onOk()">Ok</button>
+<button mat-button style="padding: 5px;" *ngIf="data.options[1]" (click)="onCancel()">Cancel</button>
+<button mat-button style="padding: 5px;" *ngIf="data.options[2]" (click)="onDefined1()">{{data.body[0]}}</button>
+<button mat-button style="padding: 5px;" *ngIf="data.options[3]" (click)="onDefined2()">{{data.body[1]}}</button>
+<button mat-button style="padding: 5px;" *ngIf="data.options[4]" (click)="onUnused()">Unused</button>

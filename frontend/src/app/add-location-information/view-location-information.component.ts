@@ -52,31 +52,33 @@ export class ViewLocationInformation {
   @ViewChild('cltime') inputClTime: ElementRef;
   @ViewChild('require') require: ElementRef;
   //get all locations from database 
-  locationsdata = this.webService.locationstore;
-  
+  //public temploc = this.webService.locationstore;
+  temploc: Array<Location> =[{name:"name",address:"address",opentime:"000",closetime:"000",type:"port",require:true}];
+  //console.log(this.temploc);
   constructor(public activeModal: NgbActiveModal,private webService: WebService) {
   }
-  //locationsdata: LOCATIONS=[new Location("auckland","address","9","13","port",true)];
 
   types: string[] = ['Port', 'Yard'];
   type: string = '';
   //tempary variable for storing current selected location information
-  viewLocation = new Location(this.locationsdata[this.index].name,this.locationsdata[this.index].address,
-    this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
+  viewLocation = new Location(this.temploc[this.index].name,this.temploc[this.index].address,
+    this.temploc[this.index].opentime, this.temploc[this.index].closetime, this.temploc[this.index].type,this.temploc[this.index].require);
 
   //update changed data to local location variable 
   update(value) {
-    this.viewLocation = new Location(this.locationsdata[this.index].name, this.locationsdata[this.index].address,
-      this.locationsdata[this.index].opentime, this.locationsdata[this.index].closetime, this.locationsdata[this.index].type,this.locationsdata[this.index].require);
+    this.viewLocation = new Location(this.temploc[this.index].name, this.temploc[this.index].address,
+      this.temploc[this.index].opentime, this.temploc[this.index].closetime, this.temploc[this.index].type,this.temploc[this.index].require);
   }
 
+  // update changed data to database
   save() {
     let Name = this.inputName.nativeElement.value;
     let Address = this.inputAddress.nativeElement.value;
     let OpenTime = this.inputOpTime.nativeElement.value;
     let CloseTime = this.inputClTime.nativeElement.value;
-    // update changed data to database
-	this.webService.updateLocation(new Location());
+	let Require = this.require.nativeElement.checked;
+	this.webService.updateLocation(new Location(Name,Address,OpenTime,CloseTime,this.inputtype,true),"query");
+	console.log(new Location(Name,Address,OpenTime,CloseTime,this.inputtype,Require));
     this.activeModal.close('Close click');
   }
 

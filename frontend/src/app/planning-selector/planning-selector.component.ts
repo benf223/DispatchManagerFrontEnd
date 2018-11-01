@@ -1,71 +1,72 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Day} from '../interfaces';
 
 @Component({
-  selector: 'planningselector',
+  selector: 'app-planning-selector',
   templateUrl: './planning-selector.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
-export class PlanningSelectorComponent {
-  monday = { day: '', disabled: false };
-  tuesday = { day: '', disabled: false };
-  wednesday = { day: '', disabled: false };
-  thursday = { day: '', disabled: false };
-  friday = { day: '', disabled: false };
-  saturday = { day: '', disabled: false };
-  sunday = { day: '', disabled: false };
+export class PlanningSelectorComponent implements OnInit {
 
-  selectedDay;
+  // Two-way binding for the date buttons
+  monday: Day = {day: '', disabled: false};
+  tuesday: Day = {day: '', disabled: false};
+  wednesday: Day = {day: '', disabled: false};
+  thursday: Day = {day: '', disabled: false};
+  friday: Day = {day: '', disabled: false};
+  saturday: Day = {day: '', disabled: false};
+  sunday: Day = {day: '', disabled: false};
 
-  //need to accomodate year
-  loadDay(day)
-  {
-    console.log(day.day);
+  // The current day
+  selectedDay: Day;
 
-    let selected = this.getDateFromString(day.day);
+  // Output of the date to elements when it changes.
+  @Output() date = new EventEmitter<string>();
 
+  // Locale for date and time.
+  private locale = 'en-GB';
+
+  // Updates the day so that the correct information can be displayed. Emits the date
+  loadDay(day: Day) {
     this.selectedDay.disabled = false;
     day.disabled = true;
     this.selectedDay = day;
-
-    console.log('Change to', selected);
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
-  //working
-  getDateFromString(string)
-  {
-    let dayString = string.split('/');
+  // Converts a date string into a Date object.
+  getDateFromString(dateString) {
+    const dayString = dateString.split('/');
     return new Date(new Date().getFullYear(), Number(dayString[1]) - 1, Number(dayString[0]));
   }
 
-  //need to set new day to monday
-  previousWeek()
-  {
+  // Listener for the previous week button
+  previousWeek() {
     this.selectedDay.disabled = false;
 
-    let prevMonday = this.getDateFromString(this.monday.day);
+    const prevMonday = this.getDateFromString(this.monday.day);
 
     prevMonday.setDate(prevMonday.getDate() - 7);
 
     this.setDays(prevMonday);
-    console.log(this.sunday);
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
-  //finished
-  nextWeek()
-  {
+  // Listener for next week button
+  nextWeek() {
     this.selectedDay.disabled = false;
 
-    let nextMonday = this.getDateFromString(this.monday.day);
+    const nextMonday = this.getDateFromString(this.monday.day);
 
     nextMonday.setDate(nextMonday.getDate() + 7);
 
     this.setDays(nextMonday);
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 
-  setDays(day)
-  {
-    switch (day.getDay())
-    {
+  // Logic for changing the week being shown
+  setDays(day: Date) {
+    switch (day.getDay()) {
       case 0:
         this.sunday.disabled = true;
         this.selectedDay = this.sunday;
@@ -96,34 +97,33 @@ export class PlanningSelectorComponent {
         break;
     }
 
-    let start = day.getDay() == 0 ? -6 : (day.getDay() * -1) + 1;
+    const start = day.getDay() === 0 ? -6 : (day.getDay() * -1) + 1;
     day.setDate(day.getDate() + start);
 
-    this.monday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.monday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.tuesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.tuesday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.wednesday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.wednesday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.thursday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.thursday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.friday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.friday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.saturday.day = day.toLocaleString('en-GB').substring(0, 5);
+    this.saturday.day = day.toLocaleString(this.locale).substring(0, 10);
     day.setDate(day.getDate() + 1);
-    this.sunday.day = day.toLocaleString('en-GB').substring(0, 5);
-
+    this.sunday.day = day.toLocaleString(this.locale).substring(0, 10);
   }
 
-  ngOnInit()
-  {
-    if (this.selectedDay)
-    {
+  // Sets the display to the current day
+  ngOnInit() {
+    if (this.selectedDay) {
       this.selectedDay.disabled = false;
     }
 
-    let currentDate = new Date();
+    const currentDate = new Date();
 
     this.setDays(currentDate);
+    this.date.emit(this.selectedDay.day.split('/').join('-'));
   }
 }

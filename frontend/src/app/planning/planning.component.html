@@ -1,12 +1,12 @@
-<planningselector></planningselector>
+<app-planning-selector (date)="changeDay($event)"></app-planning-selector>
 <mat-card>
   <table width="100%">
     <tr>
-      <td width="30%">
-        <planningordergrid></planningordergrid>
+      <td>
+        <app-planning-order-grid></app-planning-order-grid>
       </td>
-      <td width="70%">
-        <planningtruckgrid></planningtruckgrid>
+      <td>
+        <app-planning-truck-grid></app-planning-truck-grid>
       </td>
     </tr>
   </table>

@@ -1,0 +1,18 @@
+<mat-form-field style="background-color: white; width: 100%;">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Release">
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="min-width: 100%; text-align: center">
+  <ng-container matColumnDef="release">
+    <th mat-header-cell *matHeaderCellDef>Release</th>
+    <td mat-cell *matCellDef="let release">{{release.release}}</td>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let release">
+      <button mat-raised-button (click)="loadEditor(release)">Edit</button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<app-edit-release-form *ngIf="this.showForm" [release]="this.release"></app-edit-release-form>

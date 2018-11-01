@@ -5,8 +5,10 @@
 </head>
 <script src="./view-location-list.js"></script>
 <body>
+<br>
 <button mat-raised-button color="primary" class="btn btn-lg btn-outline-primary" (click)="add()">Add New Location</button>
 <ul>
+<!--display the location information in a list-->
     <li *ngFor="let location of locations; let i=index">
       {{i}}{{ location.name }} {{location.address}} {{location.opentime}} {{location.closetime}} {{location.type}} {{location.require}}
 	  <a href="#" (click)="view(i)" onclick="return false">Edit </a><a href="#" (click)="deleteLocation(location.name)" onclick="return false">Delete</a>

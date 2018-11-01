@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule} from '@angular/common/http';
+
+import { NgbModule ,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule ,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { WebService } from './web.service';
-import {HttpClientModule} from '@angular/common/http';
-
 import {
   MatButtonModule,
   MatCardModule,
@@ -16,26 +16,40 @@ import {
   MatGridListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatBadgeModule,
+  MatTooltipModule,
+  MatDialogModule,
+  MatMenuModule,
+  MatDatepickerModule,
+  MatNativeDateModule, MatSelectModule, MatOptionModule, MAT_DATE_LOCALE, MatChipsModule, MatIconModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { WebService } from './web.service';
+import { AuthService } from './auth.service';
+import { DraggableModule } from './draggable/draggable.module';
+
+import { AddLocationComponent } from './add-location-information/add-location.component';
+import { AddLocationInformation } from './add-location-information/add-location.component';
+import { ViewLocationInformation } from './add-location-information/view-location-information.component';
+import { LocationComponent } from './add-location-information/location.component';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
-import { LocationsComponent } from './locations/locations.component';
 import { PlanningSelectorComponent } from './planning-selector/planning-selector.component';
-import { PlanningReleaseGrid } from './planning-release-grid/planning-release-grid.component';
-import { PlanningTruckGrid } from './planning-truck-grid/planning-truck-grid.component';
-import { TruckRoundPlanner } from './truck-round-planner/truck-round-planner.component';
+import { PlanningReleaseGridComponent } from './planning-release-grid/planning-release-grid.component';
+import { PlanningTruckGridComponent } from './planning-truck-grid/planning-truck-grid.component';
 import { TruckSlotsComponent } from './truck-slots/truck-slots.component';
-import { AddLocationComponent } from './add-location-information/add-location.component';
-import { AddLocationInformation } from './add-location-information/add-location.component';
-import { ViewLocationInformation } from './add-location-information/view-location-information.component';
+import { ReleaseInformationComponent } from './release-information/release-information.component';
+import { AddReleaseComponent } from './add-release/add-release.component';
+import { EditReleaseComponent } from './edit-release/edit-release.component';
+import { WarningPopupComponent } from './warning-popup/warning-popup.component';
+import { EditReleaseFormComponent } from './edit-release-form/edit-release-form.component';
+import { AdministrationComponent } from './administration/administration.component';
 
-
-let routes = [
+const routes = [
   {
     path: '',
     component: HomeComponent
@@ -45,14 +59,26 @@ let routes = [
     component: PlanningComponent
   },
   {
-    //unused?
-    path: 'planning/:date',
-    component: PlanningComponent
+    path: 'release/add',
+    component: AddReleaseComponent
   },
   {
-    path: 'Locations',
-    component: LocationsComponent
+    path: 'release/edit',
+    component: EditReleaseComponent
   },
+  {
+    path: 'admin',
+    component: AdministrationComponent
+  },
+  {
+    path: 'login',
+    component: AdministrationComponent
+  },
+  {
+    path: 'location',
+    component: AddLocationComponent
+  }
+
 ];
 
 @NgModule({
@@ -61,19 +87,25 @@ let routes = [
     NavComponent,
     HomeComponent,
     PlanningComponent,
-	LocationsComponent,
     PlanningSelectorComponent,
-    PlanningReleaseGrid,
-    PlanningTruckGrid,
-    TruckRoundPlanner,
+    PlanningReleaseGridComponent,
+    PlanningTruckGridComponent,
     TruckSlotsComponent,
-    PlanningReleaseGrid,
+    PlanningReleaseGridComponent,
+    ReleaseInformationComponent,
+    AddReleaseComponent,
+    EditReleaseComponent,
+    WarningPopupComponent,
+    EditReleaseFormComponent,
+    AdministrationComponent,
 	AddLocationComponent,
 	AddLocationInformation,
-	ViewLocationInformation
+	ViewLocationInformation,
+	LocationComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
@@ -84,16 +116,25 @@ let routes = [
     MatTableModule,
     MatPaginatorModule,
     MatButtonToggleModule,
+    MatBadgeModule,
+    MatTooltipModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpModule,
-	HttpClientModule,
-	NgbModule.forRoot()
+    DraggableModule,
+	NgbModule.forRoot(),
   ],
-  providers: [ WebService,NgbActiveModal],
+  providers: [ WebService, AuthService, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},NgbActiveModal ],
   bootstrap: [ AppComponent ],
-  entryComponents: [AddLocationInformation,ViewLocationInformation],
+  entryComponents: [ ReleaseInformationComponent, WarningPopupComponent,AddLocationInformation,ViewLocationInformation]
 })
 export class AppModule {
 

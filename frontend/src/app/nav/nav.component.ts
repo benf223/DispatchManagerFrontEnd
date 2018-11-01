@@ -1,13 +1,17 @@
 import {Component} from '@angular/core';
+import {AuthService} from "../auth.service";
 
 @Component({
-  selector: 'nav',
+  selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
-export class NavComponent
-{
-  constructor()
-  {
+export class NavComponent {
+
+  constructor(public authService : AuthService) {
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

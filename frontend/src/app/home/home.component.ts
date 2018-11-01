@@ -1,20 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebService} from '../web.service';
 
 @Component({
-  selector: 'home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
-export class HomeComponent
-{
-  constructor(public webService: WebService)
-  {
+export class HomeComponent implements OnInit {
+
+  // Injects the WebService
+  constructor(public webService: WebService) {
   }
 
-  ngOnInit()
-  {
+  // Gets the messages from the WebService
+  ngOnInit() {
     this.webService.spinUpAPI();
   }
 
+  onClick() {
+    console.log("Click");
+    return false;
+  }
 }

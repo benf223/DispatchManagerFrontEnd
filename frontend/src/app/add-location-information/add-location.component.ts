@@ -52,9 +52,11 @@ export class AddLocationInformation implements AfterViewInit {
   //three types of the 
   types: string[] = ['Port', 'Yard'];
   type: string = '';
-  locationdata = this.webService.locationstore;
- 
-
+  //locationdata = this.webService.getLocation;
+  //locationdata = this.webService.locationstore;
+  locationdata : LOCATIONS[];
+  public locations :Array<Location> =[{name:"name",address:"address",opentime:"000",closetime:"000",type:"port",require:true}]; 
+  size = this.locations.length;
   ngAfterViewInit() {
   }
 
@@ -66,21 +68,23 @@ export class AddLocationInformation implements AfterViewInit {
     let CloseTime = this.inputClTime.nativeElement.value;
 	let Require = this.require.nativeElement.checked;
 	//check if the location name or address exist in the database
-	for(var i=0;i<4;i++){
-		var checkName = this.locationdata[i].name==Name;
-		var checkAddress = this.locationdata[i].address==Address;
-		if(checkName||checkAddress){break;}
-	}
+	//for(var i=0;i<4;i++){
+	//	var checkName = this.locationdata[i].name==Name;
+	//	var checkAddress = this.locationdata[i].address==Address;
+	//	if(checkName||checkAddress){break;}
+	//}
 	
-	if(checkName){
-		alert("The location Name already exist");
-	} else if(checkAddress) {
-		alert("The location Address already exist");
-	} else{
+	//if(checkName){
+	//	alert("The location Name already exist");
+	//} else if(checkAddress) {
+	//	alert("The location Address already exist");
+	//} else{
 		//add to the database
-		this.webService.addLocation(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		//this.webService.addLocation(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		this.locations.push(new Location(Name, Address, OpenTime, CloseTime, this.inputtype,Require));
+		console.log(this.locations);
 		this.activeModal.close('Close click');
-	}
+	//}
   }
 //change the location type at add information popup menu
   change(value) {
@@ -91,7 +95,7 @@ export class AddLocationInformation implements AfterViewInit {
 @Component({
   selector: 'addlocationcomponent',
   templateUrl: './add-location.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['../app.component.scss']
 })
 
 
@@ -104,8 +108,8 @@ export class AddLocationComponent implements AfterViewInit {
   }
    ngOnInit(){
 	   //fetching data from database
-	   this.webService.getLocation();
-	   console.log(this.webService.locationstore);
+	   //this.webService.getLocation();
+	   //console.log(this.webService.locationstore);
    }
   constructor(private modalService: NgbModal,private webService:WebService) {
   }
@@ -123,10 +127,11 @@ export class AddLocationComponent implements AfterViewInit {
   }
   //open up confirm dialog 
   //if confirmed action delete seleted location from database
-  deleteLocation(name){
+  deleteLocation(name){ 
 	  var confirmdelete=confirm("Are you sure to delete "+name+" location?");
 	if(confirmdelete){
-		this.webService.deleteLocation(name);
+		console.log(name);
+		//this.webService.deleteLocation(name);
 	}
   }
 
@@ -136,5 +141,10 @@ export class AddLocationComponent implements AfterViewInit {
     this.selectedlocation = lOcation;
   }
   //get all the location from database
-  public locations = this.webService.locationstore;
+  
+  //public locations = this.webService.locationstore;
+ 
+  //locations.subscribe(() => {
+	public locations :Array<Location> =[{name:"name",address:"address",opentime:"000",closetime:"000",type:"port",require:true}]; 
+  //}
 }

@@ -1,0 +1,146 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="receivedPicker" placeholder="Date Received" [value]="getDate()" formControlName="receivedDate">
+      <mat-datepicker-toggle matSuffix [for]="receivedPicker"></mat-datepicker-toggle>
+      <mat-datepicker #receivedPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Release" formControlName="release">
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Client" >
+        <mat-option *ngFor="let client of clients" [value]="client.name" >
+          {{client.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Route">
+        <mat-option *ngFor="let route of routes" [value]="route.route">
+          {{route.route}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Quantity of 20ft" formControlName="qty20s">
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput type="number" placeholder="Quantity of 40ft" formControlName="qty40s">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Choose" formControlName="choose">
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Container Type">
+        <mat-option *ngFor="let contType of contTypes" [value]="contType.type">
+          {{contType.type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="margin: 5px"  class="example-chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let number of containerNumbers" (removed)="remove(number)">
+          {{number}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Container Numbers"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="add($event)" formControlName="containerNumbers">
+      </mat-chip-list>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="dueDayPicker" placeholder="Due Day" [value]="getDate()" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="dueDayPicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDayPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput type="time" placeholder="Due Time" value="{{getTime()}}" formControlName="dueTime">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Reference" formControlName="reference">
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput placeholder="Notes" formControlName="notes">
+    </mat-form-field>
+    <br>
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Status" [(value)]="status">
+        <mat-option *ngFor="let status of statuses" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <input matInput [matDatepicker]="completeDayPicker" placeholder="Complete Date" [value]="getDate()" formControlName="completeDate">
+      <mat-datepicker-toggle matSuffix [for]="completeDayPicker"></mat-datepicker-toggle>
+      <mat-datepicker #completeDayPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="margin: 5px">
+      <mat-select placeholder="Invoiced">
+        <mat-option *ngFor="let invoiceStatus of invoiceStatuses" [value]="invoiceStatus">
+          {{invoiceStatus}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Rate x Quantity">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Release Rate 20ft">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Release Rate 40ft">-->
+    <!--</mat-form-field>-->
+    <!--<br>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Booking Fees">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="FAF%">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput [matDatepicker]="date" placeholder="Date" [value]="getDate()">-->
+      <!--<mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #date></mat-datepicker>-->
+    <!--</mat-form-field>-->
+    <!--<br>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Subbie-Rate 20ft">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Subbie-Rate 40ft">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="FAF Charge">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Booking Fees Cost">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Gross Profit">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Cost of Sale">-->
+    <!--</mat-form-field>-->
+    <!--<br>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Total">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Gross Margin%">-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Capacity">-->
+    <!--</mat-form-field>-->
+    <!--<br>-->
+    <button mat-raised-button style="margin: 5px" color="primary">Submit</button>
+    <!--<button mat-raised-button (click)="resetForm()" style="margin: 5px" color="warn">Reset</button>-->
+  </form>
+</mat-card>
